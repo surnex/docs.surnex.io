@@ -1,42 +1,70 @@
 ---
 title: "August 2026"
-description: "What shipped in August 2026."
+description: "The TypeScript rewrite: one monorepo, a new job system, and OAuth for MCP."
 ---
 
-<Update label="August 2026" description="Documentation">
-  ## Documentation launched
+<Update label="16 August 2026" description="Platform rewrite">
 
-  These docs are new. They cover the dashboard, the REST API, and the MCP server.
+Surnex moved from four separate services to a single TypeScript monorepo. The old Python API, Celery worker, and Node email service are replaced; the dashboard moved in largely intact.
 
-  Start with the [Introduction](/introduction) or jump to a [guide](/guides/overview).
+### A new job system
 
-  ### Behaviour worth knowing
+Celery and Redis-backed scheduling are gone. Jobs now run on **pgmq** with **pg_cron** driving a single scheduler that replaces five per-type scanners plus a report scanner.
 
-  Several things work differently from how the interface suggests. They're documented on the relevant pages, and collected here.
+Schedules became real database rows with a real `interval` cadence. Three things follow:
 
-  **Creating a project collects nothing immediately.** It creates four schedules — rank checks, backlink snapshots, GEO snapshots, local ranking checks — all set to daily at 00:00 UTC. The first data arrives when those come due, up to 24 hours later. See [Create a project](/projects/add).
+- **Timezones are honoured.** A check set to 09:00 in `America/New_York` runs at 09:00 New York time. Previously the hour was applied as UTC regardless.
+- **Cadences mean what they say.** "Every 3 days" is three days from the last run, not the 1st, 4th and 7th of the month. "Weekly" is seven days later, not Mondays.
+- **Cadences below a day are now expressible** — 12 hours, 90 minutes — without new code.
 
-  **All four schedules default to daily**, which is the most expensive setting available. Backlinks in particular are worth lowering. See [How data collection works](/projects/data-collection).
+Claiming a schedule advances its next run in the same statement, so a job can't be picked up twice. That removed the dedup table, the Redis dedup keys, and the recently-completed guards entirely.
 
-  **Members can't create projects.** A project counts against the plan, so creating one needs the admin role. See [Roles and permissions](/organizations/roles).
+All 21 worker job handlers were reimplemented against the new queue.
 
-  **An API key acts as an owner.** Any member can create one, and it isn't limited by that member's role — so a key made by a member can delete projects and open the billing portal. See [API authentication](/api/concepts/authentication).
+### MCP is OAuth only
 
-  **Invitations must be accepted.** Inviting someone adds a pending row; they get no access, and the organization doesn't appear in their switcher, until they accept. The address must already have a Surnex account. See [Invite your team](/organizations/team).
+The MCP server no longer accepts API keys. Surnex is now an OAuth 2.1 **resource server**, with Supabase as the authorization server — `/authorize`, `/token`, and client registration all belong to it.
 
-  **Not being a member returns 404, not 403.** A 403 would confirm the organization or project exists. A 404 therefore isn't proof something was deleted. See [Errors](/api/concepts/errors).
+A token identifies a **person**, so an agent inherits your role, reaches every organization you belong to, and can be revoked from your account. An API key is a bearer secret that lives in a config file indefinitely and belongs to nobody in particular; given the tools can create projects, start billable crawls and delete data, that difference matters.
 
-  ### Known defects
+A consent screen was built to go with it — Supabase redirects to Surnex to render the approval, and without that page the connect flow dead-ends on a 404.
 
-  **The API Keys page shows MCP snippets that don't work.** Both the `claude mcp add` command and the `mcpServers` JSON block configure an `X-API-Key` header, which the MCP server rejects — it uses [OAuth](/mcp/auth). Only the `curl` snippet on that screen is correct. See [Create an API key](/api-keys/add).
+<Warning>
+  The dashboard's **Settings → API Keys** page still shows MCP snippets using an `X-API-Key` header. Those are stale and now return a 401. Use the [OAuth setup](/mcp/connect) instead.
+</Warning>
 
-  **Project creation drops most of its form.** The create form collects keywords, competitors, location, language, and search engine, but the API accepts only the name, domain, and schedules — the rest is silently discarded rather than rejected. Add keywords and competitors from their own pages afterwards. See [Create a project](/projects/add).
+### The MCP server itself
 
-  **The Domain field in Project settings doesn't save.** It's editable but only the project name is submitted, and the API has no way to change a domain either — a project's domain is fixed for its life. See [Project settings](/projects/settings).
+All **88 tools** at `/mcp`, each carrying MCP annotations — read-only, destructive, idempotent — so a client can confirm selectively rather than on every call.
 
-  **Editing a tracked keyword saves location and language only.** The keyword text and search engine fields are editable but discarded. See [Tracked keywords](/tracking/add-keywords).
+Organization resolution no longer guesses. Tools take an optional `organization` argument; a caller belonging to several who names none gets a refusal listing them. Previously an unnamed organization resolved to the user's *first* membership from an unordered query, which meant lookups were billed to whichever row came back first.
 
-  **There is no promote-to-tracking action** for saved keywords. Saving and tracking are separate. See [Saved keywords](/keywords/saved).
+### API
 
-  **Admins cannot change billing**, despite the invite panel describing them as having full access including billing. Only the owner can. See [Roles and permissions](/organizations/roles).
+Rebuilt end to end: projects, rank tracking with alerts and competitors, keyword research and live SERP, backlinks, audits, domain overview, web vitals, GEO visibility, AI search, local SEO, notifications, reports with sharing and scheduled delivery, users, organizations, members, API keys, and job status.
+
+A **parity sweep** diffed every `api.*()` call in the dashboard against the served OpenAPI document. It caught four method mismatches, a notifications contract that was backwards, three endpoints that didn't exist, and five missing AI-search routes — each of which would have looked correct in review and 404'd at runtime.
+
+Four further bugs surfaced only once live provider calls ran against it.
+
+### Dashboard
+
+The shell was replaced wholesale rather than restyled. Overlays moved onto one Radix dialog shell, the dashboard got a single z-index scale, and settings pages — API keys, team, project settings — moved onto shared chrome.
+
+Smaller fixes: the theme no longer flashes on load, the sidebar is readable, toasts moved out of the way, missing form primitives were added, and switching organization now clears the current project.
+
+### Efficiency
+
+Search results are now bought once per keyword and reused, rather than re-fetched per consumer.
+
 </Update>
+
+## Known issues
+
+Behaviour that reads as a defect, current as of this release:
+
+- **Project creation drops most of its form.** The create form collects keywords, competitors, location, language and search engine; the API accepts only name, domain and schedules. The rest is silently discarded. Add [keywords](/tracking/add-keywords) and [competitors](/competitors/add) from their own pages afterwards.
+- **The Domain field in Project settings doesn't save.** Only the project name is submitted, and the API has no way to change a domain either — it's fixed for the project's life.
+- **Editing a tracked keyword saves location and language only.** The keyword text and search engine fields are editable but discarded.
+- **Admins can't change billing**, despite the invite panel describing them as having full access including billing. Only the owner can.
+- **Saved keywords have no promote-to-tracking action.** Saving and tracking are separate.

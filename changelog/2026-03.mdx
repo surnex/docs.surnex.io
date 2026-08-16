@@ -1,0 +1,200 @@
+---
+title: "March 2026"
+description: "The original build — four services, from first commit to a complete platform."
+---
+
+<Update label="25 March 2026" description="Fixes">
+Celery task fixes.
+</Update>
+
+<Update label="22 March 2026" description="Celery migration">
+
+### BullMQ replaced with Celery
+
+Job dispatch moved off the Node BullMQ middleman. The API now sends tasks straight to the Celery worker over Redis, and `jobs.surnex.io` was reduced to email only.
+
+Flower was removed from the worker, and the worker service was renamed.
+
+### Fixes
+
+Rate limiting, notifications, AI search, and a batch of general fixes. The dashboard became runnable on localhost against production services.
+
+</Update>
+
+<Update label="21 March 2026" description="Onboarding and notifications">
+
+### Onboarding
+
+The two-step organization-then-project flow.
+
+### Notification center
+
+Delete individual notifications, plus a pass over the center itself.
+
+### Fixes
+
+Project creation, on-demand pages, and a round of general bug fixes.
+
+</Update>
+
+<Update label="19 March 2026" description="Persistence and brand">
+
+### Every endpoint writes to the database
+
+The change that established the platform's central pattern: results are stored rather than returned live, and the frontend polls for them.
+
+### Surnex brand colours
+
+Applied across the dashboard.
+
+### Fixes
+
+Notifications, notification skeletons, UI skeletons, and LLM benchmarking.
+
+</Update>
+
+<Update label="18 March 2026" description="Reports and automation">
+
+### Report automation
+
+Scheduled delivery, with email templates.
+
+### Notification preferences
+
+Per-event, per-channel configuration.
+
+### Fixes
+
+Report loading, chart formatters, and a `tracked_at` field added to local SEO.
+
+</Update>
+
+<Update label="17 March 2026" description="Reporting">
+
+### Reporting
+
+The reports feature: build a report from project data, with sharing.
+
+Redirect handling and a first round of fixes followed the same day.
+
+</Update>
+
+<Update label="16 March 2026" description="Fixes">
+Timezone handling, local SEO, and the jobs service lockfile.
+</Update>
+
+<Update label="15 March 2026" description="MCP">
+
+### The MCP server
+
+AI agents can drive Surnex directly. Transport moved to streamable HTTP rather than SSE, tools were synced against the API, and project deletion was exposed as a tool.
+
+### Search engine selection
+
+Google, Bing, or Yahoo per tracked keyword.
+
+### Fixes
+
+Roles, API keys, keyword suggestions, polling, web vitals, and the dashboard.
+
+</Update>
+
+<Update label="14 March 2026" description="Search sessions">
+
+### Unified search sessions
+
+One pattern across every search page, with search pills persisted to local storage.
+
+### Location and language codes
+
+Hardcoded location, language and search engine codes were removed in favour of real selection.
+
+### Fixes
+
+An off-by-one day on ranking, backlink and GEO `tracked_at` dates. Loading skeletons and previous results rendering simultaneously on second and later searches. Auto-growing textareas.
+
+</Update>
+
+<Update label="13 March 2026" description="Local SEO">
+
+### Local SEO
+
+Local pack and Maps tracking.
+
+### Job cleanup
+
+Deleting a project now deletes its jobs, audit jobs included.
+
+### Fixes
+
+A race condition where local SEO returned `not_found` on a freshly created project. Google Ads conversion tracking, and dashboard updates.
+
+</Update>
+
+<Update label="12 March 2026" description="Improvements">
+General improvements.
+</Update>
+
+<Update label="11 March 2026" description="Features and fixes">
+A batch of features and frontend fixes.
+</Update>
+
+<Update label="6 March 2026" description="LLM mentions">
+
+### LLM mentions
+
+Tracking whether AI answers mention your brand — the beginning of what became AI search and GEO visibility.
+
+### New MCP tools
+
+### Project filtering
+
+### Fixes
+
+AI search, response dates, and mentions. The skip feature was removed.
+
+</Update>
+
+<Update label="5 March 2026" description="Jobs service">
+
+### jobs.surnex.io
+
+A dedicated service for background work.
+
+### Caching
+
+Keyword trends and citations cached to Redis, plus recent search history.
+
+### Audit default
+
+Crawls default to 50 pages.
+
+### Fixes
+
+LLM mention URLs, authentication on static paths, deployment, and UI.
+
+</Update>
+
+<Update label="4 March 2026" description="Rank tracking">
+
+### Rank tracking
+
+Daily keyword position monitoring — the platform's core feature.
+
+### Backlinks
+
+### Sign-up
+
+### Fixes
+
+AI search, the audit page, keyword handling, and UI.
+
+</Update>
+
+<Update label="3 March 2026" description="First commit">
+
+Surnex began as three services: the **API**, the **frontend**, and the **worker**.
+
+Deployment configuration for Railway landed the same day, along with routing, authentication fixes, CORS for `app.surnex.io`, health checks, and logos.
+
+</Update>

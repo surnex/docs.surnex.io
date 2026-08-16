@@ -292,7 +292,12 @@
           {
             "group": "Releases",
             "pages": [
-              "changelog/2026-08"
+              "changelog/2026-08",
+              "changelog/2026-07",
+              "changelog/2026-06",
+              "changelog/2026-05",
+              "changelog/2026-04",
+              "changelog/2026-03"
             ]
           }
         ]

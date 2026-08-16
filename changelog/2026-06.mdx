@@ -1,0 +1,66 @@
+---
+title: "June 2026"
+description: "Site audits, the issue catalogue, and Core Web Vitals."
+---
+
+<Update label="24 June 2026" description="Audit comparison">
+
+### Compare two crawls
+
+Diff any two audits to see what was fixed and what regressed. Four figures at the top — score change, old score, **resolved issues**, and **new issues** — then a per-category breakdown showing before, after, and change.
+
+Resolved and new are the numbers that matter. A crawl that clears 30 issues and introduces 28 barely moves the score while telling you something important about your release process.
+
+<Note>
+  The comparison is only meaningful between crawls with the same target URL and the same page limit. A 500-page crawl against a 50-page one reports hundreds of "new" issues that were always there and simply weren't reached before.
+</Note>
+
+</Update>
+
+<Update label="17 June 2026" description="Audit detail">
+
+### Page detail
+
+Everything the crawler recorded for a single URL, grouped into content, technical, links and media, SEO, and performance. This is the diagnostic view — when an issue doesn't make sense, the underlying measurement usually explains it.
+
+Three fields do most of the work: **Word Count** exposes a page flagged as thin whose text is actually client-rendered, **Canonical URL** catches a page quietly pointing at another, and **Render-Blocking Scripts** is normally the real cause behind a high load time.
+
+### Duplicate content and broken resources
+
+Two dedicated views, separated out of the general issue list because they're investigated differently.
+
+</Update>
+
+<Update label="10 June 2026" description="Audit scoring">
+
+### The score
+
+Audits now produce a 0–100 score. It starts at 100 and deducts by severity — 2 points per error, 0.5 per warning, 0.1 per notice — with the deduction from each severity capped at 50, 30 and 10 respectively. Three bonuses add back five points each for HTTPS, a `robots.txt`, and a sitemap.
+
+Because the deductions cap, a site with 25 errors scores the same as one with 250. The score is a trend indicator; the issue list is what you work from.
+
+### The issue catalogue
+
+Thirty issue types across eight categories — meta tags, links, performance, images, indexing, content, security, and schema — each with a severity, the measurement that triggered it, and a specific recommendation.
+
+Thresholds are explicit: slow page at 3,000 ms, large page at 3 MB, thin content under 300 words, titles 50–60 characters, descriptions 120–155.
+
+### Crawl scope
+
+**Max pages to crawl** became a real control, from 1 to 10,000, defaulting to 50. Sitewide issues surface from a small sample; per-page issues like duplicate titles, orphan pages and thin content only appear if the crawl actually reaches them.
+
+</Update>
+
+<Update label="3 June 2026" description="Web vitals">
+
+### Core Web Vitals
+
+Lighthouse audits per URL, stored so you can watch performance over time. Seven metrics — LCP, INP, CLS, FCP, TTFB, Speed Index, and Total Blocking Time — alongside the overall performance score.
+
+Checks are per URL **and per device**, so mobile and desktop are measured separately.
+
+### Opportunities
+
+Each completed check lists the specific fixes Lighthouse identified, with an estimated time saving for each.
+
+</Update>
