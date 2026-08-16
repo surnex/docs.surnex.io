@@ -280,6 +280,7 @@
               "mcp/auth",
               "mcp/tools",
               "mcp/playbooks",
+              "mcp/skills",
               "mcp/troubleshooting"
             ]
           }

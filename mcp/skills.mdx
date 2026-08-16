@@ -1,0 +1,51 @@
+---
+title: "Skills"
+description: "Install Surnex as a reusable skill for AI agents."
+---
+
+You can install Surnex as a skill for AI agents that support the `skills` ecosystem. It gives your agent a versioned workflow guide for operating Surnex instead of leaving it to work out how the pieces fit together each session.
+
+## Install
+
+```bash
+npx skills add surnex/skills --skill surnex
+```
+
+Restart your AI tool afterwards if it doesn't pick the skill up immediately.
+
+## What the skill covers
+
+The `surnex` skill helps your agent:
+
+- Understand that **most tools read stored data**, not live results — reading rankings doesn't check rankings, and a figure can legitimately be a day old
+- Know that **creating a project collects nothing immediately**: it creates four schedules and the first data can be 24 hours away
+- Know that **audits, web vitals, domain analysis, and keyword research never run on a schedule** and have to be started explicitly
+- Recognise **which tools spend plan allowance**, and avoid the failure mode that matters — looping a billable tool over a keyword list
+- Handle **organization ambiguity**: with several memberships the server refuses to guess rather than billing the wrong one
+- Understand it **acts as you**, carrying your role, so a member's connection can't create or delete projects
+- Pass **location and language explicitly**, since tools default to the United States rather than inheriting your project's market
+
+It also names the behaviours that read as failures but aren't: an empty new project waiting on its first scheduled run, a not-found that means wrong organization rather than deleted, and a second audit refused because one is already crawling.
+
+Alongside the guide, it ships references for [all 88 tools](/mcp/tools) flagged for writes and cost, worked [workflows](/mcp/playbooks), how to read the numbers without misinterpreting them, and troubleshooting.
+
+## Why use a skill
+
+Without one, your agent works Surnex out from tool descriptions alone. A description says what one tool does; it can't say what order to do things in, what a call costs, or which empty result is a finding rather than a fault.
+
+With a skill you get:
+
+- A stable reference for how the product fits together
+- Use-case guidance instead of tool-by-tool guessing
+- Explicit caveats — what's asynchronous, what's irreversible, what's billable
+- A versioned source of truth that updates as Surnex changes
+
+## Repository
+
+The public source lives at [github.com/surnex/skills](https://github.com/surnex/skills).
+
+## Notes
+
+- Pair it with the [MCP server](/mcp/connect) — the skill explains the workflows, the connector executes them
+- The skills ecosystem is supported by Claude Code and claude.ai. Through another client, the MCP server still ships the essentials in its own tool descriptions
+- The skill assumes [OAuth](/mcp/auth). It won't help an agent configured with an API key, which the MCP endpoint refuses
