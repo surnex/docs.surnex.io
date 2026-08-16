@@ -1,0 +1,88 @@
+---
+title: "Deliver a monthly SEO report"
+description: "Build a report once, then repeat it every month in a few minutes."
+---
+
+The goal is a report you build properly once and reproduce each month by duplicating and moving the date range.
+
+## 1. Build the template
+
+[Create a report](/reports/add) — blank or from a template — and open the [editor](/reports/editor).
+
+A structure that reads well, in order:
+
+**Headline numbers.** Four stat cards at most: Avg. Position, Total Keywords, Referring Domains, and one that matters to this client. More than four and none of them registers.
+
+**Trends.** Ranking History and Backlink History as line charts. Direction is what a monthly report is for — a single month's snapshot says nothing.
+
+**What moved.** Top Gainers and Top Losers. Include the losers. A report with only good news stops being believed, and the losers are usually where the next month's work comes from.
+
+**Technical.** Audit Summary, and Audit Issues if you've been working on them.
+
+**Detail.** Position Distribution, and All Keywords if the client wants the full list. These are the widgets that survive a PDF worst, so put them last.
+
+## 2. Write the commentary
+
+Use **Text / Note** widgets. This is the part most reports skip and the part you're actually being paid for — a page of charts makes the reader do the interpretation.
+
+At minimum: a short summary at the top saying what happened and what you're doing next, and a note under any chart that would otherwise be misread. A traffic drop that's seasonal, a position loss caused by a Google update rather than the site — say so in the report, not in a follow-up email.
+
+## 3. Set the date range
+
+The [date range](/reports/editor#date-range) applies to every widget.
+
+This is the single most common source of a wrong report. A range left on last month's dates produces a report full of correct-looking but stale figures. Check it before every send.
+
+## 4. Choose how it's delivered
+
+| Situation | Use |
+| --- | --- |
+| Client expects a monthly deliverable | [Automated email](/reports/automation) |
+| Client checks progress whenever | [Share link](/reports/share) with a password |
+| You need a record of what was reported | **PDF export** |
+| Client's analyst wants the numbers | **CSV export** |
+
+Most engagements want the automated email plus a share link.
+
+<Warning>
+  A share link shows **live data** for the report's date range — it isn't frozen at the moment you shared it. Only a **PDF** is a genuine snapshot. If you need a record of exactly what a client was shown, export the PDF and keep it.
+</Warning>
+
+Set a password and an expiry on share links. The default is no password and never expires, which means a forwarded URL keeps working indefinitely.
+
+## 5. Automate delivery
+
+On [Automation](/reports/automation): enable it, choose **Monthly (1st)**, add recipients, and set the hour.
+
+The **timezone is applied**, so set the hour in your own zone — 09:00 with `America/New_York` selected sends at 09:00 New York time.
+
+Note that **Monthly (1st)** is an interval of one month from the last send, not a fixed calendar date. Enable it on the 1st and it stays on the 1st; enable it on the 14th and it sends on the 14th.
+
+The date range decides what actually goes out. A range fixed to a specific month sends identical figures forever; a rolling range moves with each send. For a recurring monthly report, use a rolling range.
+
+## 6. The monthly routine
+
+Once the template exists, each month is:
+
+1. **[Duplicate](/reports/list)** last month's report.
+2. **Rename it** with the new period. Names are all that distinguishes them in the list — `Monthly SEO Report - March 2026`, not `Monthly SEO Report`.
+3. **Move the date range** forward.
+4. **Update the commentary.** The charts refresh themselves; the narrative doesn't.
+5. **Export the PDF** for your records, then send or share.
+
+A duplicate carries widgets and layout but **not** share links or automation — which is what you want, since inheriting last month's recipient list by accident would be worse.
+
+## Before each send, check
+
+- The **date range** is the period you mean
+- The **audit widget** isn't showing a crawl from three months ago — [audits don't run on a schedule](/audits/overview)
+- The commentary matches what the charts show
+- Anything with an empty widget either gets data or gets removed
+
+That third one matters. Charts that contradict the summary text is the fastest way to lose a client's confidence in the reporting.
+
+## Next
+
+- [Report editor](/reports/editor) — the full widget list
+- [Share a report](/reports/share)
+- [Automate delivery](/reports/automation)

@@ -1,0 +1,82 @@
+---
+title: "Project dashboard"
+description: "Your project's headline metrics in one view — rankings, authority, AI visibility, and recent activity."
+---
+
+The **Dashboard** is where a project opens. It pulls the headline number from each area of Surnex into one screen, so you can see what changed without visiting six pages.
+
+## Stat cards
+
+| Card | What it shows |
+| --- | --- |
+| **Avg Position** | Mean position across your tracked keywords that rank |
+| **Domain Rank** | Your domain's authority score |
+| **AI Overview Rate** | Share of tracked keywords where Google returned an AI Overview |
+| **GEO Citation Rate** | How often your brand is cited in AI answers for your topics |
+
+The four are deliberately from different systems: [rank tracking](/tracking/overview), [backlinks](/backlinks/overview), [AI search](/ai/overview), and [GEO](/geo/overview). Each updates on its own [collection schedule](/projects/data-collection), so they won't all be from the same moment.
+
+**Avg Position** excludes keywords that don't rank at all, so it can improve when a keyword falls out of the top 100 entirely. Read it alongside the distribution bar below rather than on its own.
+
+## Ranking Distribution
+
+A single stacked bar showing how your tracked keywords are spread across position bands:
+
+| Segment | Positions |
+| --- | --- |
+| **Top 3** | 1–3 |
+| **Top 10** | 4–10 |
+| **Top 20** | 11–20 |
+| **Top 50** | 21–50 |
+| **Top 100** | 51–100 |
+| **Not Ranking** | Outside the top 100 |
+
+The bands are exclusive, so the segments sum to your total tracked keywords. Hover a segment for its label and count.
+
+The shape matters more than any single number. A bar dominated by **Not Ranking** and **Top 100** means you're tracking keywords you're not competitive for yet — useful as a target list, but the **Avg Position** figure above will be misleading, since it only averages the minority that rank.
+
+## Recent Audits
+
+The latest [site audits](/audits/overview) with their scores and status. Empty state: **No audits yet** — "Run a site audit to see results".
+
+Because audits don't run on a schedule, this panel is the quickest way to notice your last crawl was months ago.
+
+## Top Movers
+
+Keywords whose positions changed most recently, from the same data as [Position changes](/tracking/changes). Empty state: **No ranking changes** — "Position changes will appear here".
+
+Empty on a new project: movement needs two rank checks to compare.
+
+## Backlink Stats
+
+Four figures from your [backlink profile](/backlinks/overview):
+
+| Figure | What it is |
+| --- | --- |
+| **Referring Domains** | Distinct domains linking to you |
+| **Total Backlinks** | Every individual link |
+| **Dofollow / Nofollow** | The split between them |
+| **Dofollow Ratio** | Dofollow links as a share of the total |
+
+**Dofollow Ratio** is the one to watch over time. A natural profile has a healthy mix; a ratio that's very high or very low is worth investigating — near-total dofollow can indicate bought links, while near-total nofollow means your links aren't passing authority.
+
+## A new project
+
+Immediately after [creating a project](/projects/add), most of this is empty. Panels fill in as each background job finishes — rankings within minutes, a full site audit up to an hour. You don't need to keep the page open.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Rank tracking" icon="chart-line" href="/tracking/overview">
+    The full picture behind Avg Position and the distribution bar.
+  </Card>
+  <Card title="Site audits" icon="magnifying-glass" href="/audits/overview">
+    Run a crawl and work through the issues.
+  </Card>
+  <Card title="Backlinks" icon="link" href="/backlinks/overview">
+    The profile behind Domain Rank.
+  </Card>
+  <Card title="AI search" icon="robot" href="/ai/overview">
+    What's behind the two AI rates.
+  </Card>
+</CardGroup>

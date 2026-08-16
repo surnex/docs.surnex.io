@@ -1,0 +1,79 @@
+---
+title: "Ranking alerts"
+description: "When Surnex raises a ranking alert, and the exact thresholds behind each type."
+---
+
+Surnex compares every rank check against the previous one and raises an alert when the position crosses a threshold that matters. You don't configure the thresholds — they're fixed — but knowing them tells you why you did or didn't get an alert.
+
+Alerts appear in the feed on [Position changes](/tracking/changes) and in your [Notification center](/notifications/view).
+
+## The rules
+
+Alerts are generated per keyword, per rank check, by comparing the new position to the previous one.
+
+### Started or stopped ranking
+
+| Previous | Current | Alert |
+| --- | --- | --- |
+| Not ranking | Any position | **Ranking Improved** |
+| Any position | Not ranking | **Lost Top 100** |
+
+These two are terminal — when either fires, no other alert is raised for that keyword on that check. A keyword appearing at position 2 for the first time raises **Ranking Improved** alone, not **Entered Top 3**.
+
+<Note>
+  "Not ranking" means outside the top 100, not literally absent from Google. Surnex reads the first 100 results; anything beyond that is indistinguishable from no ranking at all.
+</Note>
+
+### Significant movement
+
+When both positions are known, a move of **5 or more places** in either direction raises:
+
+- **Ranking Improved** — moved up 5+
+- **Ranking Dropped** — moved down 5+
+
+A 4-place move raises nothing. This is deliberate: positions fluctuate by a place or two constantly, and alerting on that noise would make the feed useless.
+
+### Band crossings
+
+Independently of the 5-place rule, crossing a threshold raises its own alert:
+
+| Condition | Alert |
+| --- | --- |
+| Was worse than 3, now 3 or better | **Entered Top 3** |
+| Was worse than 10, now 10 or better | **Entered Top 10** |
+| Was 10 or better, now worse than 10 | **Lost Top 10** |
+
+There is no "Lost Top 3" alert. A fall from position 2 to 7 raises **Ranking Dropped** if it's 5+ places, but nothing about leaving the top 3.
+
+## Several alerts from one check
+
+The rules above are evaluated together, so one check can raise more than one alert:
+
+| Move | Alerts raised |
+| --- | --- |
+| 14 → 2 | Ranking Improved, Entered Top 10, Entered Top 3 |
+| 12 → 9 | Entered Top 10 only — the 3-place move is under the threshold |
+| 8 → 15 | Ranking Dropped, Lost Top 10 |
+| 2 → 4 | None — 2 places, and still inside the top 10 |
+| 45 → 30 | Ranking Improved only |
+
+The 12 → 9 row is the one that catches people out: a small move can be more important than a large one when it crosses a band.
+
+## When alerts are generated
+
+Alerts are a by-product of a rank check, so they follow your [rank tracking schedule](/tracking/overview) — daily by default. Paused keywords aren't checked and can't raise alerts.
+
+A project's very first check raises nothing at all: with no previous position to compare against, there's no change to detect. Alerts start on the second check.
+
+## Being notified
+
+Alerts always land in the [feed](/tracking/changes) and the [Notification center](/notifications/view). Whether they also reach you by email depends on your [notification preferences](/notifications/preferences).
+
+## What you can't do yet
+
+- Change the 5-place threshold
+- Alert on a specific keyword only
+- Alert on a specific position (for example, "tell me if we drop below 3")
+- Turn off individual alert types — preferences control delivery channels, not which alerts exist
+
+To watch one keyword closely, open its [history](/tracking/keyword-history) rather than relying on alerts.

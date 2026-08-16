@@ -1,0 +1,112 @@
+---
+title: "MCP authentication"
+description: "The MCP server uses OAuth. You approve a client once, and it acts as you."
+---
+
+The MCP server authenticates with **OAuth 2.1**, not API keys. Your client obtains an access token by sending you through a consent screen; the token identifies **you**, and every tool call runs with your access and your role.
+
+<Warning>
+  **API keys are refused here.** Sending `X-API-Key`, or a `smx_`-prefixed key in an `Authorization: Bearer` header, returns a 401 naming the problem: *"This endpoint uses OAuth, not API keys. API keys authenticate the REST API at /v1."*
+
+  The **Settings → API Keys** page in the dashboard still displays MCP connection snippets using `X-API-Key`. Those snippets are stale and will not work — see [Create an API key](/api-keys/add).
+</Warning>
+
+## Why OAuth rather than a key
+
+The two credentials answer different questions, and the split is deliberate.
+
+An API key is a bearer secret that sits in an agent's config file indefinitely, belongs to the organization rather than a person, and isn't limited by anyone's role. An MCP session belongs to **someone who approved it**, expires, and can be revoked from their account.
+
+That matters because the tools can create projects, start billable crawls, and delete data. Those actions should be traceable to a person who said yes, not to a string copied into a config file.
+
+## How the flow works
+
+Surnex is an OAuth **resource server** only. Supabase is the authorization server and issues every token — Surnex has no `/authorize` or `/token` endpoint of its own.
+
+<Steps>
+  <Step title="The client calls the server with no token">
+    It gets a **401** with a `WWW-Authenticate` header pointing at the metadata document. That header is the entire discovery mechanism.
+  </Step>
+  <Step title="The client reads the protected-resource metadata">
+    Published unauthenticated at:
+
+    ```
+    https://api.surnex.io/.well-known/oauth-protected-resource
+    https://api.surnex.io/.well-known/oauth-protected-resource/mcp
+    ```
+
+    Both paths serve the same document — some clients probe the path-suffixed form. It names the authorization server, the supported scopes, and the resource identifier `https://api.surnex.io/mcp`.
+  </Step>
+  <Step title="The client sends you to Supabase to authorize">
+    Registration and the `/authorize` and `/token` endpoints all belong to Supabase.
+  </Step>
+  <Step title="You approve on the Surnex consent screen">
+    Supabase redirects to Surnex to render the approval. See below for exactly what it asks for.
+  </Step>
+  <Step title="The client receives a token and connects">
+    From then on it sends `Authorization: Bearer <token>` on every call.
+  </Step>
+</Steps>
+
+You won't perform any of these steps by hand — a compliant MCP client runs the whole flow from the server URL alone. See [Connect the MCP server](/mcp/connect).
+
+## The consent screen
+
+Surnex renders the approval itself. It lists the scopes requested:
+
+| Scope | What the screen says |
+| --- | --- |
+| `openid` | Confirm who you are |
+| `email` | See your email address |
+| `profile` | See your name |
+| `offline_access` | Stay connected without asking you again every hour |
+
+`offline_access` is the one that matters operationally. Without it, no refresh token is issued, the access token expires after an hour, and the connection dies — which shows up as the assistant losing access to Surnex roughly hourly and asking to reconnect.
+
+It also states plainly what the tools can do:
+
+- Read your projects: rankings, backlinks, audits, AI visibility and local results
+- Create and delete projects, change which keywords are tracked, and add competitors
+- Start audits, backlink refreshes and keyword research — **these cost money against your plan**
+- Generate content and run AI-search analysis on your behalf
+
+And what they cannot do:
+
+> It acts as you, so it can do only what your role allows. It can never mint an API key, change your billing, invite or remove people, or read another organization's data.
+
+Approving a client once is remembered. Reconnecting the same client later goes straight through without a second consent screen.
+
+## Scope: it acts as you
+
+This is the substantive difference from an API key.
+
+A token names a **person**, so the agent inherits your [role](/organizations/roles). A member connecting their client gets member-level access — it cannot delete a project, because they cannot. An owner's connection can.
+
+It also reaches **every organization you belong to**, not one. Which leads to the next point.
+
+## Choosing an organization
+
+Because you may belong to several organizations, org-scoped tools take an optional `organization` argument — a name or an id.
+
+| Your memberships | Behaviour |
+| --- | --- |
+| One | Resolved automatically; you never name it |
+| Several, and you named one | Matched by name or id |
+| Several, and you named none | **The call is refused**, and the error lists your organizations |
+| Several, and the name is ambiguous | Refused, listing the matches with their ids |
+
+Refusing rather than guessing is deliberate. The previous implementation resolved an unspecified organization to the user's *first* membership from an unordered query — so for users in two organizations, lookups were billed to whichever row came back first, and the plan limit checked was that organization's too.
+
+In practice: if you belong to more than one organization, name it in your prompt. "Check rankings for example.com in the Acme organization" saves a round trip.
+
+## Revoking access
+
+Revoke from your account rather than from Surnex — the grant belongs to your Supabase identity, and tokens expire on their own besides. Revoking ends the agent's access; reconnecting means going through consent again.
+
+Revoking an [API key](/api-keys/revoke) does **nothing** to an MCP connection. They're unrelated credentials.
+
+## Related
+
+- [Connect the MCP server](/mcp/connect)
+- [Troubleshooting](/mcp/troubleshooting)
+- [API authentication](/api/concepts/authentication) — the REST API, which does use keys

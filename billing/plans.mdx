@@ -1,0 +1,70 @@
+---
+title: "Plans"
+description: "What's included on Free, Pro, Team, and Enterprise."
+---
+
+Plans are per [organization](/organizations/overview). Belonging to two organizations means two subscriptions, and limits are counted separately for each.
+
+## Pricing
+
+| Plan | Monthly | Annual | Effective monthly on annual |
+| --- | --- | --- | --- |
+| **Free** | $0 | $0 | — |
+| **Pro** | $29 | $240 | $20 |
+| **Team** | $79 | $648 | $54 |
+| **Enterprise** | Custom | Custom | — |
+
+Annual billing saves roughly 31% on Pro and 32% on Team. Toggle between **Monthly** and **Annual** on the [Billing](/billing/subscription) page to compare.
+
+## Limits
+
+| Limit | Free | Pro | Team | Enterprise |
+| --- | --- | --- | --- | --- |
+| **Projects** | 1 | 5 | 25 | Unlimited |
+| **Tracked keywords** | 10 | 500 | 2,500 | Unlimited |
+| **Keyword lookups per day** | 25 | 500 | 2,000 | Unlimited |
+| **Backlink lookups per day** | 10 | 100 | 500 | Unlimited |
+| **Domain lookups per day** | 10 | 100 | 500 | Unlimited |
+| **Site audits per month** | 3 | 25 | 100 | Unlimited |
+| **Team members** | 1 | 3 | 10 | Unlimited |
+
+## Which limit will bite first
+
+The two that constrain real use are **tracked keywords** and **site audits per month** — and for different reasons.
+
+**Tracked keywords is a recurring cost, not a one-off.** Every tracked keyword is re-checked on your [schedule](/tracking/overview) — daily by default. Free's 10 keywords is enough to try the product, not to monitor a site. Where Pro's 500 sits depends on how many projects you're spreading them across, since the limit is organization-wide, not per project.
+
+**Site audits per month is the tightest allowance on Free.** Three crawls a month is barely enough to audit, fix, and re-audit once. [Web vitals checks](/web-vitals/overview) are *not* metered, so they don't eat into it.
+
+**Team members** is the other common wall. Free is genuinely single-user; Pro's 3 covers a small team but not an agency.
+
+## No subscription means free
+
+An organization without an active subscription is treated as being on **free**, and an unrecognised plan is treated as free too — limits fail closed rather than open.
+
+## Hitting a limit
+
+Limits are enforced before the work happens rather than by billing you for the overage:
+
+- **At the project limit**, **Add Project** greys out and clicking it sends you to Billing.
+- **At the keyword limit**, **Add Keywords** shows a padlock and *"Upgrade to track more keywords"*.
+- **At the audit limit**, new crawls are refused for the rest of the month.
+
+<Warning>
+  Scheduled collection consumes quota too. Exceeding a daily lookup limit doesn't only block manual actions — it can stop your scheduled rank and backlink checks, leaving gaps in history that can't be back-filled. Enable the **Usage Limit Warning** notification in [preferences](/notifications/preferences) so you hear about it before that happens.
+</Warning>
+
+## Reducing usage without upgrading
+
+- **Lower the check frequency.** Moving rank tracking from daily to weekly cuts that consumption by roughly 85%. Set it on [Tracking → Overview](/tracking/overview).
+- **Pause keywords you're not acting on.** Pausing keeps history but stops checks — though a paused keyword still counts against the tracked-keyword limit.
+- **Run fewer, larger audits.** One audit costs the same whatever its page limit, so a single 1,000-page crawl beats ten 100-page crawls. A crawl already in flight blocks a second one anyway.
+
+## Enterprise
+
+Everything unlimited, with custom pricing. Contact Surnex rather than self-serving through checkout.
+
+## Related
+
+- [Manage your subscription](/billing/subscription) — upgrade, downgrade, cancel
+- [Usage and limits](/billing/usage) — what you've consumed this period

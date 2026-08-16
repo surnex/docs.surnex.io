@@ -1,0 +1,195 @@
+---
+title: "MCP tools"
+description: "Every tool the Surnex MCP server exposes to agents, and which ones write."
+---
+
+The server exposes **88 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
+
+Every tool carries MCP annotations describing what it does, so a well-behaved client can prompt for confirmation selectively rather than on every call:
+
+| Annotation | Meaning |
+| --- | --- |
+| `readOnlyHint` | Reads only. Safe to run without asking |
+| `destructiveHint` | Removes something. A client should confirm first |
+| `idempotentHint` | Running it twice is the same as running it once |
+
+Tools marked **write** below change your account; **quota** means the call spends plan allowance. The protocol has no notion of cost, so billable tools are ordinary writes with the cost stated in their description — which is the only defence against an agent looping over a keyword list with a billable tool.
+
+## Onboarding
+
+| Tool | |
+| --- | --- |
+| `list_organizations` | |
+| `list_projects` | |
+| `create_project` | **write** |
+| `delete_project` | **write — destroys all project data** |
+| `get_usage_summary` | |
+
+Start here. `list_projects` gives the agent the `project_id` nearly everything else needs.
+
+`delete_project` is the one tool annotated destructive. Everything it removes cascades and cannot be recovered.
+
+## Rank tracking
+
+| Tool | |
+| --- | --- |
+| `get_ranking_overview` | |
+| `get_tracked_keywords` | |
+| `get_keyword_position` | |
+| `get_keyword_ranking_history` | |
+| `get_ranking_changes` | |
+| `get_competitor_comparison` | |
+| `add_tracked_keywords` | **write** |
+| `remove_tracked_keywords` | **write** |
+| `update_tracked_keyword` | **write** |
+| `create_tag`, `list_tags`, `assign_tags` | **write** (create, assign) |
+| `get_alerts`, `mark_alert_read`, `mark_all_alerts_read` | **write** (mark) |
+| `get_ai_overview_summary` | |
+| `get_ai_overview_trend` | |
+| `get_ai_overview_keywords` | |
+| `export_tracking_csv` | |
+
+Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` let an agent group keywords in ways the dashboard doesn't surface as prominently.
+
+## Keywords
+
+| Tool | |
+| --- | --- |
+| `research_keyword` | quota |
+| `bulk_research_keywords` | quota |
+| `get_keyword_suggestions` | quota |
+| `get_domain_keywords` | quota |
+| `get_serp_results` | quota |
+| `get_keyword_history` | |
+| `get_saved_keywords` | |
+| `save_keywords` | **write** |
+| `delete_saved_keywords` | **write** |
+| `export_keywords_csv` | |
+
+## Backlinks
+
+| Tool | |
+| --- | --- |
+| `get_backlink_summary` | |
+| `get_referring_domains` | |
+| `get_backlinks_list` | |
+| `get_anchor_texts` | |
+| `get_new_lost_backlinks` | |
+| `get_tld_distribution` | |
+| `get_backlink_gap` | quota |
+| `get_project_backlink_history` | |
+| `refresh_backlinks` | **write**, quota |
+| `export_backlinks_csv` | |
+
+## Audits
+
+| Tool | |
+| --- | --- |
+| `start_site_audit` | **write**, quota |
+| `list_audits` | |
+| `get_audit_summary` | |
+| `get_audit_issues` | |
+| `get_audit_pages` | |
+| `get_audit_page_detail` | |
+| `get_duplicate_content` | |
+| `get_broken_resources` | |
+| `compare_audits` | |
+| `export_audit_csv` | |
+
+`get_duplicate_content` and `get_broken_resources` are dedicated tools that correspond to tabs in the audit detail view.
+
+## AI search
+
+| Tool | |
+| --- | --- |
+| `get_google_ai_mode` | quota |
+| `get_chatgpt_visibility` | quota |
+| `benchmark_llm_platforms` | quota |
+| `get_ai_keyword_trends` | quota |
+| `get_citation_gap` | quota |
+
+## GEO
+
+| Tool | |
+| --- | --- |
+| `get_ai_visibility_overview` | |
+| `get_ai_top_competitors` | |
+| `get_llm_response_for_keyword` | |
+| `list_geo_topics` | |
+| `get_geo_topic_detail` | |
+| `add_geo_topics` | **write** |
+| `remove_geo_topics` | **write** |
+
+## Domains and tech stack
+
+| Tool | |
+| --- | --- |
+| `get_domain_overview` | |
+| `get_domain_top_keywords` | |
+| `get_domain_top_pages` | |
+| `get_domain_competitors` | |
+| `get_tech_stack` | |
+
+## Competitors
+
+| Tool | |
+| --- | --- |
+| `get_competitors` | |
+| `add_competitor` | **write** |
+| `remove_competitor` | **write** |
+
+## Local SEO
+
+| Tool | |
+| --- | --- |
+| `get_local_overview` | |
+| `get_local_keywords` | |
+| `get_local_rankings` | |
+| `add_local_keywords` | **write** |
+| `get_google_business_profile` | |
+
+## Web vitals
+
+| Tool | |
+| --- | --- |
+| `trigger_web_vitals_check` | **write**, quota |
+| `get_web_vitals` | |
+
+## Trends
+
+| Tool | |
+| --- | --- |
+| `get_trends_explore` | quota |
+| `get_trending_now` | quota |
+| `get_related_queries` | quota |
+
+## Content
+
+| Tool | |
+| --- | --- |
+| `generate_meta_tags` | quota |
+| `generate_content_brief` | quota |
+| `check_grammar` | quota |
+| `paraphrase_text` | quota |
+
+`generate_meta_tags` and `generate_content_brief` have **no dashboard equivalent** — they're only available through MCP.
+
+## Common arguments
+
+**`organization`** — optional on org-scoped tools, taking a name or an id. Resolved automatically when you belong to exactly one organization. With several and none named, the call is **refused** and the error lists them; the server doesn't guess. See [choosing an organization](/mcp/auth#choosing-an-organization).
+
+**`project_id`** — required by most tools, obtained from `list_projects`. A project you can't access returns "not found" rather than "not yours", so a not-found isn't proof of deletion.
+
+**Locale** — tools taking one default to **location `2840`** (United States) and **language `en`**, matching the dashboard. If your project targets another market, tell the agent explicitly; it won't infer the project's locale for every call.
+
+## Your role applies
+
+The [OAuth token](/mcp/auth) acts as you, so a tool can only do what your role permits. A member's connection can't call `delete_project`; an owner's can.
+
+No token can mint an API key, change billing, invite or remove people, or reach an organization you're not a member of — regardless of role.
+
+## Related
+
+- [MCP playbooks](/mcp/playbooks) — prompts that use these well
+- [MCP authentication](/mcp/auth) — the OAuth flow and what a session permits
+- [Usage and limits](/billing/usage) — the quota these draw on

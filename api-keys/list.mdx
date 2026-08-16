@@ -1,0 +1,46 @@
+---
+title: "Manage API keys"
+description: "Review your organization's API keys and when each was last used."
+---
+
+**Settings → API Keys** lists every key in the organization.
+
+## What each row shows
+
+| Field | Notes |
+| --- | --- |
+| **Name** | What you called it at creation |
+| **Prefix** | `smx_xxxxxxxx...****` — the first characters, with the rest masked |
+| **Last used** | A relative time, or nothing if the key has never been used |
+
+The full key is never shown again after creation. The prefix is there so you can match a key in this list against one configured elsewhere — compare the visible characters.
+
+## Using the last-used date
+
+This is the most useful column on the page, for two reasons.
+
+**Keys with no last-used date** were created and never used. Usually a setup attempt that failed or was abandoned. They're live credentials doing nothing — revoke them.
+
+**Keys not used in months** belong to an integration that's been retired or a person who's moved on. Each one is standing access nobody is watching.
+
+Reviewing this list every few months is the whole of API key hygiene. Since a key carries full organization access regardless of who created it, an unused key is the same risk as an active one.
+
+## Before revoking
+
+A key that's still being used will break whatever uses it. If you're unsure, the name and last-used date are your only clues — which is why naming keys after their consumer at [creation](/api-keys/add) matters.
+
+## What keys can access
+
+Every key authenticates as the **organization**. It reaches every project in that organization and isn't limited by the role of whoever created it. Any member can create one.
+
+Keys don't grant access across organizations. A key for one organization returns nothing for another.
+
+## Empty state
+
+**No API keys** — "Create an API key to access the Surnex API programmatically".
+
+## Related
+
+- [Create an API key](/api-keys/add) — including connection snippets
+- [Revoke an API key](/api-keys/revoke)
+- [Roles and permissions](/organizations/roles) — who can create keys

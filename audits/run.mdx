@@ -1,0 +1,74 @@
+---
+title: "Run an audit"
+description: "Start a crawl, choose its scope, and understand what happens while it runs."
+---
+
+Open **Audits** and click **Run Audit**.
+
+## The form
+
+| Field | Default | Range |
+| --- | --- | --- |
+| **Target URL** | `https://` + your project domain | Any URL |
+| **Max pages to crawl** | 50 | 1 – 10,000 |
+
+Click **Start Audit**. The audit appears in the list immediately with a pending status, and the crawl runs in the background — closing the page doesn't stop it.
+
+<Note>
+  Only one crawl per project runs at a time. Starting a second while the first is in flight is **refused**, not queued — a crawl is the most expensive thing the platform does and the slowest to notice twice.
+</Note>
+
+## Target URL
+
+The crawl starts here and follows internal links from it. Pre-filled with your project domain, which is what you want most of the time.
+
+Change it to narrow the scope:
+
+- `https://example.com/blog` — crawls the blog section
+- `https://shop.example.com` — crawls a subdomain
+
+The starting URL constrains what the crawler can reach. Starting at `/blog` won't surface issues on your product pages, and won't detect orphan pages elsewhere on the site.
+
+<Note>
+  Include the scheme. The field is a URL input, so `example.com` without `https://` may be rejected by the browser before it reaches Surnex.
+</Note>
+
+## Max pages
+
+This is the single decision that determines how useful the audit is.
+
+**Sitewide issues** — missing schema, no HTTPS, a template with no meta description — repeat on every page, so a 50-page sample finds them reliably.
+
+**Per-page issues** need coverage. These only appear if the crawler actually visits the affected pages:
+
+- **Duplicate titles and descriptions** — needs both duplicates crawled
+- **Orphan pages** — needs a crawl broad enough to establish what links where
+- **Thin content** — needs the thin pages themselves
+- **Broken internal links** — needs the pages carrying them
+
+Set the limit above your real page count for a complete audit. Use the default for a fast health check.
+
+## Cost and time
+
+Each audit counts as one against your plan's monthly audit allowance, whatever the page limit — so a 50-page crawl and a 5,000-page crawl cost the same in quota. At the limit the request is refused with a `USAGE_LIMIT_EXCEEDED` error. Given the flat cost, there's little reason to run repeated small crawls when one large one would do.
+
+Time scales with page count. A 50-page crawl typically finishes in a few minutes; a large site can take up to an hour.
+
+## Statuses
+
+| Status | Meaning |
+| --- | --- |
+| **Pending** | Queued, not yet started |
+| **Processing** | Crawling |
+| **Completed** | Finished; score and issues available |
+| **Failed** | The crawl couldn't complete |
+
+The list updates as the status changes. A completed audit shows its score, pages crawled, and issue count.
+
+If an audit fails, check that the target URL resolves publicly and isn't blocked by `robots.txt` or a firewall, then run it again.
+
+## After it completes
+
+Open the audit to see its [issues](/audits/issues), drill into a [single page](/audits/pages), or [compare it](/audits/compare) against an earlier crawl to confirm your fixes landed.
+
+Run a fresh audit after making changes — the score doesn't recalculate on its own, because it belongs to the crawl that produced it.

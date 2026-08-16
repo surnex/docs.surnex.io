@@ -1,0 +1,116 @@
+---
+title: "Audit issues"
+description: "Every issue type Surnex detects, its severity, the threshold behind it, and how to fix it."
+---
+
+Open an audit from the [Audits](/audits/overview) list to see its issues. Each issue names the page it was found on, describes the problem with the specific measurement, and gives a recommendation.
+
+## Severity
+
+Three levels, which determine both urgency and the [score](/audits/overview#the-audit-score) impact:
+
+| Severity | Deduction | What it means |
+| --- | --- | --- |
+| **Error** | −2 each, up to 50 | Actively harming crawling, indexing, or users. Fix first |
+| **Warning** | −0.5 each, up to 30 | Costing you performance but not breaking anything |
+| **Notice** | −0.1 each, up to 10 | Informational; often intentional |
+
+Work errors first. Notices frequently need no action at all — a `noindex` on a thank-you page is correct.
+
+## Meta tags
+
+| Issue | Severity | Trigger | Fix |
+| --- | --- | --- | --- |
+| **Missing title** | Error | No `<title>` | Add a unique title of 50–60 characters |
+| **Title too long** | Warning | Over 60 characters | Shorten to 50–60 so it isn't truncated in results |
+| **Title too short** | Warning | Very short | Expand to 50–60, including the primary keyword |
+| **Duplicate title** | Warning | Same title on multiple pages | Give each page a unique title |
+| **Missing description** | Error | No meta description | Add one of 120–155 characters |
+| **Description too long** | Warning | Over 155 characters | Shorten to 120–155 |
+| **Description too short** | Warning | Very short | Expand to 120–155 |
+| **Duplicate description** | Warning | Same description on multiple pages | Write a unique one per page |
+| **Missing H1** | Error | No `<h1>` | Add a single descriptive H1 with the primary keyword |
+| **Multiple H1** | Warning | More than one `<h1>` | Keep one; demote the rest to `<h2>` |
+
+Duplicate title and description issues depend on crawl coverage — both copies must be crawled for the duplication to be detected. A narrow crawl under-reports them.
+
+## Links
+
+| Issue | Severity | Trigger | Fix |
+| --- | --- | --- | --- |
+| **Broken internal link** | Error | Internal link returns an error status | Fix or remove it |
+| **Broken external link** | Warning | External link returns an error status | Update, redirect, or remove |
+| **Redirect chain** | Warning | Multiple hops to reach the destination | Link directly to the final URL |
+| **Redirect loop** | Error | A page redirects to itself | Fix the server or CMS redirect rules — looping pages are completely inaccessible |
+| **Orphan page** | Warning | No internal links point to the page | Add at least one internal link from a relevant section |
+
+Broken links are reported with the HTTP status they returned, and redirect chains with the number of hops — enough to triage without opening each URL.
+
+Orphan pages need a broad crawl to detect reliably: a page can look orphaned simply because the crawl never reached whatever links to it.
+
+## Performance
+
+| Issue | Severity | Threshold | Fix |
+| --- | --- | --- | --- |
+| **Slow page** | Warning | Load time over **3,000 ms** | Compress images, enable caching, reduce server response time |
+| **Large page** | Warning | Page over **3,072 KB** (3 MB) | Compress images, remove unused CSS and JS |
+| **Large image** | Notice | Oversized image file | Convert to WebP, aim for under 200 KB per image |
+| **Uncompressed resource** | Notice | No `Content-Encoding` header | Enable gzip or Brotli on the server |
+
+Each issue reports its actual measurement, so you can see how far past the threshold a page is.
+
+These are crawl-time measurements from a single request. For field-quality performance data, use [Web vitals](/web-vitals/overview).
+
+## Images
+
+| Issue | Severity | Trigger | Fix |
+| --- | --- | --- | --- |
+| **Missing alt text** | Warning | Images with no alt attribute, reported with a count | Add descriptive alt text — it serves accessibility and image search |
+| **Broken image** | Error | Image returns an error status | Fix or replace it |
+
+## Indexing
+
+| Issue | Severity | Trigger | Fix |
+| --- | --- | --- | --- |
+| **Noindex page** | Notice | A `noindex` robots directive | Verify it's intended; remove if the page should rank |
+| **Blocked by robots** | Notice | Disallowed in `robots.txt` | Review the rules — blocked pages can't be indexed |
+| **Missing canonical** | Warning | No canonical link element | Add a self-referencing canonical |
+| **Non-indexable page** | Warning | Something prevents indexing | Decide whether the page should rank, then remove the blocker |
+
+The two notices are deliberately low severity because they're usually intentional. Read them as a checklist — "did I mean to exclude these?" — rather than as defects.
+
+They're also the issues to check first when a page mysteriously won't rank.
+
+## Content
+
+| Issue | Severity | Threshold | Fix |
+| --- | --- | --- | --- |
+| **Thin content** | Warning | Under **300 words** | Expand — thin pages rarely rank and dilute site quality |
+| **Duplicate content** | Warning | Near-duplicate detected | Consolidate, rewrite, or canonicalize |
+
+The 300-word threshold is a blunt rule. A well-targeted product or contact page under 300 words isn't a problem; a category page padded to 400 words still is.
+
+## Security
+
+| Issue | Severity | Trigger | Fix |
+| --- | --- | --- | --- |
+| **Mixed content** | Error | HTTPS page loading HTTP resources | Serve every resource over HTTPS |
+| **Missing HTTPS** | Error | Page served over HTTP | Install a certificate and redirect HTTP to HTTPS |
+
+Both are errors, and HTTPS also carries a **+5 score bonus** — fixing it moves the score twice.
+
+## Schema
+
+| Issue | Severity | Trigger | Fix |
+| --- | --- | --- | --- |
+| **Missing schema** | Notice | No structured data | Add relevant schema markup |
+
+A notice, not an error, because schema isn't a ranking factor in itself. It does affect how your result is displayed, which affects clicks.
+
+## Working through a list
+
+1. **Errors first**, largest deduction and real damage.
+2. **Sitewide patterns before one-offs.** An issue on every page is one template fix; the score moves far more per unit of work.
+3. **Then the +5 bonuses** — HTTPS, `robots.txt`, sitemap. Three quick wins worth 15 points between them.
+4. **Re-run the audit.** The score belongs to the crawl that produced it and won't update on its own.
+5. **[Compare](/audits/compare) the two crawls** to confirm what actually got fixed.

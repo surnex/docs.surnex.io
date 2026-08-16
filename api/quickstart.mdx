@@ -1,0 +1,155 @@
+---
+title: "API quickstart"
+description: "Make your first authenticated request and read a project's rankings."
+---
+
+## 1. Create an API key
+
+In the dashboard, go to **Settings → API Keys** and create one. Copy it immediately — the full key is shown once. See [Create an API key](/api-keys/add).
+
+## 2. Verify it works
+
+```bash
+curl https://api.surnex.io/v1/organizations \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "3f9a2c14-...",
+      "name": "Acme Corp",
+      "slug": "acme-corp",
+      "role": "owner"
+    }
+  ]
+}
+```
+
+A key is bound to one organization, so this returns that one. The `id` is the `orgId` for organization-scoped paths.
+
+<Note>
+  Only organizations whose membership you've **accepted** are listed. A pending invitation doesn't appear and doesn't grant access.
+</Note>
+
+## 3. List projects
+
+```bash
+curl "https://api.surnex.io/v1/organizations/{orgId}/projects" \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+Paginated, so the response carries `meta`:
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "8b1d...",
+      "name": "My Website",
+      "domain": "example.com",
+      "schedules": []
+    }
+  ],
+  "meta": { "page": 1, "per_page": 25, "total": 1 }
+}
+```
+
+## 4. Everything else is under /v1/projects
+
+This is the part worth internalising: **only project list and create are nested under an organization.** Every other project resource sits at the top level, with the organization derived from the project:
+
+```
+/v1/organizations/{orgId}/projects        list, create
+/v1/projects/{projectId}                  read, update, delete
+/v1/projects/{projectId}/tracking
+/v1/projects/{projectId}/audits
+/v1/projects/{projectId}/backlinks/profile
+/v1/projects/{projectId}/reports
+```
+
+So reading tracked keywords is:
+
+```bash
+curl "https://api.surnex.io/v1/projects/{projectId}/tracking" \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+A project outside your key's organization answers **404**, not 403 — see [Errors](/api/concepts/errors).
+
+## 5. Add tracked keywords
+
+```bash
+curl -X POST "https://api.surnex.io/v1/projects/{projectId}/tracking" \
+  -H "X-API-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "keywords": ["seo tools", "rank tracker"],
+    "location_code": 2840,
+    "language_code": "en",
+    "search_engine": "google"
+  }'
+```
+
+`location_code` 2840 is the United States and `language_code` `en` is English — the same defaults the dashboard uses. Keywords are lower-cased and de-duplicated, so submitting overlapping lists is safe.
+
+New keywords have no position until their project's next [rank check](/tracking/overview).
+
+## 6. Billable calls need an explicit organization
+
+Some endpoints have neither an organization nor a project in the path — live SERP lookups, keyword research, content generation, trends:
+
+```
+/v1/keywords/research   /v1/keywords/serp   /v1/keywords/suggestions
+/v1/trends/explore      /v1/content/brief   /v1/domains/{domain}
+```
+
+These are billed to an organization, so with a **user token** you must pass `org_id` as a query parameter. Omitting it returns `BAD_REQUEST`: *"org_id is required. This call is billed to an organization, so it cannot be inferred."*
+
+With an **API key** it's inferred from the key, and you can omit it.
+
+```bash
+curl "https://api.surnex.io/v1/keywords/serp?org_id={orgId}&keyword=seo+tools" \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+## Handling responses
+
+Always check `success`:
+
+```python
+import requests
+
+BASE = "https://api.surnex.io/v1"
+HEADERS = {"X-API-Key": "YOUR_KEY"}
+
+def get(path, **params):
+    r = requests.get(f"{BASE}{path}", headers=HEADERS, params=params)
+    body = r.json()
+    if not body.get("success"):
+        err = body.get("error", {})
+        raise RuntimeError(f"{err.get('code')}: {err.get('message')}")
+    return body["data"]
+
+orgs = get("/organizations")
+projects = get(f"/organizations/{orgs[0]['id']}/projects")
+keywords = get(f"/projects/{projects[0]['id']}/tracking")
+```
+
+Don't test for the presence of `data` — a successful `DELETE` returns `data: null`.
+
+## What to expect from the data
+
+Most endpoints return **stored** data from the last background collection, not a live lookup. Reading rankings returns the last completed check; it doesn't trigger a new one.
+
+Endpoints that start work return a job to poll. See [Jobs and polling](/api/concepts/jobs).
+
+## Next
+
+- [Authentication](/api/concepts/authentication) — keys, tokens, and what each can do
+- [Organizations and scoping](/api/concepts/organizations)
+- [Errors](/api/concepts/errors)
+- [Pagination](/api/concepts/pagination) — `per_page` goes to 500

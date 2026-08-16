@@ -1,0 +1,75 @@
+---
+title: "Connect the MCP server"
+description: "Add the Surnex MCP server to Claude Code, Claude Desktop, Cursor, or Windsurf."
+---
+
+The server is at `https://api.surnex.io/mcp` over HTTP transport. It uses [OAuth](/mcp/auth) — you don't configure a credential, you approve the client in a browser.
+
+<Note>
+  You do **not** need an API key. Keys are for the [REST API](/api/introduction) and are explicitly refused by the MCP endpoint.
+</Note>
+
+## Claude Code
+
+```bash
+claude mcp add surnex --transport http https://api.surnex.io/mcp
+```
+
+No header. The first tool call triggers the OAuth flow — your browser opens, you approve, and the connection completes.
+
+## Claude Desktop, Cursor, Windsurf
+
+```json
+{
+  "mcpServers": {
+    "surnex": {
+      "type": "http",
+      "url": "https://api.surnex.io/mcp"
+    }
+  }
+}
+```
+
+Restart the client after editing — most read MCP configuration only at startup. On first use it will send you to the consent screen.
+
+## What happens on first connection
+
+1. The client calls the server with no token and gets a **401** carrying a pointer to the protected-resource metadata.
+2. It reads that metadata, which names Supabase as the authorization server.
+3. It registers itself and sends you to authorize.
+4. You land on the Surnex **consent screen** — "Claude wants to access your Surnex account" — listing the scopes and what the tools can do. Approve or deny.
+5. The client receives a token and connects.
+
+All of it is driven from the URL alone. Approving once is remembered; reconnecting the same client later goes straight through.
+
+## Verifying
+
+Ask the agent to list your organizations. It should call `list_organizations` and return real data.
+
+If it reports no such tool, the server isn't connected. If it reports an authentication error, see [troubleshooting](/mcp/troubleshooting).
+
+## One connection covers every organization
+
+Unlike an API key, the token identifies **you** — so a single connection reaches every organization you're a member of. You don't add one server entry per organization.
+
+Because of that, org-scoped tools take an optional `organization` argument. If you belong to more than one and don't name it, the call is **refused** with a list of your organizations rather than being resolved to a guess.
+
+Name the organization in your prompt when you have several:
+
+> Check rankings for example.com in the Acme organization.
+
+## What the agent can do
+
+The token carries **your role**. A member's connection can't delete a project, because that member can't. An owner's can.
+
+It can never mint an API key, change billing, invite or remove people, or read an organization you don't belong to.
+
+<Warning>
+  It **can** create and delete projects, change tracked keywords, and start audits, backlink refreshes, and research — and those consume your plan quota. `delete_project` is irreversible. Enable tool approval in your client if it supports it.
+</Warning>
+
+## Related
+
+- [MCP authentication](/mcp/auth) — the flow and the consent screen in detail
+- [MCP tools](/mcp/tools)
+- [Troubleshooting](/mcp/troubleshooting)

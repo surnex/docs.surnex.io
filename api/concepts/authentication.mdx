@@ -1,0 +1,77 @@
+---
+title: "Authentication"
+description: "Authenticate with an API key or a Supabase JWT."
+---
+
+The API accepts two credentials. For anything you write, use an API key.
+
+## API key
+
+Send it in the `X-API-Key` header:
+
+```bash
+curl https://api.surnex.io/v1/organizations \
+  -H "X-API-Key: smx_xxxxxxxxxxxx"
+```
+
+Keys are prefixed `smx_` and [created in the dashboard](/api-keys/add). This is the credential for scripts, integrations, and CI.
+
+<Note>
+  Keys authenticate the REST API only. The [MCP server](/mcp/auth) uses OAuth and **refuses** API keys with an explicit 401.
+</Note>
+
+## JWT
+
+The dashboard authenticates with a Supabase-issued JWT in an `Authorization: Bearer` header. It's short-lived and tied to a browser session, so it isn't a practical credential for your own integrations.
+
+Endpoints accept either. Where the docs say "authenticated", both work.
+
+## How the organization is resolved
+
+This is the part worth understanding, because the two credentials behave differently.
+
+**With an API key**, the organization is read from the key itself. The key is bound to one organization at creation, and that binding decides what the request can reach.
+
+**With a JWT**, the token identifies a person, who may belong to several organizations — so the credential alone doesn't answer the question.
+
+Pass `org_id` explicitly in the path wherever the endpoint offers it. Nearly every endpoint is nested under an organization for exactly this reason, and relying on an implicit resolution for a user with several memberships is how lookups end up billed to the wrong organization.
+
+<Note>
+  The [MCP server](/mcp/auth) makes this explicit rather than implicit: org-scoped tools take an optional `organization` argument, and a caller with several memberships who names none gets a refusal listing them, not a guess.
+</Note>
+
+## What a key can reach
+
+A key carries **owner-level** access to its organization. It isn't restricted by the role of whoever created it, and any member can create one.
+
+Verification is a bcrypt comparison, so a resolved key is cached briefly rather than re-hashed on every request. A revoked key stops working immediately — revocation writes a tombstone the cache checks, rather than waiting for the entry to expire.
+
+<Warning>
+  **An API key acts as an owner** within its organization — the highest role, regardless of who created it. Any member can create one, so a key made by a member can delete projects and open the billing portal, neither of which that member can do in the dashboard.
+
+  There are no scoped or read-only keys. Treat them as organization-level credentials: one per consumer, in a secrets manager, never committed.
+</Warning>
+
+## Errors
+
+| Code | Status | Meaning |
+| --- | --- | --- |
+| `UNAUTHORIZED` | 401 | No credential, or it's invalid or expired |
+| `NOT_FOUND` | 404 | Not a member of that organization, or the invitation is unaccepted |
+| `FORBIDDEN` | 403 | A member, but your role can't perform this action |
+
+Note the split. **Not being a member answers 404**, never 403 — a 403 would confirm the organization exists. `FORBIDDEN` is reserved for a member whose role is insufficient, and its message names the role required.
+
+A 401 never says *why*. "Expired", "malformed", and "wrong signature" are all information the caller can't act on differently.
+
+See [Roles and permissions](/organizations/roles) for the full role table.
+
+## Rotating a key
+
+There's no rotate operation. Create the new key, move every consumer to it, confirm it's working via its **Last used** date, then [revoke the old one](/api-keys/revoke). Revoking is immediate and permanent.
+
+## Related
+
+- [Create an API key](/api-keys/add)
+- [Organizations and scoping](/api/concepts/organizations)
+- [Errors](/api/concepts/errors)

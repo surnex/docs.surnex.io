@@ -1,0 +1,45 @@
+---
+title: "Keyword history"
+description: "Inspect one keyword's position over time, and which page ranked on each date."
+---
+
+Open a keyword's history by clicking its card on [Tracking](/tracking/add-keywords), a row in [Position changes](/tracking/changes), or any alert. **Back to tracking** returns you to the list.
+
+The heading is the keyword itself; the subtitle shows the URL currently ranking for it.
+
+## Date range
+
+The picker in the header defaults to the **last 30 days**. Widen it to see long-term trend, narrow it to isolate a change you're investigating.
+
+The range filters both the chart and the table below it.
+
+## Position over time chart
+
+A line chart of position by date, with the axis **inverted** — position 1 sits at the top, so an improving keyword climbs. Gaps in the line are dates with no check: a keyword tracked weekly plots roughly four points a month, and a paused period leaves a hole.
+
+## History table
+
+One row per check, with four columns:
+
+| Column | What it tells you |
+| --- | --- |
+| **Date** | The date the check ran |
+| **Position** | Your rank that day, or `—` if you didn't rank in the top 100 |
+| **SE Results** | How many results the search engine reported for the query |
+| **URL** | Which of your pages ranked on that date |
+
+The **URL** column is the one worth reading carefully. If it changes between rows, Google switched which of your pages it considers most relevant — often the real explanation behind a position swing that looks inexplicable from the number alone. A drop from 4 to 19 that coincides with the URL changing from your product page to a blog post is a relevance problem, not a ranking problem.
+
+**SE Results** is a rough competition signal. A large jump usually means the query's result set changed shape — a new SERP feature, or a broader interpretation of the query — which is worth knowing before you attribute a position change to something you did.
+
+## Empty state
+
+**No history data** — "Position data will appear after the keyword is checked" — appears when the keyword has never been checked, or when the selected range predates its first check. A keyword added today shows nothing until the next scheduled [rank check](/tracking/overview) runs.
+
+Widen the date range before concluding the data is missing.
+
+## What isn't here
+
+- SERP features (beyond AI Overview, shown on the [keyword card](/tracking/add-keywords))
+- Competitor positions for the same keyword — see [Tracking competitors](/tracking/competitors)
+- Export of a single keyword's history; the [Export](/tracking/add-keywords#export) button covers all tracked keywords at their current position, not history

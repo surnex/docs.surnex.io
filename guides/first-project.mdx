@@ -1,0 +1,75 @@
+---
+title: "Set up your first project"
+description: "From signup to your first ranking data, with the decisions that actually matter."
+---
+
+Setting up takes about ten minutes. Three of the decisions are hard to change later, so this guide flags them as they come up.
+
+## 1. Account and organization
+
+[Sign up](/authentication), confirm your email, and sign in. Create an organization — this holds your projects, team, and billing. Until a subscription is added it's on the **free plan**, which allows one project and ten tracked keywords.
+
+An agency running several clients should decide now whether each client gets its own organization. Separate organizations mean separate billing, separate teams, and hard data isolation — but also separate subscriptions. One organization with several projects is simpler and cheaper; separate organizations are right when clients need their own invoices or must not see each other's data.
+
+## 2. Create the project
+
+Three fields matter more than the rest.
+
+**Domain.** `example.com` and `www.example.com` are different hosts to a search engine. Enter the one you actually want measured. A domain can only be tracked once per organization.
+
+**Location and language.** These decide which market's results you're measured in — the first decision worth getting right. You can change them later in [Project settings](/projects/settings), but existing history keeps the locale it was collected under, so a change leaves you comparing two different markets across the boundary.
+
+**Keywords.** At least one is required. Click **Suggest Keywords** and Surnex returns up to 20 the domain already ranks for, with volumes, all pre-selected. That's a reasonable start for an established site. For a new domain, expect nothing back and type your own.
+
+**Competitors** are optional but worth adding now — up to 10. Adding them here means their first data arrives in the same initial collection run, so you have comparisons on day one instead of day two.
+
+## 3. Nothing collects yet
+
+This is the step that surprises people: **creating a project collects nothing immediately.** It creates four schedules, all set to daily at 00:00 UTC, and the first jobs run when those come due — up to 24 hours later.
+
+So a new project's dashboard is empty, and that's expected.
+
+Two ways to see data sooner:
+
+- **Move the run hour forward.** On each feature's **Settings** panel, set the hour to one still ahead of you today.
+- **Run the on-demand features now.** [Audits](/audits/run), [web vitals](/web-vitals/overview), [domain overview](/domains/overview), and [keyword research](/keywords/research) have no schedule at all — they only ever run when you ask, so there's nothing to wait for.
+
+## 4. Set your schedules
+
+Four features re-collect on schedules you control, each from the **Settings** button on its overview page:
+
+All four default to **every day at 00:00 UTC** — the most expensive setting available, and rarely what you want on every feature.
+
+The **Timezone** is applied, so set the hour in your own zone. Cadences are real intervals from the last run, not calendar rules: "once a week" is seven days later, not a fixed weekday.
+
+Worth changing on day one:
+
+- **Backlinks** to weekly. Link profiles barely move day to day, and each snapshot spends backlink-lookup quota.
+- **Rank tracking** to every 3 days if you're on a smaller plan. Most sites don't move enough daily to justify it.
+- **Local SEO** off, or rarely, unless you have a physical location.
+
+## 5. First real work
+
+Once the initial run has finished, in this order:
+
+1. **[Audit issues](/audits/issues)** — the most actionable list you'll have on day one. Fix errors first, sitewide patterns before one-offs.
+2. **[Domain overview → Top Keywords](/domains/overview)** — what you already rank for. Anything at positions 11–20 with real volume is close to page one and cheap to move.
+3. **[Tracking comparison](/tracking/competitors)** — check the competitors you added actually appear. A domain dashed on most of your keywords isn't a search competitor, whatever it is commercially.
+4. **[AI Overviews](/ai/google-ai-overviews)** — read the trigger rate. Near zero means AI search isn't affecting your market yet and you can ignore that section for now.
+
+## 6. Notifications
+
+Turn on **Usage Limit Warning** in [notification preferences](/notifications/preferences). Exhausting a daily lookup limit can stop scheduled collection, and a missed rank check is a permanent gap — history can't be back-filled. With all four schedules on daily by default, a Free or Pro organization can reach a limit faster than expected.
+
+The completion notifications — audit finished, snapshot finished — fire on every scheduled run. Useful while you're waiting for something specific, noise after that.
+
+## What to expect after a week
+
+You'll have position history worth reading, a second [audit](/audits/compare) to compare against your first, and enough backlink snapshots for the [trend chart](/backlinks/overview) to mean something.
+
+Before then, most charts have one data point. That's not a fault — it's what accumulating history looks like.
+
+## Next
+
+- [Build a keyword tracking set](/guides/track-keywords)
+- [Fix technical SEO issues](/guides/fix-audit-issues)

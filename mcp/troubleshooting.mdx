@@ -1,0 +1,140 @@
+---
+title: "Troubleshooting MCP"
+description: "Fix connection, authentication, and tool errors on the Surnex MCP server."
+---
+
+## The agent says it has no Surnex tools
+
+The server isn't connected. Check in order:
+
+1. **Restart the client.** Most read MCP config only at startup, so an edit made while running hasn't been picked up.
+2. **Check the URL** is exactly `https://api.surnex.io/mcp`.
+3. **Check the transport** is `http` — the server doesn't support stdio.
+4. **Validate the JSON.** A trailing comma or missing brace makes the client skip the entry silently, with no error shown.
+
+Verify by asking the agent to list your organizations. It should call `list_organizations`.
+
+## "This endpoint uses OAuth, not API keys"
+
+You've configured an API key. The MCP server doesn't accept them — it uses [OAuth](/mcp/auth).
+
+Remove the credential entirely from your config. There's nothing to replace it with; the client obtains a token itself:
+
+```json
+{
+  "mcpServers": {
+    "surnex": {
+      "type": "http",
+      "url": "https://api.surnex.io/mcp"
+    }
+  }
+}
+```
+
+<Warning>
+  The dashboard's **Settings → API Keys** page still shows MCP snippets with an `X-API-Key` header. Those are stale and produce exactly this error. Ignore them and use the config above.
+</Warning>
+
+You'll see the same message if a `smx_`-prefixed key is sent as a bearer token — it's recognized and refused by name rather than failing as an invalid token.
+
+## The consent screen never appears
+
+The client should open a browser on first use. If nothing happens:
+
+- **Check the client supports OAuth for MCP.** Older versions handle only header-authenticated servers and will stall on the 401.
+- **Restart the client** after editing config — most read it only at startup.
+- **Check the URL** is exactly `https://api.surnex.io/mcp`.
+
+Discovery depends on the client reading the `WWW-Authenticate` header on the 401 and fetching the metadata. You can confirm the server's half is working:
+
+```bash
+curl -i https://api.surnex.io/mcp
+curl https://api.surnex.io/.well-known/oauth-protected-resource
+```
+
+The first should return 401 with a `WWW-Authenticate` header pointing at the metadata path; the second should return a JSON document naming the authorization server. If both look right, the problem is on the client side.
+
+## Access drops about once an hour
+
+The token was issued without `offline_access`, so there's no refresh token and the access token expires after an hour.
+
+Reconnect and make sure the consent screen lists **"Stay connected without asking you again every hour"**. If your client requests scopes explicitly, it needs `offline_access`.
+
+## Token errors
+
+| Message | Cause |
+| --- | --- |
+| Token has no expiry | A non-expiring token is refused by the bearer-auth contract |
+| Token audience does not include this resource | Issued for something else — the confused-deputy case |
+| Token from another issuer | Not issued by this Surnex project's Supabase |
+| Expired token | Reconnect; with `offline_access` this should refresh itself |
+
+Reconnecting the client resolves nearly all of these.
+
+## "You belong to more than one organization, so this call is ambiguous"
+
+Not an error — the server refusing to guess. The message lists your organizations with their ids.
+
+Name the one you mean in your prompt:
+
+> Check rankings for example.com in the Acme organization.
+
+Org-scoped tools take an optional `organization` argument, by name or id. It's resolved automatically only when you belong to exactly one. See [MCP authentication](/mcp/auth#choosing-an-organization).
+
+## The agent can't see a project
+
+Two possibilities:
+
+- **It's in an organization you're not a member of.** The token acts as you, so it reaches your memberships and nothing else. A project you can't open in the dashboard isn't reachable here either.
+- **You have several organizations and the tool resolved a different one.** Name the organization explicitly.
+
+A project you can't access returns "not found" rather than "not yours" — confirming the id exists would leak the fact being protected. So a not-found isn't proof of deletion.
+
+## A tool is refused but the data exists
+
+The token carries **your role**, so the agent can only do what you can. A member's connection can't delete a project; an owner's can. See [Roles and permissions](/organizations/roles).
+
+Tools can also never mint an API key, change billing, or invite and remove people, whatever your role.
+
+## Tools return empty data
+
+Usually not an error — most Surnex data is collected in the background, so a tool returns what's stored:
+
+- **A new project** has nothing until its first collection run finishes. Rankings arrive in minutes; a full audit can take an hour.
+- **Audits and web vitals don't run on a schedule.** `get_audit_summary` returns the last crawl, which may be old. Have the agent call `start_site_audit` for fresh data.
+- **Ranking changes need two checks.** A project on its first day has no movement to report.
+
+See [How data collection works](/projects/data-collection).
+
+## Quota errors
+
+Tools that call external services fail when your plan allowance is exhausted:
+
+- Research and SERP tools draw on daily keyword lookups
+- `start_site_audit` and `trigger_web_vitals_check` share the monthly audit allowance
+- `refresh_backlinks` and `get_backlink_gap` draw on backlink lookups
+- AI search tools draw on their own allowance
+
+Check `get_usage_summary` or the [Usage](/billing/usage) page. Daily limits reset the next day; monthly ones at the start of the period.
+
+## The agent did something you didn't want
+
+Several tools write, and `delete_project` is irreversible. If your client supports tool approval, turn it on — it's the only safeguard, since the API applies no confirmation step of its own.
+
+Deleted project data cannot be recovered. Ranking and backlink history is accumulated daily and there's no back-fill.
+
+## Wrong locale in results
+
+Locale-taking tools default to **location `2840`** (United States) and **language `en`**. They don't automatically inherit your project's [search locale](/projects/settings).
+
+State the market in your prompt if it isn't the US.
+
+## Rate limits
+
+The REST API is rate-limited per credential. Sustained heavy tool use — an agent looping over many projects — can hit a limit. Narrow the scope of the request and try again.
+
+## Related
+
+- [Connect the MCP server](/mcp/connect)
+- [MCP authentication](/mcp/auth)
+- [Rate limits](/api/concepts/rate-limits)

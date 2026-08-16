@@ -1,0 +1,77 @@
+---
+title: "MCP overview"
+description: "Let Claude, ChatGPT, and other AI agents work with your Surnex data directly."
+---
+
+Surnex exposes an MCP (Model Context Protocol) server at `https://api.surnex.io/mcp`. Connect it to an AI client and the agent can query and act on your SEO data directly — reading rankings, running audits, adding keywords — without you copying figures into a chat.
+
+## What it gives an agent
+
+**88 tools** across 14 areas, covering essentially everything in the dashboard:
+
+| Area | Tools | Examples |
+| --- | --- | --- |
+| Rank tracking | 19 | Positions, changes, history, alerts, tags, competitor comparison |
+| Audits | 10 | Start a crawl, issues, page detail, compare, duplicate content |
+| Backlinks | 10 | Summary, referring domains, anchors, new/lost, gap, refresh |
+| Keywords | 10 | Research, suggestions, domain keywords, SERP, saved keywords |
+| GEO | 7 | AI visibility, top competitors, topics, LLM responses |
+| AI search | 5 | AI Mode, ChatGPT visibility, LLM benchmarking, citation gap |
+| Local SEO | 5 | Local keywords, rankings, business profile |
+| Onboarding | 5 | List organizations and projects, create and delete projects |
+| Domains | 4 | Overview, top keywords, top pages, competitors |
+| Content | 4 | Meta tags, content brief, grammar, paraphrase |
+| Competitors | 3 | List, add, remove |
+| Trends | 3 | Explore, trending now, related queries |
+| Web vitals | 2 | Trigger a check, read results |
+| Tech stack | 1 | Detected technologies |
+
+Some tools go beyond the dashboard — `generate_meta_tags` and `generate_content_brief` have no UI equivalent.
+
+## Reads and writes
+
+Most tools read. Some **change your account**: `create_project`, `delete_project`, `add_tracked_keywords`, `remove_tracked_keywords`, `add_competitor`, `remove_competitor`, `add_geo_topics`, `remove_geo_topics`, `save_keywords`, `delete_saved_keywords`, `start_site_audit`, `refresh_backlinks`, and `trigger_web_vitals_check`.
+
+<Warning>
+  `delete_project` permanently destroys a project and all its history, and an agent can call it — subject to your role, since the token acts as you. Several tools also consume plan quota: `start_site_audit`, `refresh_backlinks`, and the research tools all draw on your allowance. Configure your client to confirm before running tools if it supports that.
+</Warning>
+
+The consent screen states the grant before you approve it, including that audits and research cost money against your plan.
+
+Tools are also annotated — read-only, destructive, idempotent — so a client that supports it can confirm only the calls that warrant it. `delete_project` is the one marked destructive.
+
+## What it's good for
+
+The value is in the questions that would otherwise take several pages and a spreadsheet:
+
+- *"Which keywords dropped out of the top 10 this month, and what's the search volume we lost?"*
+- *"Compare our backlink profile to these three competitors and tell me the best link targets."*
+- *"Read our latest audit and write a prioritized fix list for the dev team."*
+- *"We're publishing about X — what should the page cover, and who currently owns that topic in AI answers?"*
+
+An agent can chain tools: pull the audit, cross-reference the affected pages against ranking data, and rank the fixes by traffic at risk. That's the actual advantage over the dashboard.
+
+## Authentication
+
+The server uses **OAuth**, not API keys. Your client sends you through a consent screen and receives a token that identifies **you** — so the agent inherits your [role](/organizations/roles) and reaches every organization you belong to.
+
+API keys are explicitly refused by this endpoint. See [MCP authentication](/mcp/auth).
+
+Because a token can span several organizations, org-scoped tools take an optional `organization` argument. Belong to more than one and name none, and the call is refused with a list rather than resolved to a guess.
+
+## Getting started
+
+<CardGroup cols={2}>
+  <Card title="Connect the server" icon="plug" href="/mcp/connect">
+    Setup for Claude Code, Claude Desktop, Cursor, and Windsurf.
+  </Card>
+  <Card title="Authentication" icon="key" href="/mcp/auth">
+    The OAuth flow, the consent screen, and what an agent can reach.
+  </Card>
+  <Card title="Tools" icon="wrench" href="/mcp/tools">
+    The full inventory, and which ones write.
+  </Card>
+  <Card title="Playbooks" icon="book" href="/mcp/playbooks">
+    Prompt patterns that work.
+  </Card>
+</CardGroup>

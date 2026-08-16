@@ -1,0 +1,92 @@
+---
+title: "Errors"
+description: "Every error code the API returns, and how to handle it."
+---
+
+Errors use the same envelope as successful responses, with `success: false`:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Project not found.",
+    "details": {}
+  }
+}
+```
+
+Branch on `error.code` — it's a fixed enum and stable. `message` is human-readable and may be reworded; `details` is optional.
+
+## The codes
+
+There are ten, and that's the complete set:
+
+| Code | Status | Meaning |
+| --- | --- | --- |
+| `BAD_REQUEST` | 400 | The request parsed but asked for something incoherent |
+| `UNAUTHORIZED` | 401 | Missing, malformed, or expired credential |
+| `FORBIDDEN` | 403 | Authenticated and a member, but your role can't do this |
+| `NOT_FOUND` | 404 | Doesn't exist, **or** exists and isn't yours |
+| `CONFLICT` | 409 | Already exists |
+| `VALIDATION_ERROR` | 422 | The body failed schema validation |
+| `USAGE_LIMIT_EXCEEDED` | 402 | A plan allowance is exhausted |
+| `RATE_LIMITED` | 429 | Too many requests |
+| `UPSTREAM_ERROR` | 502 | A provider Surnex depends on failed |
+| `INTERNAL_ERROR` | 500 | Unexpected server error |
+
+## The distinctions that matter
+
+### 402 vs 429 — waiting only fixes one
+
+`USAGE_LIMIT_EXCEEDED` (402) means the **plan allowance** is exhausted. Waiting a minute changes nothing; the daily counter resets tomorrow and the monthly one at the start of the period. Upgrading fixes it now. The dashboard turns this code into its upgrade prompt, which is why it doesn't share a code with rate limiting.
+
+`RATE_LIMITED` (429) means you're going **too fast**. Waiting *is* the fix, and the response tells you how long — see [Rate limits](/api/concepts/rate-limits).
+
+Never retry a 402 on a short backoff, and never treat a 429 as a billing problem.
+
+### 403 vs 404 — a deliberate asymmetry
+
+`NOT_FOUND` is returned both for things that don't exist and for things that exist but aren't yours. A project id from another organization answers 404, never 403, because a 403 would confirm the id is real — which is the fact being protected.
+
+The same applies to organizations: if you're not a member, you get *"Organization not found."*
+
+`FORBIDDEN` is reserved for the case where you can already see the resource and simply can't perform this action — a member doing an owner's job. The message names the role required, for example *"This action requires the owner role."*
+
+So: a 404 doesn't prove deletion. Check you're using the right ids before concluding anything.
+
+An invitation you haven't accepted also reads as 404. The membership row exists to hold the invitation, not to grant access.
+
+### 502, not 503
+
+An upstream failure — the SERP provider, the payment processor, the mail service — answers `UPSTREAM_ERROR` with a **502**. It's Surnex reporting someone else's failure, and it's usually worth retrying.
+
+## Retry policy
+
+| Codes | Retry? |
+| --- | --- |
+| `UNAUTHORIZED`, `FORBIDDEN`, `NOT_FOUND`, `CONFLICT`, `VALIDATION_ERROR`, `BAD_REQUEST` | **No** — the request is wrong |
+| `RATE_LIMITED` | Yes, after `Retry-After` |
+| `USAGE_LIMIT_EXCEEDED` | Only after the quota window resets |
+| `UPSTREAM_ERROR`, `INTERNAL_ERROR` | Yes, with exponential backoff |
+
+```python
+NO_RETRY = {"UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND",
+            "CONFLICT", "VALIDATION_ERROR", "BAD_REQUEST"}
+
+def call(fn, attempts=4):
+    delay = 1
+    for i in range(attempts):
+        body = fn()
+        if body.get("success"):
+            return body["data"]
+        code = body.get("error", {}).get("code")
+        if code in NO_RETRY or i == attempts - 1:
+            raise RuntimeError(f"{code}: {body['error']['message']}")
+        time.sleep(delay)
+        delay *= 2
+```
+
+## Job failures aren't API errors
+
+A background job that fails returns a **successful** response containing a job whose `status` is `failed`, with an error message attached. Check the job status, not just the HTTP status. See [Jobs and polling](/api/concepts/jobs).

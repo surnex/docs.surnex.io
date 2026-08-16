@@ -1,0 +1,74 @@
+---
+title: "Notification preferences"
+description: "Choose which events notify you and through which channels."
+---
+
+**Settings → Notifications** is a grid: events down the side, channels across the top. Tick the combinations you want.
+
+## Channels
+
+| Channel | Setup |
+| --- | --- |
+| **In-App** | None — delivers to the [Notification center](/notifications/view) |
+| **Email** | None — sent to your account address |
+| **Slack** | Requires an incoming webhook URL (`https://hooks.slack.com/services/…`) |
+| **Discord** | Requires a webhook URL (`https://discord.com/api/webhooks/…`) |
+
+Slack and Discord must be configured before they can be selected. Until you've added a webhook URL, their column shows *"Enable [channel] in settings first"* — click the channel to open its settings panel and paste the URL.
+
+Saving a channel confirms with *"[Channel] settings saved"*.
+
+## Events
+
+### Ranking
+
+| Event | Fires when |
+| --- | --- |
+| **Rank Improved** | A keyword improved by 5+ positions |
+| **Rank Dropped** | A keyword dropped by 5+ positions |
+| **Entered Top 3** | A keyword entered positions 1–3 |
+| **Entered Top 10** | A keyword entered positions 1–10 |
+| **Lost Top 10** | A keyword fell out of the top 10 |
+| **Lost Top 100** | A keyword stopped ranking |
+
+These match the [ranking alerts](/tracking/alerts) exactly — the thresholds are the same, and these preferences only control *delivery*. The alerts themselves are always generated and always appear in the feed.
+
+### Audits
+
+**Audit Complete** — a site audit finished processing.
+
+### Backlinks
+
+| Event | Fires when |
+| --- | --- |
+| **New Backlinks** | New backlinks discovered |
+| **Lost Backlinks** | Previously known backlinks lost |
+| **Referring Domains Dropped** | Referring domains fell by 10% or more |
+| **Referring Domains Spike** | Referring domains rose by 50% or more — flagged as potential spam |
+| **Domain Rank Dropped** | Domain rank fell by 50+ points |
+
+**Referring Domains Spike** is the one worth enabling even if you turn off the rest. A sudden 50% jump in referring domains is more often a negative-SEO or spam-link event than a marketing success, and it's the kind of thing you want to hear about immediately.
+
+### AI Visibility, Local SEO, Web Vitals
+
+- **Snapshot Complete** — an AI visibility snapshot finished
+- **Rankings Check Complete** — a local SEO check finished
+- **Vitals Check Complete** — a Core Web Vitals audit finished
+
+### Reports
+
+**Scheduled Report Ready** — an [automated report](/reports/automation) has been generated.
+
+### Account
+
+**Usage Limit Warning** — you're approaching your plan's [usage limits](/billing/usage). Worth leaving on: hitting a limit silently stops data collection.
+
+## Choosing what to enable
+
+The completion events — audit, snapshot, local, vitals — fire every time a scheduled job finishes. On a project checking daily, that's a notification a day per feature saying nothing happened of note. Enable them while you're waiting on a specific run, and turn them off once you trust the schedule.
+
+The events genuinely worth pushing to email or Slack are the ones you'd act on: **Lost Top 10**, **Lost Top 100**, **Referring Domains Spike**, **Domain Rank Dropped**, and **Usage Limit Warning**. Everything else reads fine in the [Notification center](/notifications/view) when you next look.
+
+## Permissions
+
+Changing organization notification rules requires the **owner** or **admin** role. Members can view them and read their own notifications. See [Roles and permissions](/organizations/roles).

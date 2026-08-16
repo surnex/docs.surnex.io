@@ -1,0 +1,52 @@
+---
+title: "Backlink list"
+description: "Every individual link pointing at your domain, with anchor, authority, and follow status."
+---
+
+**Backlinks → List** is the raw inventory: one row per link, not per domain. The subtitle names the domain being profiled.
+
+## Columns
+
+| Column | What it is |
+| --- | --- |
+| **Source URL** | The page the link is on |
+| **Source Page** | That page's title |
+| **Anchor Text** | The clickable text of the link |
+| **Type** | The kind of link |
+| **DA** | Domain authority of the linking site |
+| **Spam** | Spam score of the linking site |
+| **Follow** | Whether the link passes authority |
+
+25 rows per page. The **Filter by URL or anchor…** box searches both the source URL and the anchor text.
+
+## Reading it
+
+**Follow** is the first thing to check. A nofollow link doesn't pass authority, so a page full of high-DA nofollow links is worth less than the DA column suggests. Both still send referral traffic.
+
+**DA** and **Spam** together tell you whether a link helps or hurts. High DA with a low spam score is what you want; high spam scores concentrated in one region of your profile are worth investigating, particularly if you didn't earn those links deliberately.
+
+**Anchor Text** matters in aggregate rather than per row — see [Anchor text](/backlinks/anchors) for the distribution view, which is where over-optimization shows up.
+
+**Source Page** is the fastest way to judge relevance. A link from a page about your subject is worth more than one from an unrelated page on the same domain.
+
+## Filtering
+
+The filter is the practical tool on this page, since the list can run to thousands of rows:
+
+- Paste a domain to see every link from one site
+- Search a brand term to find anchor-text mentions
+- Search a URL fragment to see which of your pages a link points at
+
+## States
+
+| What you see | Why |
+| --- | --- |
+| **Analyzing backlinks…** | A run is in progress; the page updates itself |
+| **No analysis yet** — "Run a backlink analysis first to see individual backlinks" | Run one from the [overview](/backlinks/overview) |
+| **No backlinks found** — "No backlinks match your current filters" | Clear the filter |
+
+## When to use this page
+
+Use [referring domains](/backlinks/referring-domains) to judge your profile, and this page to investigate a specific link — verifying a placement went live, checking what anchor a partner used, or auditing links from a single site.
+
+For a full offline copy, use **Export** on the [overview](/backlinks/overview).

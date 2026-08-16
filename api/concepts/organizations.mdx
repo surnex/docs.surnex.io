@@ -1,0 +1,84 @@
+---
+title: "Organizations and scoping"
+description: "How organization context is resolved and enforced on every request."
+---
+
+Every resource belongs to an organization, and the API enforces that boundary on every request. Cross-organization access isn't a permission you can be granted — it doesn't exist.
+
+## Three ways the organization is decided
+
+It's never guessed. Exactly one of these applies to any request:
+
+**From the path.** `/v1/organizations/{orgId}/…` — the id is right there, and your membership of it is checked.
+
+**From the project.** `/v1/projects/{projectId}/…`, which is most of the API. The organization is the project's — derived, not asserted — and membership of *that* is what grants access.
+
+**From an explicit query parameter.** Routes with neither in the path — live SERP lookups, keyword research, content generation, trends. These are billable, so with a user token the organization must be named as `org_id`:
+
+```bash
+curl "https://api.surnex.io/v1/keywords/serp?org_id={orgId}&keyword=seo+tools" \
+  -H "Authorization: Bearer <token>"
+```
+
+Omitting it returns `BAD_REQUEST`: *"org_id is required. This call is billed to an organization, so it cannot be inferred."*
+
+<Note>
+  That third case exists because of a bug in the previous implementation. Routes with no organization in the path resolved it as "the user's first membership", from an unordered query — so for users belonging to two organizations, lookups were billed to whichever row came back first, and the plan limit checked was that organization's too. Guessing is no longer available.
+</Note>
+
+An **API key** short-circuits all three: it's bound to one organization and that's the answer regardless of what the request says. A key for organization A cannot name organization B, because there's nowhere in the request to put a different answer.
+
+## Membership, and what "not a member" looks like
+
+Two checks run:
+
+1. **Are you a member, and have you accepted?** An invitation you haven't accepted is not membership — the row exists to hold the invitation, not to grant access.
+2. **Does the resource actually belong to that organization?**
+
+Failing either returns **`NOT_FOUND`**, not `FORBIDDEN`. A 403 would confirm the organization or project exists, which is the fact being protected.
+
+So a 404 doesn't prove deletion. Check your ids, and check the invitation was accepted, before concluding anything.
+
+## Roles are hierarchical
+
+`owner ⊃ admin ⊃ member`. A check for admin passes for an owner.
+
+Failing a **role** check is a genuine `FORBIDDEN` (403), with a message naming what's required — *"This action requires the owner role."* The distinction from 404 is deliberate: you can already see the organization, so hiding it now would only confuse. What you can't do is this action.
+
+| Operation | Minimum role |
+| --- | --- |
+| Read anything in the organization | member |
+| Add and remove tracked keywords, run research, build reports | member |
+| **Create a project** | **admin** |
+| Delete a project | admin |
+| Invite, remove, and re-role members | admin |
+| Rename the organization | admin |
+| Billing checkout and portal | owner |
+| Delete the organization | owner |
+
+Creating a project requires admin because a project counts against the plan.
+
+<Warning>
+  An **API key acts as an owner** within its organization. It isn't limited by the role of whoever created it, and any member can create one — so a key made by a member can delete projects and change billing. See [Authentication](/api/concepts/authentication).
+</Warning>
+
+## An organization always keeps one owner
+
+The last owner can't be demoted or removed. Attempting it fails rather than leaving an organization nobody can administer.
+
+Owner *can* be granted to someone else — unlike the previous implementation, it's a normal role change. What can't happen is the count reaching zero.
+
+## Working across organizations
+
+There's no cross-organization endpoint.
+
+- **With an API key** — one key per organization, selected per request in your client.
+- **With a user token** — `GET /v1/organizations` lists your accepted memberships; loop and issue scoped requests for each.
+
+The [MCP server](/mcp/auth) differs: its OAuth token identifies a person, so one connection reaches every organization they belong to, chosen per call with an `organization` argument.
+
+## Related
+
+- [Authentication](/api/concepts/authentication)
+- [Errors](/api/concepts/errors)
+- [Roles and permissions](/organizations/roles)

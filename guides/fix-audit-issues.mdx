@@ -1,0 +1,74 @@
+---
+title: "Fix technical SEO issues"
+description: "Crawl the site, triage by impact, fix, and verify the fix landed."
+---
+
+A site audit produces a long list. This guide is about working it in the order that moves the most for the least effort.
+
+## 1. Crawl with enough coverage
+
+On [Audits](/audits/overview), click **Run Audit**. The target URL is pre-filled with your domain; the field that matters is **Max pages to crawl**.
+
+The default of 50 is a sample. It reliably catches **sitewide** problems — a template with no meta description, missing schema, mixed content — because those repeat on every page.
+
+It won't catch **per-page** problems. Duplicate titles need both duplicates crawled. Orphan pages need a crawl broad enough to establish what links where. Thin content needs the thin pages themselves.
+
+Set the limit **above your real page count** for a proper audit. One audit costs the same against your monthly allowance whatever the page limit, so there's no saving in running several small crawls.
+
+## 2. Read the score, then ignore it
+
+The [score](/audits/overview#the-audit-score) starts at 100 and deducts −2 per error (capped at 50), −0.5 per warning (capped at 30), and −0.1 per notice (capped at 10), then adds +5 each for HTTPS, `robots.txt`, and a sitemap.
+
+Because the deductions cap, a site with 25 errors scores the same as one with 250. It's fine for reporting a trend and useless for deciding what to fix. Work from the issue list.
+
+## 3. Fix in this order
+
+**Errors first.** Missing titles, missing meta descriptions, missing H1s, broken internal links, redirect loops, broken images, mixed content, missing HTTPS. These are −2 each and genuinely damaging.
+
+Redirect loops and mixed content are the sharpest of these — a looping page is completely inaccessible, and mixed content breaks the page for users as well as search engines.
+
+**Sitewide patterns before one-offs.** An issue appearing on every page is one template change. Fixing a missing meta description in a layout file might clear 200 issues; fixing one page clears one. Sort your effort by issues-per-change, not by issue count.
+
+**Then the three bonuses.** HTTPS, `robots.txt`, and a sitemap are +5 each — 15 points for what is usually an afternoon.
+
+**Then warnings, largest groups first.** Titles and descriptions outside 50–60 and 120–155 characters, duplicates, missing canonicals, missing alt text, thin content under 300 words, slow pages over 3,000 ms, large pages over 3 MB.
+
+**Notices last, and often not at all.** `noindex` and `robots.txt` blocks are usually deliberate. Read them as a checklist — "did I mean to exclude these?" — rather than as defects. They're also the first thing to check when a page mysteriously won't rank.
+
+## 4. Diagnose with page detail
+
+When an issue doesn't make sense, open the [page detail](/audits/pages) for the affected URL. It shows the measurement behind the finding.
+
+Three fields do most of the work:
+
+- **Word Count** — a page flagged as thin that reads as substantial usually renders its text client-side, where the crawler never sees it.
+- **Canonical URL** — a canonical pointing at a *different* page tells search engines not to index this one. Easily missed, and a common cause of a page vanishing.
+- **Render-Blocking Scripts** — normally the direct cause of a high load time, and a smaller fix than the load time suggests.
+
+## 5. Verify
+
+The score belongs to the crawl that produced it and never recalculates. After deploying fixes, run a **second audit with the same target URL and the same page limit**, then use [Compare audits](/audits/compare).
+
+Matching the page limit is essential. A 500-page crawl compared against a 50-page one reports hundreds of "new" issues that were always there and simply weren't crawled before. Nearly every confusing comparison is two crawls of different scope.
+
+Read **Resolved Issues** and **New Issues** rather than the score change. A crawl that resolves 30 and introduces 28 barely moves the score while telling you something important about your release process.
+
+The category table confirms the rest: work on meta tags should show `meta_tags` falling and everything else flat.
+
+## 6. Keep it up
+
+Audits **don't run on a schedule**. One runs at project creation and after that only when you click **Run Audit** — an audit score months old usually means nobody has crawled since.
+
+Run one after any significant deploy, and monthly otherwise. Because every audit is kept, you accumulate a record of what changed and when, which is what lets you find the release that caused a regression.
+
+## Performance is measured elsewhere
+
+Audit performance figures come from a single crawl request. For real diagnosis use [Web vitals](/web-vitals/overview), which runs a full Lighthouse audit and reports LCP, INP, CLS, and four supporting metrics with specific opportunities.
+
+Use the audit to find *which* pages are slow, and web vitals to work out *why* on the worst ones. Note that vitals checks draw on the same monthly allowance as audits.
+
+## Next
+
+- [Audit issues](/audits/issues) — every issue type, threshold, and fix
+- [Compare audits](/audits/compare)
+- [Web vitals](/web-vitals/overview)

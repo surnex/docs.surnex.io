@@ -1,0 +1,77 @@
+---
+title: "Usage and limits"
+description: "What you've consumed this period, and what happens when you hit a limit."
+---
+
+**Settings → Billing** has a **Usage** section showing consumption against your plan's limits.
+
+## What's tracked
+
+| Metric | Period | Notes |
+| --- | --- | --- |
+| **Projects** | Current | Total projects in the organization |
+| **Keywords Tracked** | Current | Total tracked keywords, active and paused |
+| **Site audits** | Monthly | Site audit crawls |
+| **Keyword lookups** | Daily | Research, suggestions, SERP lookups, rank checks |
+| **Backlink lookups** | Daily | Backlink refreshes and gap analyses |
+| **Domain lookups** | Daily | Domain overview and analysis |
+
+Each is shown against its plan limit. On Enterprise, limits read **Unlimited**.
+
+<Note>
+  **Domain lookups have their own daily allowance** — 10 on Free, 100 on Pro, 500 on Team — separate from keyword and backlink lookups. Analysing a competitor's domain draws on it.
+
+  **Web vitals checks are not metered.** They have no plan-limit check, only a one-at-a-time guard per project.
+</Note>
+
+## Two kinds of limit
+
+**Standing limits** — projects, tracked keywords, team members — count what currently exists. Deleting a project frees its slot immediately.
+
+**Consumption limits** — audits per month, lookups per day — count actions taken in a window. They reset when the window rolls over, and you can't free them by deleting anything.
+
+Knowing which kind you've hit tells you what to do. A project limit is fixed by deleting; an audit limit is fixed by waiting or upgrading.
+
+## Scheduled collection consumes quota
+
+This is the part that surprises people. Every scheduled check draws on the same allowance as a manual action:
+
+- A daily [rank check](/tracking/overview) on 500 keywords consumes keyword lookups **every day**
+- A [backlink snapshot](/backlinks/overview) consumes backlink lookups on its cadence — daily on a new project until you lower it
+- [GEO](/geo/overview) and [local SEO](/local/overview) snapshots consume theirs daily by default
+
+All four schedules default to **daily**, which is the most expensive setting available. Lowering the ones you don't watch closely is the single biggest saving.
+
+<Warning>
+  Exhausting a daily lookup limit doesn't only block you from doing things by hand — it can stop scheduled collection. A rank check that doesn't run leaves a gap in your position history, and history can't be back-filled. Enable the **Usage Limit Warning** in [notification preferences](/notifications/preferences) so you hear about it first.
+</Warning>
+
+## At the limit
+
+| Limit reached | What you see |
+| --- | --- |
+| Projects | **Add Project** greys out; clicking it goes to Billing |
+| Tracked keywords | **Add Keywords** shows a padlock and *"Upgrade to track more keywords"* |
+| Site audits | New crawls are refused for the month |
+| Daily lookups | Research and scheduled checks fail until the next day |
+
+An upgrade prompt pins to the bottom of the page while you're at a limit.
+
+## Reducing consumption
+
+In the order that costs you least:
+
+1. **Lower check frequencies.** Rank tracking from daily to weekly cuts that consumption by about 85%, and most sites don't move enough day to day to justify daily checks. Set it per feature on the relevant overview page.
+2. **Pause keywords you're not acting on.** Stops the checks, keeps the history. Note a paused keyword still counts toward the tracked-keyword *limit* — this saves lookups, not slots.
+3. **Batch audits.** One audit costs the same at any page limit, so one 1,000-page crawl beats ten 100-page crawls.
+4. **Consolidate projects.** Each project runs its own scheduled collection, so a project nobody looks at is a daily cost.
+
+## Who can see it
+
+Every member can view usage, whatever their role — you need it to know whether an audit will run. Only the owner can change the plan. See [Roles and permissions](/organizations/roles).
+
+## Related
+
+- [Plans](/billing/plans) — the full limit table
+- [How data collection works](/projects/data-collection) — what runs on a schedule
+- [Manage your subscription](/billing/subscription) — upgrading

@@ -1,0 +1,93 @@
+---
+title: "Create a project"
+description: "Add a domain to track, seed its keywords, and pick the market you want to be measured in."
+---
+
+A project is one domain, measured in one market. Everything Surnex collects — rankings, backlinks, audits, AI visibility — belongs to a project.
+
+Open the form from **Projects → Add Project** (it slides in from the right), or from the second step of [onboarding](/onboarding/overview). The same form is used in both places.
+
+## Fields
+
+<Steps>
+  <Step title="Project name">
+    A label for your own use, for example `My Website` or a client name. Required. It appears on the project card and in the sidebar, and you can rename it later without affecting collected data.
+  </Step>
+
+  <Step title="Domain">
+    The site to track, for example `example.com`. Required.
+
+    You can paste a full URL — Surnex strips `https://`, any path, and any query string before validating, so `https://example.com/blog?ref=x` is accepted as `example.com`. The result must be a bare domain with a valid TLD; if it isn't, you'll see `Invalid domain: "..."`.
+
+    Enter the domain you actually want measured. `example.com` and `www.example.com` are different hosts to a search engine.
+
+    A domain can only be tracked **once per organization**. Adding one that's already tracked fails with *"A project for example.com already exists."* To track the same domain in two markets, use two organizations.
+  </Step>
+
+  <Step title="Keywords for rank tracking">
+    **At least one keyword is required** — the form won't submit without one, and shows *"At least 1 keyword is required. Add keywords manually or use suggestions."* until you add one.
+
+    Two ways to add them, and you can combine both:
+
+    **Suggest Keywords** — click the button and Surnex looks up the domain's existing keyword profile and returns up to 20 suggestions, each with its monthly search volume. All 20 arrive pre-selected; untick any you don't want, or use **Select all** / **Deselect all**. If the domain is new or has no organic presence, you'll get *"No keyword suggestions found for this domain"* — type your keywords in manually instead.
+
+    **Add keywords** — type a keyword and press <kbd>Enter</kbd> to add it as a tag. Repeat for each one.
+
+    The two lists are merged and de-duplicated on submit, so a keyword you both selected and typed is only tracked once.
+
+    <Note>
+      Suggestions are fetched for the location and language currently selected below. Change those first if you're targeting a market other than the default.
+    </Note>
+  </Step>
+
+  <Step title="Location">
+    The market whose search results you want to be measured in. Defaults to **United States**. Click the field and type to filter the list of roughly 185 locations — countries, and major cities and regions.
+  </Step>
+
+  <Step title="Language">
+    The language of the search results. Defaults to **English**. Same searchable dropdown, around 65 languages.
+  </Step>
+
+  <Step title="Search Engine">
+    **Google** (the default), **Bing**, or **Yahoo**.
+  </Step>
+
+  <Step title="Competitor domains (optional)">
+    Type a competitor domain and press <kbd>Enter</kbd>, up to **10**. Each is validated as a domain the same way your own is, so a typo is rejected as you add it rather than at submit.
+
+    Competitors are optional here and can be added later on the [Competitors](/competitors/add) page, but adding them now means their first data is collected in the same initial run as yours — you get comparisons on day one instead of day two.
+  </Step>
+</Steps>
+
+Click **Create Project**. You'll see a confirmation naming how many keywords were tracked, and you're taken straight to the new project's dashboard.
+
+<Warning>
+  **The API accepts only the name, the domain, and the schedules.** Everything else the form collects — keywords, competitors, location, language, search engine — is not part of the create request and is discarded rather than rejected.
+
+  Until that's reconciled, treat project creation as creating an empty project, then add [keywords](/tracking/add-keywords) and [competitors](/competitors/add) from their own pages afterwards.
+</Warning>
+
+## What happens next
+
+The project is created with four **schedules**, all enabled and set to **daily at 00:00 UTC**:
+
+| Schedule | Feature |
+| --- | --- |
+| `rank_check` | [Rank tracking](/tracking/overview) |
+| `backlink_snapshot` | [Backlinks](/backlinks/overview) |
+| `geo_snapshot` | [GEO visibility](/geo/overview) |
+| `local_ranking_check` | [Local SEO](/local/overview) |
+
+<Warning>
+  **Creating a project does not collect anything immediately.** Its first jobs run when their schedules come due — on the default midnight-UTC schedule, that can be up to 24 hours away. A brand new project showing empty pages is expected, not a fault.
+
+  To see data sooner, change the run hour on a feature's **Settings** panel to an hour that's still ahead of you today.
+</Warning>
+
+Audits, web vitals, domain analysis, and keyword research have no schedule at all and never run on their own. Run them from their own pages when you want them. See [How data collection works](/projects/data-collection).
+
+## Plan limits and role
+
+Creating a project requires the **admin** or **owner** role — a project counts against the plan, so it isn't a member action. See [Roles and permissions](/organizations/roles).
+
+The Projects page header shows `X of Y projects`. At your plan's project limit, **Add Project** turns grey and clicking it sends you to [Billing](/billing/subscription); through the API the request is refused with `USAGE_LIMIT_EXCEEDED`. Tracked keywords have a separate limit — see [Plans](/billing/plans).

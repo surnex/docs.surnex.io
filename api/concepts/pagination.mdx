@@ -1,0 +1,75 @@
+---
+title: "Pagination"
+description: "Page through list endpoints."
+---
+
+List endpoints are paginated with `page` and `per_page` query parameters, and return a `meta` block.
+
+## Parameters
+
+| Parameter | Default | Range |
+| --- | --- | --- |
+| `page` | 1 | 1 or greater |
+| `per_page` | 25 | 1–500 |
+
+```bash
+curl "https://api.surnex.io/v1/organizations/{org_id}/projects?page=2&per_page=50" \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+## Response
+
+```json
+{
+  "success": true,
+  "data": [],
+  "meta": {
+    "page": 1,
+    "per_page": 25,
+    "total": 150
+  }
+}
+```
+
+`total` is the count across all pages, not the length of `data`. There's no `total_pages` field — compute it as `ceil(total / per_page)`, or just accumulate until you've collected `total` items.
+
+## Fetching everything
+
+```python
+def get_all(path):
+    page, items = 1, []
+    while True:
+        body = requests.get(f"{BASE}{path}", headers=H,
+                            params={"page": page, "per_page": 500}).json()
+        items += body["data"]
+        if len(items) >= body["meta"]["total"] or not body["data"]:
+            return items
+        page += 1
+```
+
+The `not body["data"]` guard matters. Without it, a shrinking result set — rows deleted between requests — can loop forever, since `len(items)` never reaches a `total` that keeps moving.
+
+## Raise per_page
+
+The ceiling is **500**, and each request counts against your [rate limit](/api/concepts/rate-limits) regardless of size. Paging 5,000 keywords at the default 25 costs 200 requests; at 500 it costs 10.
+
+That matters more than it sounds: the per-minute allowance is 120 for an API key, so a bulk export at the default page size will hit the limit. Always set `per_page` explicitly when fetching in bulk.
+
+The 500 ceiling bounds an upstream provider's page size as well as a database one — an uncapped value would be a request Surnex gets billed for.
+
+## Consistency
+
+Pages are fetched separately, so a list changing underneath you — a scheduled job adding rows mid-pagination — can shift items between pages. An item can be seen twice or missed.
+
+For large exports where that matters, prefer the CSV export endpoints, which produce a single consistent snapshot.
+
+## Not everything is paginated
+
+Some endpoints return a complete set — an audit's issues, a keyword's history for a date range, summary data. Those return `data` without `meta`.
+
+Detect it by checking for `meta` rather than assuming. When it's absent, you have everything.
+
+## Related
+
+- [Rate limits](/api/concepts/rate-limits)
+- [Errors](/api/concepts/errors)

@@ -1,0 +1,49 @@
+---
+title: "Organizations"
+description: "How organizations scope your projects, team, and billing."
+---
+
+An organization is the top-level container in Surnex. Everything else belongs to one:
+
+- **Projects** and all their collected data — rankings, backlinks, audits, AI visibility
+- **Members** and their roles
+- The **subscription**, plan limits, and invoices
+- **API keys** for the REST API
+
+Nothing is shared between organizations. A project in one organization is invisible from another, even to the same person, and plan limits are counted per organization — not per account.
+
+## Your organization in the URL
+
+Every dashboard URL is scoped by organization ID:
+
+```
+app.surnex.io/{orgId}/projects
+app.surnex.io/{orgId}/projects/{projectId}/dashboard
+app.surnex.io/{orgId}/settings/billing
+```
+
+That means a URL you copy is organization-specific. A teammate who isn't a member of that organization can't open it.
+
+## Belonging to more than one
+
+You can be a member of several organizations — typical for agencies, or for a consultant who's been added to a client's account. Switch between them with the organization switcher at the top of the sidebar. Switching changes the `{orgId}` in the URL and reloads the projects, team, and billing for the organization you moved to.
+
+Your role can differ per organization. You might be the owner of your own and a member of a client's.
+
+## What's stored at organization level
+
+| Setting | Where |
+| --- | --- |
+| Name and slug | [Organization settings](/organizations/settings) |
+| Members and roles | [Team](/organizations/team) |
+| Plan, subscription, invoices | [Billing](/billing/subscription) |
+| API keys | [API keys](/api-keys/list) |
+| Notification preferences | Per member, under [Notification preferences](/notifications/preferences) |
+
+<Note>
+  Search locale — location and language — is **not** an organization setting. It's set per project, because different projects usually target different markets. See [Project settings](/projects/settings).
+</Note>
+
+## Plans
+
+An organization with no active subscription is treated as **free**, with the free plan's limits. Subscriptions are per organization, so a second organization is a second subscription. See [Plans](/billing/plans).

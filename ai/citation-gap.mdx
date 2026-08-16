@@ -1,0 +1,68 @@
+---
+title: "Citation gap"
+description: "Find keywords where competitors are cited in AI answers and you are not."
+---
+
+**AI → Citation Gap** compares your domain against competitors across a set of keywords and shows where they're cited in AI answers and you aren't. It's the systematic version of running [ChatGPT visibility](/ai/chatgpt-visibility) one query at a time.
+
+## Setting up a comparison
+
+<Steps>
+  <Step title="Add competitor domains">
+    Type domains into the input rows — `competitor.com` — up to **10**. **Add** creates another row; the remove control drops one, and at least one always remains.
+
+    **Load saved competitors** fills the rows from your project's [Competitors](/competitors/add) list, up to the first 10. Faster than retyping, and it keeps this analysis consistent with the rest of the project.
+  </Step>
+  <Step title="Enter keywords">
+    The **Keywords** box takes up to **50**, separated by commas or line breaks. Over the limit you'll see *"Maximum 50 keywords per request"* and nothing is submitted.
+  </Step>
+  <Step title="Run the comparison">
+    Results come back as a grid of keywords against domains.
+  </Step>
+</Steps>
+
+## Reading the results
+
+Each keyword row shows which domains were cited in the AI answer for it, with your domain first.
+
+A row where competitors are cited and you aren't is tagged **GAP** in red. Those are the actionable rows — the query has an AI answer, that answer names sources, and you're not among them.
+
+Rows also show what you were **Co-cited with** where you do appear: the other sources sharing the answer with you.
+
+## Prioritizing gaps
+
+Not every gap is worth chasing. Rank them:
+
+**Gaps where several competitors are cited.** If three of your competitors appear and you don't, the answer clearly has room for vendors like you and you've been left out. That's the strongest signal in the report.
+
+**Gaps on commercial queries.** A gap on a term where someone is choosing a vendor costs more than one on a definition. Cross-reference [CPC and intent](/keywords/metrics) from keyword research.
+
+**Gaps where one competitor is cited.** Weaker. Could be a genuine authority advantage, could be variance in a single run.
+
+Deprioritize rows where nobody is cited — that query's AI answer isn't drawing on vendor sources at all, and there's nothing to win.
+
+## Co-citation
+
+The **Co-cited with** detail is the underused part of this page. It shows the company you keep in AI answers.
+
+Two things to look for. If you're consistently co-cited with the same publications or comparison sites, those are the sources shaping answers in your market — being covered by them is leverage. And if a competitor is co-cited with you nearly everywhere, they're your genuine peer in how these systems see the market, regardless of how you compare on rankings.
+
+## Choosing keywords
+
+Fifty is enough to cover a real question set. Spend them on:
+
+- **Commercial and comparison queries** — "best X", "X vs Y", "X for [use case]". This is where AI answers displace a decision.
+- **Conversational phrasings** — how someone would ask an assistant, not how they'd type into a search box.
+- **Queries you already rank for** — a gap there is the sharpest finding: you have the organic authority and still aren't in the answer.
+
+Avoid navigational and brand queries. You'll be cited for your own name, which tells you nothing.
+
+## Variance
+
+AI responses vary between runs, so a single gap isn't proof. Re-run the important keywords before acting — a gap that persists across runs is real; one that appears once may not be.
+
+## Related
+
+- [ChatGPT visibility](/ai/chatgpt-visibility) — the full response and source snippets for one query
+- [LLM benchmarking](/ai/benchmarking) — whether the gap exists on every platform or just one
+- [Backlink gap](/backlinks/gap) — the same idea applied to links

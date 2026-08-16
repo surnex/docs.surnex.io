@@ -1,0 +1,58 @@
+---
+title: "Compare audits"
+description: "Diff two crawls to see what you fixed and what regressed."
+---
+
+**Audits → Compare** puts two crawls side by side. It's how you prove a fix worked — and catch the regressions a single score won't show you.
+
+## Running a comparison
+
+Two dropdowns at the top: pick an **older** audit and a **newer** one. Results appear as soon as both are selected.
+
+Until then you'll see **Select two audits to compare** — "Choose an older and newer audit above to see how your site has improved".
+
+## Stat cards
+
+| Card | What it shows |
+| --- | --- |
+| **Score Change** | The difference between the two audit scores |
+| **Old Score** | The earlier audit's score, for reference |
+| **Resolved Issues** | Issues present in the old audit and gone from the new one |
+| **New Issues** | Issues in the new audit that weren't in the old one |
+
+**Resolved** and **New** are the cards that matter. Score change is a net figure and hides offsetting movement: a crawl that resolves 30 issues and introduces 28 barely moves the score while telling you something important about your deploy process.
+
+## Category breakdown
+
+A table with one row per [issue category](/audits/overview#issue-categories):
+
+| Category | Before | After | Change |
+| --- | --- | --- | --- |
+
+This is where a fix is confirmed or contradicted. Work on meta tags should show `meta_tags` falling and everything else flat. If `links` rose at the same time, the change that fixed your titles broke something else.
+
+## Comparing fairly
+
+The comparison is only meaningful if the two crawls are alike:
+
+- **Same page limit.** A 50-page crawl against a 500-page crawl reports hundreds of "new" issues that were always there and simply weren't crawled before.
+- **Same target URL.** Crawls starting at different paths cover different pages.
+- **Enough time between them.** Comparing two crawls from the same afternoon measures crawl variance, not progress.
+
+When the numbers look wrong, check the page limits first. Nearly every confusing comparison is two crawls of different scope.
+
+## A working loop
+
+1. Run an audit and note the score.
+2. Fix the errors from the [issue list](/audits/issues), starting with sitewide patterns.
+3. Run a second audit with **the same target URL and page limit**.
+4. Compare them.
+5. Read **Resolved** and **New** together, then check the category rows.
+
+Repeat. Because Surnex keeps every audit, you accumulate a record of what changed and when — useful in a report, and useful when a score drops and you need to find which deploy caused it.
+
+## Related
+
+- [Audit issues](/audits/issues) — what each category contains
+- [Run an audit](/audits/run) — matching scope between crawls
+- [Reports](/reports/add) — putting audit progress in front of a client

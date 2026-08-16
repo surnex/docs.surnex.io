@@ -1,0 +1,71 @@
+---
+title: "Rate limits"
+description: "Request limits, and how they differ from plan usage quotas."
+---
+
+Two separate things constrain API use, and confusing them wastes time:
+
+- **Rate limits** cap how *fast* you can make requests. Per credential, per minute.
+- **[Usage limits](/billing/usage)** cap how *much* data you can collect. Set by your plan, counted daily or monthly.
+
+A rate limit answers `RATE_LIMITED` (429) and waiting fixes it. A usage limit answers `USAGE_LIMIT_EXCEEDED` (402) and waiting a minute does nothing.
+
+## The limits
+
+| Credential | Requests per minute |
+| --- | --- |
+| API key | 120 |
+| User (dashboard session) | 60 |
+
+Counted in a fixed **60-second window**, keyed on the credential — `rl:key:<keyId>` for a key, `rl:user:<userId>` for a person.
+
+API keys get the higher allowance deliberately: an agent or script working through a task legitimately makes far more calls in a minute than someone clicking around a dashboard.
+
+<Note>
+  These are lower than they look if you're paginating in a loop. 120 requests a minute is two per second — a naive export that pages through 5,000 keywords at the default page size will hit it.
+</Note>
+
+## Counted per credential, not per IP
+
+An IP is shared by everyone behind one office NAT and changes for a single user on mobile, so it bounds the wrong set in both directions. The credential is the thing whose usage is worth limiting.
+
+A practical consequence: several API keys in one organization each get their own budget. That's another reason to give each consumer its own key.
+
+## Response headers
+
+Every rate-limited response carries:
+
+| Header | Meaning |
+| --- | --- |
+| `X-RateLimit-Limit` | Your per-minute allowance |
+| `X-RateLimit-Remaining` | How much of it is left in this window |
+
+A 429 additionally carries `Retry-After`, in seconds. Wait that long — retrying sooner just consumes another slot against a window that hasn't reset, which is what turns a rate limit into a thundering herd.
+
+```python
+r = requests.get(url, headers=H)
+if r.status_code == 429:
+    time.sleep(int(r.headers.get("Retry-After", 60)))
+    r = requests.get(url, headers=H)
+```
+
+Read `X-RateLimit-Remaining` on ordinary responses and slow down before you hit zero, rather than reacting to the 429.
+
+## It fails open
+
+If the counter's backing store is unreachable, requests are allowed through rather than rejected. An outage in the rate limiter must not become an outage of the product.
+
+Don't rely on that — it's a safety property, not a mode you can plan around.
+
+## Staying under
+
+- **Raise your page size.** `per_page` goes up to 500. Paging 5,000 rows at 25 costs 200 requests; at 500 it costs 10. See [Pagination](/api/concepts/pagination).
+- **Poll jobs at a sensible interval.** An audit takes minutes to an hour — polling every second is thousands of requests for one answer. See [Jobs and polling](/api/concepts/jobs).
+- **Use the CSV export endpoints** for bulk reads.
+- **Don't re-fetch stored data in a loop.** Most endpoints return data that only changes when a scheduled job runs.
+
+## Related
+
+- [Usage and limits](/billing/usage) — plan quotas, the other constraint
+- [Errors](/api/concepts/errors)
+- [Pagination](/api/concepts/pagination)

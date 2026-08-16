@@ -1,0 +1,40 @@
+---
+title: "Organization settings"
+description: "Rename your organization, find its ID and slug, or delete it."
+---
+
+Go to **Settings → Organization**. The page has two sections: **Details** and **Danger Zone**.
+
+## Details
+
+| Field | Editable | What it's for |
+| --- | --- | --- |
+| **Organization Name** | Yes | The display name in the organization switcher and on invoices. |
+| **Slug** | No | The URL-safe identifier generated from the name at creation. |
+| **Organization ID** | No | The UUID that appears in every dashboard URL and in API requests. |
+
+### Rename the organization
+
+Click the **Organization Name** field to switch it into edit mode, type the new name, then click **Save**. **Cancel** discards the change and restores the current name.
+
+Renaming updates the display name only. **The slug does not change** — it's generated once when the organization is created and stays fixed, so an organization renamed from `Acme Corp` to `Acme Digital` keeps the slug `acme-corp`.
+
+### Organization ID
+
+The UUID shown here is the `{orgId}` segment in every dashboard URL. You'll need it when working directly with the [REST API](/api/introduction), and it's the fastest way to confirm which organization you're actually looking at when you belong to several. Select the text to copy it.
+
+## Danger Zone
+
+### Delete the organization
+
+Click **Delete**, then confirm in the dialog. This permanently removes the organization and **all of its projects, members, and collected data** — rankings, backlinks, audits, reports, and history. It cannot be undone.
+
+After deletion, Surnex reloads your remaining organizations and moves you to the first one. If it was your last organization, you're sent back to [create a new one](/organizations/create).
+
+<Warning>
+  Deletion removes tracking history that can't be rebuilt. Rankings and backlink history are collected day by day — a new organization tracking the same domain starts from zero, with no back-fill. Export anything you need first.
+</Warning>
+
+<Note>
+  Deleting an organization does not delete your Surnex account. To remove your account entirely, see [Delete your account](/account/delete).
+</Note>

@@ -1,0 +1,44 @@
+---
+title: "Guides"
+description: "End-to-end walkthroughs for the workflows Surnex is built around."
+---
+
+The product pages document what each screen does. These guides string those screens together into the jobs you actually came to do.
+
+<CardGroup cols={2}>
+  <Card title="Set up your first project" icon="rocket" href="/guides/first-project">
+    From signup to your first ranking data, with the decisions that matter explained.
+  </Card>
+  <Card title="Build a keyword tracking set" icon="key" href="/guides/track-keywords">
+    Research, shortlist, and track the keywords worth paying for daily.
+  </Card>
+  <Card title="Fix technical SEO issues" icon="wrench" href="/guides/fix-audit-issues">
+    Crawl, triage by severity, fix, and verify.
+  </Card>
+  <Card title="Improve AI search visibility" icon="robot" href="/guides/ai-visibility">
+    Measure where AI answers are displacing you, and do something about it.
+  </Card>
+  <Card title="Deliver a monthly SEO report" icon="file-lines" href="/guides/monthly-report">
+    Build once, then repeat it every month in minutes.
+  </Card>
+</CardGroup>
+
+## Read this first
+
+Two things about how Surnex works explain most early confusion.
+
+**Almost nothing is fetched when you open a page.** Rankings, backlinks, audits, and AI visibility are collected by background jobs and read back from storage. A figure that looks stale usually is — because the job that refreshes it hasn't run yet, or doesn't run on a schedule at all. Only [Trends](/trends/explore) and [Trending now](/trends/trending) are live.
+
+**Only four things refresh themselves.** Rank tracking, backlinks, GEO, and local SEO run on schedules you control. [Audits](/audits/overview), [web vitals](/web-vitals/overview), [domain data](/domains/overview), and [keyword research](/keywords/research) run once at project creation and then only when you ask.
+
+That second point is the one that catches people out. An audit score months out of date usually means nobody has run a crawl since the project was created.
+
+Full detail: [How data collection works](/projects/data-collection).
+
+## Where to start
+
+New to Surnex — [Set up your first project](/guides/first-project).
+
+Project already running and wondering what to do next — [Fix technical SEO issues](/guides/fix-audit-issues) gives you the most actionable list on day one.
+
+Need to show a client something — [Deliver a monthly SEO report](/guides/monthly-report).

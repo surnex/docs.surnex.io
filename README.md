@@ -1,38 +1,29 @@
-# Mintlify Starter Kit
+# Surnex documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+The source for [docs.surnex.io](https://docs.surnex.io), built on [Mintlify](https://mintlify.com).
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Structure
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
-
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
-
-## AI-assisted writing
-
-Set up your AI coding tool to work with Mintlify:
-
-```bash
-npx skills add https://mintlify.com/docs
-```
-
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
-
-See the [AI tools guides](/ai-tools) for tool-specific setup.
+| Path | Contents |
+| --- | --- |
+| `docs.json` | Site config, theme, and navigation. A page must be listed here to appear in the sidebar. |
+| `introduction.mdx`, `quickstart.mdx` | Landing and getting-started pages |
+| `<feature>/*.mdx` | Product pages, one directory per feature area |
+| `guides/` | End-to-end workflow walkthroughs |
+| `api/` | REST API reference — the endpoint pages are generated from `https://api.surnex.io/openapi.json` |
+| `mcp/` | MCP server documentation for AI agents |
+| `changelog/` | Monthly release notes |
+| `AGENTS.md` | Style, terminology, and content boundaries for contributors and AI tools |
 
 ## Development
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+Install the [Mintlify CLI](https://www.npmjs.com/package/mint):
 
 ```
 npm i -g mint
 ```
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+Run the dev server from the repository root, where `docs.json` lives:
 
 ```
 mint dev
@@ -40,16 +31,29 @@ mint dev
 
 View your local preview at `http://localhost:3000`.
 
-## Publishing changes
+Check links before pushing:
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+```
+mint broken-links
+```
 
-## Need help?
+## AI-assisted writing
 
-### Troubleshooting
+Install Mintlify's documentation skill for your AI coding tool:
 
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
+```bash
+npx skills add https://mintlify.com/docs
+```
 
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+The skill covers component reference, writing standards, and workflow guidance. Project-specific rules live in `AGENTS.md`.
+
+## Publishing
+
+Changes are deployed to production automatically after merging to the default branch, via the Mintlify GitHub app.
+
+## Troubleshooting
+
+- Dev server won't start: run `mint update` to get the latest CLI
+- A page 404s: confirm the file exists at the path and that the path is listed in `docs.json`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.

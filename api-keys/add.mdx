@@ -1,0 +1,72 @@
+---
+title: "Create an API key"
+description: "Generate a key for the REST API and connect your tools."
+---
+
+**Settings → API Keys** — "Manage API access keys for programmatic access".
+
+## Creating a key
+
+Click to open **Create API Key**, give it a name — *"e.g. Production, CI/CD"* — and create it. The confirmation reads *"API key created"*.
+
+Name keys after where they're used. When you later need to revoke one, the name is all you have to work out what will break.
+
+<Warning>
+  The full key is shown **once**, immediately after creation. Copy it before leaving the screen. Afterwards the list shows only the prefix (`smx_xxxxxxxx...****`) and the key cannot be retrieved — you'd have to create a new one.
+</Warning>
+
+## Using the key
+
+Send it in the `X-API-Key` header against the REST API:
+
+```bash
+curl https://api.surnex.io/v1/organizations -H "X-API-Key: YOUR_KEY"
+```
+
+That's what keys are for. See [API authentication](/api/concepts/authentication).
+
+## The MCP snippets on this screen don't work
+
+The creation screen shows three copy-able snippets: a `claude mcp add` command, an `mcpServers` JSON block, and a `curl` example. Only the **`curl`** one is correct.
+
+<Warning>
+  Both MCP snippets configure an `X-API-Key` header, and **the MCP server rejects API keys**. Using them produces a 401: *"This endpoint uses OAuth, not API keys. API keys authenticate the REST API at /v1."*
+
+  The MCP endpoint uses [OAuth](/mcp/auth) and needs no credential in your config at all. Follow [Connect the MCP server](/mcp/connect) instead.
+</Warning>
+
+The correct MCP configuration is just the URL:
+
+```json
+{
+  "mcpServers": {
+    "surnex": {
+      "type": "http",
+      "url": "https://api.surnex.io/mcp"
+    }
+  }
+}
+```
+
+## What a key can do
+
+A key authenticates as the **organization**, not as the person who created it. It carries the organization's access to every project, and it isn't limited by the creating member's role.
+
+<Warning>
+  Any member can create a key, and a key created by a member has the same reach as one created by the owner. Treat keys as organization-level credentials: store them in a secrets manager, never commit them, and review the [key list](/api-keys/list) periodically.
+</Warning>
+
+Keys are scoped to one organization. Working with several organizations means one key each.
+
+## One key per use
+
+Create a separate key for each consumer — your CI pipeline, a scheduled job, a production integration. It costs nothing and means you can revoke one without taking down everything else.
+
+AI clients don't need a key at all; they authenticate through [OAuth](/mcp/auth).
+
+## Related
+
+- [Manage API keys](/api-keys/list) — review keys and their last-used dates
+- [Revoke an API key](/api-keys/revoke) — disable a key immediately
+- [API authentication](/api/concepts/authentication) — using the key against the REST API
+- [Connect the MCP server](/mcp/connect) — which needs no key

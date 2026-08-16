@@ -1,0 +1,53 @@
+---
+title: "Manage reports"
+description: "Browse, duplicate, and delete the reports in a project."
+---
+
+**Reports** — "Create and manage custom SEO reports" — lists every report in the project.
+
+## Actions
+
+Each report offers:
+
+| Action | What it does |
+| --- | --- |
+| **Open** | Opens the [editor](/reports/editor) |
+| **Duplicate** | Creates a copy, confirmed with *"Report duplicated"* |
+| **Delete** | Removes it permanently |
+
+## Duplicating
+
+Duplicate is the mechanism behind repeatable reporting. Rather than rebuilding a layout each period:
+
+1. Build one report properly and get the widgets right.
+2. Duplicate it at the start of each period.
+3. Rename the copy and move its [date range](/reports/editor#date-range) forward.
+
+The copy carries the widgets and layout. Its share links and automation don't come with it — a duplicate starts with neither, which is usually what you want, since sending last month's recipients a new link by accident would be worse.
+
+## Deleting
+
+Confirmation reads: *"Are you sure you want to delete this report? This will permanently remove all pages, widgets, and share links. This action cannot be undone."*
+
+Two things to check before deleting:
+
+- **Share links die immediately.** Anyone holding one gets a not-found page, including clients who bookmarked it.
+- **Automations stop.** A scheduled report that's been arriving monthly simply stops, with no notice to recipients.
+
+If you only want to stop delivery, disable the [automation](/reports/automation) instead and keep the report.
+
+## Naming
+
+Because reports accumulate — especially with monthly duplication — the name is the only thing distinguishing them in this list. Include the period: `Monthly SEO Report - March 2026` rather than `Monthly SEO Report`.
+
+## Empty state
+
+**No reports yet** — "Create a report to visualize your SEO data with custom widgets".
+
+Projects created normally have a default report, so an empty list means it was deleted.
+
+## Related
+
+- [Create a report](/reports/add) — blank or from a template
+- [Report editor](/reports/editor) — widgets and layout
+- [Share a report](/reports/share) — links and exports

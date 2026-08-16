@@ -1,0 +1,54 @@
+---
+title: "Versioning"
+description: "How the API is versioned and how changes are rolled out."
+---
+
+The API is versioned in the URL path:
+
+```
+https://api.surnex.io/v1/...
+```
+
+`v1` is the current and only version. Every documented endpoint lives under it.
+
+## The OpenAPI schema
+
+The machine-readable schema is at:
+
+```
+https://api.surnex.io/openapi.json
+```
+
+The **API Reference** section of these docs is generated from it, so the endpoint pages track the live API rather than a periodically updated copy.
+
+The schema is also the practical way to generate a client. Point your generator at that URL rather than hand-writing request models.
+
+## What can change without a version bump
+
+Treat these as expected within `v1`, and write clients that tolerate them:
+
+- **New endpoints**
+- **New optional request parameters**
+- **New fields in responses** — the reason to ignore unknown fields rather than failing on them
+- **New error codes** — handle unrecognized codes by falling back on the HTTP status
+- **Reworded error messages** — branch on `error.code`, never on `message`
+- **New enum values** — for example, a new job status or issue type
+
+Anything that would break a well-behaved client — removing a field, renaming one, changing a type, or altering the meaning of an existing value — would require a new version.
+
+## Writing a durable client
+
+- **Ignore unknown fields.** Strict deserialization that rejects unexpected keys will break the first time a field is added.
+- **Branch on `error.code`, not `message`.** Codes are stable; wording isn't.
+- **Handle unknown enum values.** A new `job_type` or issue category shouldn't crash your handler.
+- **Don't depend on field order** in responses or CSV exports.
+- **Check `success`** rather than inferring from the shape of the body. A successful `DELETE` returns `data: null`.
+
+## Deprecation
+
+If an endpoint is ever deprecated, it will be marked in the OpenAPI schema before removal. Regenerating your client against the schema periodically is the cheapest way to notice.
+
+## Related
+
+- [API introduction](/api/introduction)
+- [Errors](/api/concepts/errors)

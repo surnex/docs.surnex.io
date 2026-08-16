@@ -1,0 +1,100 @@
+---
+title: "Site audits"
+description: "Crawl your site, score it, and see the technical SEO issues holding it back."
+---
+
+**Audits** lists every crawl you've run on the project, newest first. Each audit is a point-in-time snapshot — Surnex doesn't overwrite the last one, so you can compare crawls over time.
+
+## The audit list
+
+Each row shows:
+
+- **Score** — the audit score, colour-coded: green at 80+, amber at 50–79, red below 50
+- **Pages · issues** — `120 pages · 38 issues`
+- **When it ran**, as a relative time
+- A **status badge** — pending, processing, completed, or failed
+
+Click a row to open its [detail view](/audits/issues).
+
+## Running an audit
+
+Click **Run Audit**. The panel pre-fills **Target URL** with `https://` and your project domain, so most of the time you just click **Start Audit**.
+
+| Field | Notes |
+| --- | --- |
+| **Target URL** | Where the crawl starts. Pre-filled with your project domain; change it to crawl a subdirectory or subdomain |
+| **Max pages to crawl** | Default **50**, minimum 1, maximum **10,000**. "Higher values take longer but provide more coverage" |
+
+The crawl runs in the background — you can leave the page. The row appears immediately with a pending status and updates as the crawl progresses.
+
+<Note>
+  Audits do **not** run on a schedule. One runs automatically when the project is created, and after that only when you click **Run Audit**. An audit score months out of date usually means nobody has crawled since. See [How data collection works](/projects/data-collection).
+</Note>
+
+### Choosing a page limit
+
+The default 50 is a sample, not a site audit. It's enough to catch sitewide template problems — a missing meta description pattern, no schema, mixed content — because those repeat on every page.
+
+Raise it when you need per-page findings: orphan pages, duplicate titles, and thin content only surface if the crawl actually reaches the pages involved. For a full picture, set the limit above your real page count.
+
+Larger crawls take proportionally longer, and audits count against your plan's monthly audit allowance regardless of size. See [Plans](/billing/plans).
+
+## The audit score
+
+The score starts at 100 and deducts for each issue found, weighted by severity:
+
+| Severity | Deduction each | Maximum total deduction |
+| --- | --- | --- |
+| **Error** | −2 | 50 points |
+| **Warning** | −0.5 | 30 points |
+| **Notice** | −0.1 | 10 points |
+
+Three bonuses add back up to 15 points:
+
+- **+5** if the site uses HTTPS
+- **+5** if `robots.txt` is present
+- **+5** if a sitemap is present
+
+The result is clamped to 0–100.
+
+Two consequences are worth understanding. Because deductions are capped per severity, a site with 25 errors scores the same as one with 250 — past the cap, the score stops distinguishing. And because the bonuses are flat, a small site missing a sitemap is penalized as heavily as a large one.
+
+Treat the score as a coarse indicator for reporting, and work from the [issue list](/audits/issues) for anything actionable.
+
+## Issue categories
+
+Every issue falls into one of eight categories:
+
+| Category | Covers |
+| --- | --- |
+| **meta_tags** | Titles, descriptions, H1s — missing, duplicated, too long, too short |
+| **links** | Broken links, redirect chains and loops, orphan pages |
+| **performance** | Slow pages, large pages, large images, uncompressed resources |
+| **images** | Missing alt text, broken images |
+| **indexing** | `noindex`, robots blocks, missing canonicals, non-indexable pages |
+| **content** | Thin content, duplicate content |
+| **security** | Mixed content, missing HTTPS |
+| **schema** | Missing structured data |
+
+See [Audit issues](/audits/issues) for every issue type, its severity, and how to fix it.
+
+## Empty state
+
+**No audits yet** — "Run a site audit to check your website for SEO issues". Projects created normally have one audit from their initial run, so an empty list usually means that first crawl failed.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Audit issues" icon="triangle-exclamation" href="/audits/issues">
+    Every issue type and what to do about it.
+  </Card>
+  <Card title="Page detail" icon="file" href="/audits/pages">
+    One crawled page's issues and metadata.
+  </Card>
+  <Card title="Compare audits" icon="code-compare" href="/audits/compare">
+    What you fixed and what regressed.
+  </Card>
+  <Card title="Web vitals" icon="gauge" href="/web-vitals/overview">
+    Core Web Vitals, measured separately from the crawl.
+  </Card>
+</CardGroup>

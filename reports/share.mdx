@@ -1,0 +1,63 @@
+---
+title: "Share a report"
+description: "Publish a shareable link, or export the report as PDF or CSV."
+---
+
+Open a report and go to **Sharing & Export** — *"Share and export 'Report name'"*.
+
+## Share links
+
+A share link gives someone the report without a Surnex account. They see the report; they get no access to the project or anything else in your organization.
+
+### Creating a link
+
+Two optional settings before you create it:
+
+| Field | Options | Default |
+| --- | --- | --- |
+| **Password** | Any password, or blank | None |
+| **Expiry** | Never expires, 1 day, 7 days, 30 days, 90 days | Never expires |
+
+Create the link and it appears under **Active Links**. Copy it with the copy icon.
+
+<Warning>
+  The default is **Never expires** with **no password**. Anyone who obtains the URL — forwarded, pasted into a shared channel, left in a browser history — can read the report indefinitely. For anything client-confidential, set both a password and an expiry.
+</Warning>
+
+Choose an expiry that matches the report's life. A monthly report is stale after a month; a 30-day expiry means an old link stops working on its own rather than quietly serving current data to someone who left the account a year ago.
+
+Remember that a share link shows **live data for the report's date range**, not a snapshot of when you shared it. If the range is a fixed month, the figures settle once that month closes. If it's a rolling range, the recipient sees a report that keeps changing.
+
+### Active Links
+
+Every live link is listed, each with:
+
+- **Copy link**
+- **Revoke** — confirmed with *"Anyone with this link will no longer be able to access the report. This cannot be undone."*
+
+Revoking is immediate. Create a new link if you need to re-share.
+
+Empty state: **No active share links** — "Create a link above to share this report".
+
+Review this list periodically. Links created without an expiry accumulate, and the list is the only record of who could still be reading.
+
+## Export
+
+Two formats, both under **Export**:
+
+**PDF** — "Print or save a snapshot". This is the genuine snapshot: unlike a share link, a PDF captures the numbers as they are now and won't change afterwards. Use it when you need a record of what was reported, or when the recipient wants a file rather than a URL.
+
+**CSV** — "Download raw data". The underlying figures rather than the layout, for anyone who wants to work with the numbers themselves. Starting an export confirms with *"CSV export started"*.
+
+## Choosing between them
+
+| Situation | Use |
+| --- | --- |
+| Client wants a monthly deliverable | **PDF**, or [automated email](/reports/automation) |
+| Stakeholder wants to check progress any time | **Share link** with a password |
+| Someone wants to analyze the numbers | **CSV** |
+| You need a record of what was reported | **PDF** — the only true snapshot |
+
+## Deleting the report
+
+Deleting a report [permanently removes its share links](/reports/settings). Recipients get a not-found page with no warning, so revoke deliberately rather than by deleting.

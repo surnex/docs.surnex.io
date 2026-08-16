@@ -1,0 +1,102 @@
+---
+title: "Backlinks overview"
+description: "Your link profile at a glance — authority, volume, distribution, and quality signals."
+---
+
+**Backlinks → Overview** summarizes everything Surnex knows about who links to your domain. The subtitle names the domain being profiled.
+
+## Stat cards
+
+| Card | What it is |
+| --- | --- |
+| **Domain Rank** | Authority score for your domain. `N/A` before the first analysis |
+| **Total Backlinks** | Every individual link pointing at you |
+| **Referring Domains** | How many distinct domains those links come from |
+| **Referring IPs** | How many distinct IP addresses those domains sit on |
+
+Read these as a set rather than individually. **Total Backlinks** far exceeding **Referring Domains** means a few sites link to you many times — a hundred thousand links from forty domains is a sitewide footer link, not forty thousand endorsements.
+
+**Referring IPs** is the check on that. When referring domains greatly outnumber referring IPs, many of those "different" sites share hosting, which often means they're the same operator. A healthy profile has all three growing together.
+
+## Trend chart
+
+Backlinks and referring domains plotted over time, built from each scheduled snapshot. It's the clearest read on whether your profile is actually growing.
+
+A vertical cliff usually isn't a mass unlinking — it's more often a large site dropping out of the index or a sitewide link being removed. Cross-check against [New and lost backlinks](/backlinks/new-lost) before treating a drop as a crisis.
+
+## Distribution charts
+
+Charts render only when there's data for them:
+
+| Chart | Shows |
+| --- | --- |
+| **TLD Distribution (by Domains)** | Top 10 TLDs among your referring domains |
+| **TLD Distribution (by Backlinks)** | The same split, weighted by link count |
+| **Country Distribution (by Domains)** | Top 10 countries your referring domains sit in |
+| **Country Distribution (by Backlinks)** | The same, weighted by link count |
+| **Top Anchor Texts** | The 10 most common anchors |
+| **Link Types** | The kinds of links pointing at you |
+| **Platform Types** | The kinds of sites linking — CMS, forum, and so on |
+| **Link Attributes** | Attributes on the links, such as `nofollow` and `ugc` |
+| **Semantic Locations** | Where on the page the link sits — body, footer, sidebar |
+
+The by-domains and by-backlinks pairs are worth comparing. If `.com` is 60% of your referring domains but 95% of your backlinks, a small number of `.com` sites are generating most of your link volume.
+
+**Semantic Locations** is the quality signal most people skip. A link in body content is an editorial endorsement; a footer or sidebar link is usually sitewide boilerplate, and search engines weigh it accordingly.
+
+## Summary table
+
+Beneath the charts, a table of exact figures:
+
+| Row | Meaning |
+| --- | --- |
+| **Dofollow Backlinks** | Links that pass authority |
+| **Nofollow Backlinks** | Links marked not to pass authority |
+| **Spam Score** | How spammy the profile looks |
+| **Broken Backlinks** | Inbound links pointing at URLs that no longer resolve |
+| **Broken Pages** | Your pages that are linked to but broken |
+| **Referring Subnets** | Distinct network subnets among your referrers |
+| **Referring Pages** | Individual pages carrying a link to you |
+| **Crawled Pages** | Pages of yours seen during the crawl |
+| **Internal Links** / **External Links** | Link counts on your own site |
+| **First Seen** | When the profile was first observed |
+| **Server**, **CMS**, **Platform Type**, **IP Address**, **Country** | Technical details of your domain |
+
+**Broken Backlinks** is the actionable row. Each one is authority someone already granted you that's currently going nowhere — redirect the dead URL and you recover it without earning anything new.
+
+**Referring Subnets** is a stronger diversity signal than referring IPs, since a single host can span many IPs on one subnet.
+
+## Running an analysis
+
+The header button reads **Run Analysis** the first time and **Refresh** afterwards. While a run is in progress it shows **Analyzing…** and is disabled.
+
+A completed run shows when it finished. A failed run puts a red banner at the top of the page with the error; click **Refresh** to retry.
+
+## Schedule
+
+Click **Settings** to open the **Backlink Refresh Schedule** panel: **Frequency** (Every day / Every 3 days / Once a week), a **Refresh Hour**, and a **Timezone**.
+
+Backlink snapshots default to **daily at 00:00 UTC**, like every other schedule on a new project. Link profiles change slowly, so this is usually worth lowering to weekly — each refresh consumes backlink-lookup quota.
+
+The **Timezone** is applied, and cadences are real intervals measured from the last run: "once a week" is seven days later, not a fixed weekday. See [How data collection works](/projects/data-collection).
+
+## Export
+
+**Export** downloads your backlink data. It appears once an analysis has completed.
+
+## Related pages
+
+<CardGroup cols={2}>
+  <Card title="Referring domains" icon="sitemap" href="/backlinks/referring-domains">
+    The domains behind the counts, ranked by authority.
+  </Card>
+  <Card title="Backlink list" icon="list" href="/backlinks/list">
+    Every individual link.
+  </Card>
+  <Card title="Anchor text" icon="tag" href="/backlinks/anchors">
+    How others describe your pages.
+  </Card>
+  <Card title="Backlink gap" icon="code-compare" href="/backlinks/gap">
+    Who links to competitors but not to you.
+  </Card>
+</CardGroup>

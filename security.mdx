@@ -1,0 +1,85 @@
+---
+title: "Security"
+description: "How Surnex protects your data, credentials, and organization access."
+---
+
+## Authentication
+
+Accounts are email and password, handled by **Supabase Auth**. Passwords are never stored by Surnex. Sign-up requires email confirmation — an account can't be used until the link is followed.
+
+The dashboard authenticates each request with a short-lived JWT issued at sign-in.
+
+## API keys
+
+Keys are prefixed `smx_` and shown **once**, at creation.
+
+Only a **bcrypt hash** of the key is stored, at 12 rounds. The plain key is never persisted, which is why it can't be shown again — Surnex genuinely cannot retrieve it. Alongside the hash, a 12-character prefix is stored so you can identify a key in the [list](/api-keys/list) without exposing it.
+
+<Warning>
+  A key carries the **organization's** full access, not the access of the member who created it. Any member can create one, and a key made by a member can perform actions that member cannot do in the dashboard — including deleting a project. There are no read-only or scoped keys.
+</Warning>
+
+Practical consequences:
+
+- One key per consumer, so revoking is surgical
+- Store keys in a secrets manager; never commit them
+- **Removing someone from your [team](/organizations/team) does not revoke keys they created.** Review the key list when someone leaves
+- [Revoke](/api-keys/revoke) anything unused — the last-used column shows what's dormant
+
+## MCP uses OAuth, not keys
+
+The [MCP server](/mcp/auth) deliberately does not accept API keys. It's an OAuth 2.1 resource server; Supabase is the authorization server and issues every token. Surnex operates no `/authorize` or `/token` endpoint and holds no signing keys of its own.
+
+The reasoning is the difference in accountability. A key is a bearer secret living in an agent's config indefinitely, belonging to the organization and bound by nobody's role. An OAuth session belongs to a **person who approved it**, expires, and can be revoked from their account — and since the tools can create projects, start billable crawls, and delete data, that should be traceable to someone who consented.
+
+An MCP token therefore acts as **you**: it carries your role, reaches only organizations you're a member of, and can never mint an API key, change billing, or manage members.
+
+Tokens are verified on every call — signature against the issuer's JWKS, audience, subject, and expiry. A token with no expiry is refused, as is one addressed to a different resource.
+
+## Organization isolation
+
+Every query is scoped by organization at the database layer. This isn't a UI filter — a resource from another organization returns `NOT_FOUND`, and the API doesn't confirm it exists elsewhere.
+
+Membership is checked on every scoped request, and role is checked additionally on privileged operations. See [Organizations and scoping](/api/concepts/organizations).
+
+## Roles
+
+Three roles per organization — owner, admin, member. Owner is assigned at creation and cannot be transferred or granted.
+
+Three constraints hold regardless of role: you can't change your own role, you can't remove yourself, and nobody can change or remove the owner.
+
+There is **no read-only role and no per-project access**. Every member can view and edit every project in the organization. If someone must not see a project, it belongs in a separate organization.
+
+Full breakdown: [Roles and permissions](/organizations/roles).
+
+## Rate limiting
+
+Requests are rate-limited per credential — per API key, per user, or per IP for anonymous traffic — in a fixed 60-second window. Anonymous requests are limited far more tightly than authenticated ones. See [Rate limits](/api/concepts/rate-limits).
+
+## Transport and CORS
+
+All traffic is over HTTPS. Cross-origin requests to the API are restricted to the Surnex frontend.
+
+## Shared reports
+
+[Share links](/reports/share) grant access to one report and nothing else — no project access, no organization access.
+
+<Warning>
+  A share link defaults to **no password** and **never expires**. Anyone with the URL can read the report indefinitely, and it shows **live data** for the report's date range rather than a frozen snapshot. Set a password and an expiry for anything confidential, and review your active links periodically.
+</Warning>
+
+Revoking a link takes effect immediately. Deleting a report also kills its links.
+
+## Data deletion
+
+Deletions are permanent and there is no archive or trash.
+
+- [Deleting a project](/projects/delete) removes all its collected data
+- [Deleting an organization](/organizations/settings) removes every project within it
+- [Deleting your account](/account/delete) does **not** delete organizations you owned, cancel subscriptions, or revoke API keys
+
+Ranking and backlink history accumulates day by day and cannot be rebuilt or back-filled. Export anything you need before deleting.
+
+## Reporting a vulnerability
+
+If you believe you've found a security issue, contact Surnex directly rather than opening a public report.

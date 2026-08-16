@@ -1,0 +1,52 @@
+---
+title: "Project settings"
+description: "Rename a project, change its search locale, or delete it."
+---
+
+Open a project and go to **Settings** in the project sidebar. The page has three sections: **General**, **Search Locale**, and **Danger Zone**. The subtitle under the heading shows the project's domain, so you can confirm which project you're editing.
+
+## General
+
+### Project Name
+
+Edit the field and click **Save Changes**. The name updates everywhere immediately — the project card, the sidebar switcher, and reports that reference it. Nothing that's been collected is affected.
+
+### Domain
+
+<Warning>
+  The Domain field on this page is editable but **is not saved**. Clicking **Save Changes** submits the project name only, so a domain edit is silently discarded — reload the page and the old domain is back.
+
+  There's no way to change it through the API either: a project update accepts only its **name** and its **schedules**. A project's domain is fixed for the project's life.
+</Warning>
+
+To track a different domain, create a **second project**. That's also the better outcome if you're migrating — you keep the old site's history for comparison instead of losing it.
+
+## Search Locale
+
+Sets the default **Location** and **Language** for the project. These drive keyword research, SERP lookups, and the AI search features — they decide which market's results Surnex measures you in.
+
+Both are searchable dropdowns: roughly 185 locations and 65 languages. Change either and click **Save Locale**. Saving these is separate from **Save Changes** under General — each section has its own button, and clicking one doesn't submit the other.
+
+<Note>
+  Changing the locale doesn't rewrite history. Existing rankings keep the location and language they were collected under; the new setting applies to data collected from that point on. Comparing positions across a locale change is comparing two different search results.
+</Note>
+
+Tracked keywords added before the change keep their own location and device settings — the project locale is the default for *new* lookups, not a retroactive override. See [Add tracked keywords](/tracking/add-keywords).
+
+## Danger Zone
+
+### Delete this project
+
+Click **Delete Project** and confirm in the dialog, which names the project you're about to remove. See [Delete a project](/projects/delete) for exactly what's removed.
+
+Deleting requires the **owner** or **admin** role. Members see the button but the request is rejected.
+
+## What isn't here
+
+| Setting | Where it lives instead |
+| --- | --- |
+| Tracked keywords | [Rank tracking](/tracking/add-keywords) |
+| Competitors | [Competitors](/competitors/add) |
+| Search engine | Fixed at project creation |
+| Collection schedules | The **Settings** button on each feature's overview page — [rank tracking](/tracking/overview), [backlinks](/backlinks/overview), [GEO](/geo/overview), [local SEO](/local/overview). Through the API they're part of the project record |
+| Ranking alerts | [Ranking alerts](/tracking/alerts) |

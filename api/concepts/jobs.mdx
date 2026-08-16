@@ -1,0 +1,93 @@
+---
+title: "Jobs and polling"
+description: "How background work is reported, and how to wait for a result."
+---
+
+Most work in Surnex happens in the background. Endpoints that start it return immediately with a **job**, and you poll until it finishes.
+
+## Statuses
+
+| Status | Meaning |
+| --- | --- |
+| `pending` | Queued, not started |
+| `processing` | Running |
+| `completed` | Finished; results available |
+| `failed` | Didn't complete; an error message is attached |
+
+`pending` and `processing` are non-terminal. `completed` and `failed` are terminal — once a job reaches either, it won't change again.
+
+## The pattern
+
+1. `POST` to the endpoint that starts the work. You get a job with `status: "pending"`.
+2. Poll the job or the resource until the status is terminal.
+3. On `completed`, read the results. On `failed`, read the error.
+
+```python
+import time, requests
+
+BASE = "https://api.surnex.io/v1"
+H = {"X-API-Key": "YOUR_KEY"}
+
+def wait_for(url, timeout=3600, interval=15):
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        job = requests.get(url, headers=H).json()["data"]
+        if job["status"] in ("completed", "failed"):
+            return job
+        time.sleep(interval)
+    raise TimeoutError(f"job did not finish within {timeout}s")
+```
+
+## Poll intervals
+
+Match the interval to the work. Polling a site audit every second wastes your [rate limit](/api/concepts/rate-limits) without getting the answer sooner.
+
+| Work | Typical duration | Suggested interval |
+| --- | --- | --- |
+| Rank check | Minutes | 30s |
+| Backlink analysis | Minutes | 30s |
+| Web vitals check | A few minutes | 15s |
+| Site audit | Minutes to an hour | 30–60s |
+| AI search lookups | Under a minute | 10s |
+
+Set a timeout. A site audit on a large site can take an hour; assume nothing runs forever.
+
+## Which endpoints create jobs
+
+Anything that fetches from an external service:
+
+- Site audits (`start_site_audit` equivalents)
+- Backlink analysis and refresh
+- Web vitals checks
+- Domain and tech stack lookups
+- Keyword research jobs
+- AI search and GEO lookups
+
+Reading stored data doesn't create a job — those endpoints return immediately.
+
+## Reading data isn't the same as collecting it
+
+The most common mistake against this API is expecting a `GET` to refresh data.
+
+Most endpoints return **what was last collected**. `GET` on rankings returns the last completed rank check; it doesn't trigger a new one. Data is refreshed either by the [collection schedule](/projects/data-collection) or by explicitly starting a job.
+
+So if a value looks stale:
+
+- **Rankings, backlinks, GEO, local SEO** run on a schedule — the value is as fresh as the schedule allows.
+- **Audits, web vitals, domain data, keyword research** don't. They only refresh when something starts them.
+
+## Failed jobs
+
+A `failed` job carries an error message. Common causes are the target site being unreachable, a crawl blocked by `robots.txt`, an upstream provider error, or an exhausted plan quota.
+
+Failures aren't retried automatically — start the work again once you've addressed the cause. If it's quota, [usage](/billing/usage) resets daily or monthly depending on the limit.
+
+## Job tracking
+
+Jobs are recorded per project with their type, status, timestamps, and any error, which is what the dashboard's progress indicators read from. Jobs are deleted with their project.
+
+## Related
+
+- [How data collection works](/projects/data-collection) — what's scheduled and what isn't
+- [Errors](/api/concepts/errors)
+- [Rate limits](/api/concepts/rate-limits)

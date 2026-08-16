@@ -1,0 +1,78 @@
+---
+title: "GEO overview"
+description: "Generative engine optimization — track how often AI answers mention and cite your brand, by topic."
+---
+
+**GEO** — generative engine optimization — measures your presence in AI-generated answers at the level of a **topic** rather than a single query. Where [AI search](/ai/overview) tools are one-off lookups, GEO tracks topics on a schedule so you can see the trend.
+
+The page is headed **AI Visibility**.
+
+## Stat cards
+
+| Card | What it shows |
+| --- | --- |
+| **Topics Tracked** | How many topics you monitor |
+| **Avg. Mentions** | Average times your brand is mentioned per snapshot |
+| **Avg. Citation Rate** | Average share of answers that cite your domain |
+
+**Mentions** and **citations** aren't the same thing, and the distinction is the point of this page. A mention is the AI naming your brand in its answer; a citation is it linking your domain as a source. Being mentioned without being cited means you have brand awareness but the model isn't treating your site as the authority — that's a content problem. Being cited without being mentioned means your page is feeding answers that don't credit you.
+
+## Tracked Topics
+
+The list under **Tracked Topics** — "Keywords monitored for AI visibility across search engines" — is what gets checked on each snapshot.
+
+### Add topics
+
+Click **Add Topics** and enter keywords in the textarea, **one per line or comma-separated**. Both separators work, so pasting a list from anywhere is safe.
+
+Topics are seeded automatically when a [project is created](/projects/add), so the list won't be empty on a new project.
+
+### Pause a topic
+
+Toggle a topic to pause it. Paused topics stop being snapshotted but keep their history, and appear dimmed in the list. Useful when you want to reduce cost without losing the record.
+
+### Remove a topic
+
+Confirm *"Are you sure you want to remove '…'? This will stop tracking AI visibility for this keyword."* This deletes the topic's history — pause instead if you might want it back.
+
+## Choosing topics
+
+Topics are the subjects you want to be the answer for, phrased the way someone would ask:
+
+- **"best rank tracking tool for agencies"** works — a real question with room for a vendor in the answer.
+- **"rank tracking"** is too broad. The answer will be a definition and won't cite vendors.
+- **Your brand name** works only as a control, to confirm the system finds you at all.
+
+Aim for questions where a good answer would naturally name a product like yours. If you can't imagine your company in the answer, tracking it will only ever produce zeros.
+
+## Schedule
+
+Click **Settings** to open the **AI Visibility Schedule** panel: **Frequency** (Every day / Every 3 days / Once a week), a **Check Hour**, and a **Timezone**.
+
+GEO defaults to **daily at 00:00 UTC**, matching every other schedule on a new project.
+
+The **Timezone** is applied, and cadences are intervals from the last run rather than calendar rules. See [How data collection works](/projects/data-collection).
+
+Each snapshot queries AI platforms for every active topic, so cost scales with topic count multiplied by frequency. Twenty topics checked daily is 600 checks a month.
+
+## GEO vs. AI search
+
+|  | GEO | [AI search](/ai/overview) |
+| --- | --- | --- |
+| Unit | A topic, tracked over time | A query, looked up now |
+| Cadence | Scheduled, daily by default | On demand |
+| History | Yes — snapshots accumulate | Only past lookups |
+| Question | "Is my share of voice growing?" | "Am I cited for this, right now?" |
+
+Use GEO to measure progress and AI search to diagnose a specific answer.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Topic detail" icon="magnifying-glass-chart" href="/geo/topics">
+    Snapshots, sources, and the raw LLM responses for one topic.
+  </Card>
+  <Card title="AI competitors" icon="users" href="/geo/competitors">
+    Which brands dominate the answers for your topics.
+  </Card>
+</CardGroup>

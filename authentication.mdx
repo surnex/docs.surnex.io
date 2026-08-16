@@ -1,0 +1,53 @@
+---
+title: "Sign in"
+description: "Sign up, sign in, and manage your Surnex session."
+---
+
+Surnex accounts are email and password. Authentication is handled by Supabase Auth, and every API request the dashboard makes carries a short-lived JWT issued at sign-in.
+
+## Create an account
+
+Go to [app.surnex.io/signup](https://app.surnex.io/signup) and fill in:
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| **Full name** | No | Shown to teammates on the [Team](/organizations/team) page. You can set it later in [your profile](/account/profile). |
+| **Email** | Yes | Also the address teammates use to add you to their organization. |
+| **Password** | Yes | Minimum 6 characters. Use the eye icon to reveal what you typed. |
+
+Click **Create Account**. Surnex sends a confirmation link and shows a **Check your email** screen with the address it sent to. Open the link to confirm, then sign in.
+
+<Warning>
+  You can't sign in until you've clicked the confirmation link. If it doesn't arrive, check spam before trying to sign up again — signing up twice with the same address won't send a second link.
+</Warning>
+
+## Sign in
+
+Go to [app.surnex.io/login](https://app.surnex.io/login), enter your email and password, and click **Sign In**.
+
+After a successful sign-in, Surnex passes through a callback screen that syncs your account and loads your organizations before sending you on. Where you land depends on your account state:
+
+| State | Destination |
+| --- | --- |
+| No organization | The [create organization](/organizations/create) step |
+| One or more organizations | The Projects list for your most recent organization |
+| You followed a link while signed out | The page you originally requested |
+
+That last case is why a bookmarked report or project URL still works after a sign-in prompt — the destination is preserved through the login round-trip.
+
+## Signing in from an invite
+
+There are no email invitations in Surnex. To be added to an organization, you must **sign up first** — an admin can only add an email address that already has a Surnex account. Create your account, tell your admin the address you used, and the organization appears in your organization switcher on your next sign-in.
+
+See [Invite your team](/organizations/team) for the admin side of this.
+
+## Sessions
+
+Your session persists across browser tabs and restarts. Sign out from the user menu in the sidebar.
+
+## Authenticating outside the dashboard
+
+The dashboard uses your session JWT. Elsewhere there are two credentials, and they aren't interchangeable:
+
+- **REST API** — an API key in the `X-API-Key` header. Created under [Settings → API Keys](/api-keys/add), scoped to one organization, not limited by your role. See [API authentication](/api/concepts/authentication).
+- **MCP server** — **OAuth**, not keys. Your AI client sends you through a consent screen and receives a token that acts as you, with your role and your organizations. No key involved, and keys are refused. See [MCP authentication](/mcp/auth).

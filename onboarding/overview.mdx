@@ -1,0 +1,41 @@
+---
+title: "Onboarding"
+description: "What happens when you sign up and how Surnex sets up your first project."
+---
+
+Onboarding is two steps: create an organization, then add a project. Surnex walks you through both immediately after your first sign-in, and the header on each screen shows where you are — **Step 1 of 2** and **Step 2 of 2**.
+
+## Step 1 — Create your organization
+
+Enter an **Organization name** (for example, `Acme Corp`) and click **Continue**.
+
+Three things happen when the organization is created:
+
+- Surnex generates a URL-safe **slug** from the name — `Acme Corp` becomes `acme-corp`. If that slug is already taken by another organization, a numeric suffix is added (`acme-corp-1`). The slug is generated once and shown read-only in [Organization settings](/organizations/settings).
+- You are added as the **owner**. You can grant owner to someone else later; an organization must always keep at least one.
+- The organization starts on the **free plan** until a subscription is added.
+
+## Step 2 — Add your first project
+
+The second screen is the same [Create project](/projects/add) form you'll use later from the Projects page. You need a project name, a domain, and at least one keyword.
+
+You can click **Skip for now** to go straight to your empty Projects list and add a project later. Nothing is collected until a project exists, so skipping means an empty dashboard.
+
+<Note>
+  Skipping doesn't lose your organization — it's already created. You'll land on **Projects** with an **Add Project** button.
+</Note>
+
+## After onboarding
+
+Creating a project queues its first data collection run in the background — rankings, backlinks, a site audit, domain metrics, keyword research, web vitals, AI search, GEO, and local visibility all start at once. You're redirected to the project dashboard immediately; you don't wait for the jobs.
+
+The dashboard fills in as each job finishes. Keyword and ranking data usually lands first; a full site audit on a large site takes longest. See [How data collection works](/projects/data-collection) for the schedule each feature follows afterwards.
+
+## Where you land
+
+| Situation | Where Surnex sends you |
+| --- | --- |
+| No organization yet | `/onboarding/organization` |
+| Organization but no project | `/onboarding/project` |
+| Project created | That project's dashboard |
+| Skipped project creation | Your organization's Projects list |

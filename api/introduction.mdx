@@ -1,0 +1,123 @@
+---
+title: "API introduction"
+description: "Automate Surnex from your own scripts and integrations."
+---
+
+The Surnex REST API is available at `https://api.surnex.io/v1`. Everything the dashboard does, it does through this API.
+
+## Base URL
+
+```
+https://api.surnex.io/v1
+```
+
+## Authentication
+
+Send an [API key](/api-keys/add) in the `X-API-Key` header:
+
+```bash
+curl https://api.surnex.io/v1/organizations \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+The key resolves to one organization. See [Authentication](/api/concepts/authentication).
+
+## Response format
+
+Every successful response is wrapped:
+
+```json
+{
+  "success": true,
+  "data": { }
+}
+```
+
+List endpoints add pagination metadata:
+
+```json
+{
+  "success": true,
+  "data": [],
+  "meta": {
+    "page": 1,
+    "per_page": 25,
+    "total": 150
+  }
+}
+```
+
+Errors use the same envelope with `success: false`:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Project not found.",
+    "details": {}
+  }
+}
+```
+
+Check `success` rather than inferring from the presence of `data` — a successful `DELETE` returns `data: null`.
+
+## Resources
+
+The API covers the full platform:
+
+| Area | Resources |
+| --- | --- |
+| Account | `organizations`, `users`, `api-keys`, `billing`, `notifications`, `plans` |
+| Projects | `projects`, `jobs`, `competitors` |
+| Rankings | `tracking`, `keywords` |
+| Links | `backlinks` |
+| Technical | `audits`, `web-vitals`, `domains` (incl. tech stack) |
+| Intelligence | `trends`, `ai-search`, `geo`, `local` |
+| Output | `reports`, `exports`, `content` |
+
+The **API Reference** section of these docs is generated from the live OpenAPI schema at `https://api.surnex.io/openapi.json`, so it's always current.
+
+## Path shape
+
+Only **listing and creating** projects is nested under an organization. Every other project resource is addressed by project id, with the organization derived from it:
+
+```
+/v1/organizations/{orgId}/projects       list, create
+/v1/projects/{projectId}                 read, update, delete
+/v1/projects/{projectId}/tracking
+/v1/projects/{projectId}/audits
+```
+
+A third group has neither in the path — live lookups, research, trends, content. Those are billable, so a user token must name the organization with an `org_id` query parameter; an API key infers it.
+
+Anything you can't reach answers **404**, not 403. See [Organizations and scoping](/api/concepts/organizations).
+
+## Stored data, not live lookups
+
+Most endpoints return data collected in the background, not fetched at request time. A rankings endpoint returns the last completed rank check.
+
+Endpoints that *start* work — audits, backlink refreshes, web vitals — return immediately with a job, and you poll for the result. See [Jobs and polling](/api/concepts/jobs).
+
+Getting this wrong is the most common source of confusion: an endpoint returning yesterday's numbers isn't broken, it's returning what was last collected.
+
+## Rate limits
+
+Requests are limited per credential, per minute — **120** for an API key, **60** for a user session. Lower than you might assume, so raise `per_page` when paginating. See [Rate limits](/api/concepts/rate-limits).
+
+## Next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/api/quickstart">
+    Your first authenticated request.
+  </Card>
+  <Card title="Authentication" icon="key" href="/api/concepts/authentication">
+    Keys, JWTs, and scope.
+  </Card>
+  <Card title="Jobs and polling" icon="clock" href="/api/concepts/jobs">
+    How background work is reported.
+  </Card>
+  <Card title="Errors" icon="triangle-exclamation" href="/api/concepts/errors">
+    Every error code and what to do about it.
+  </Card>
+</CardGroup>

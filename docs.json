@@ -1,54 +1,16 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "theme": "luma",
+  "name": "Surnex",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#65A30D",
+    "light": "#A3E635",
+    "dark": "#4D7C0F"
   },
   "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
-    }
+    "light": "/logo/surnex-light.svg",
+    "dark": "/logo/surnex-dark.svg"
   },
   "contextual": {
     "options": [
@@ -56,17 +18,290 @@
       "view",
       "chatgpt",
       "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "mcp"
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Talk to Us",
+        "href": "https://surnex.io/contact"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Sign In",
+      "href": "https://app.surnex.io"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Product",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "onboarding/overview",
+              "authentication"
+            ]
+          },
+          {
+            "group": "Trust & security",
+            "pages": [
+              "security"
+            ]
+          },
+          {
+            "group": "Organizations",
+            "pages": [
+              "organizations/overview",
+              "organizations/create",
+              "organizations/settings",
+              "organizations/team",
+              "organizations/roles"
+            ]
+          },
+          {
+            "group": "Projects",
+            "pages": [
+              "projects/add",
+              "projects/list",
+              "projects/settings",
+              "projects/data-collection",
+              "projects/delete"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "dashboard/overview"
+            ]
+          },
+          {
+            "group": "Keyword Research",
+            "pages": [
+              "keywords/research",
+              "keywords/metrics",
+              "keywords/saved"
+            ]
+          },
+          {
+            "group": "Rank Tracking",
+            "pages": [
+              "tracking/overview",
+              "tracking/add-keywords",
+              "tracking/changes",
+              "tracking/keyword-history",
+              "tracking/competitors",
+              "tracking/alerts"
+            ]
+          },
+          {
+            "group": "Competitors",
+            "pages": [
+              "competitors/overview",
+              "competitors/add"
+            ]
+          },
+          {
+            "group": "Backlinks",
+            "pages": [
+              "backlinks/overview",
+              "backlinks/referring-domains",
+              "backlinks/list",
+              "backlinks/anchors",
+              "backlinks/new-lost",
+              "backlinks/gap"
+            ]
+          },
+          {
+            "group": "Site Audits",
+            "pages": [
+              "audits/overview",
+              "audits/run",
+              "audits/issues",
+              "audits/pages",
+              "audits/compare"
+            ]
+          },
+          {
+            "group": "Domain Analysis",
+            "pages": [
+              "domains/overview",
+              "domains/tech-stack"
+            ]
+          },
+          {
+            "group": "AI Search",
+            "pages": [
+              "ai/overview",
+              "ai/google-ai-overviews",
+              "ai/google-ai-mode",
+              "ai/chatgpt-visibility",
+              "ai/benchmarking",
+              "ai/keyword-trends",
+              "ai/citation-gap"
+            ]
+          },
+          {
+            "group": "GEO Visibility",
+            "pages": [
+              "geo/overview",
+              "geo/topics",
+              "geo/competitors"
+            ]
+          },
+          {
+            "group": "Local SEO",
+            "pages": [
+              "local/overview",
+              "local/keywords"
+            ]
+          },
+          {
+            "group": "Web Vitals",
+            "pages": [
+              "web-vitals/overview"
+            ]
+          },
+          {
+            "group": "SERP & Trends",
+            "pages": [
+              "trends/explore",
+              "trends/trending"
+            ]
+          },
+          {
+            "group": "Content Tools",
+            "pages": [
+              "content/overview"
+            ]
+          },
+          {
+            "group": "Reports",
+            "pages": [
+              "reports/add",
+              "reports/list",
+              "reports/editor",
+              "reports/share",
+              "reports/settings",
+              "reports/automation"
+            ]
+          },
+          {
+            "group": "Notifications",
+            "pages": [
+              "notifications/view",
+              "notifications/preferences"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "billing/plans",
+              "billing/subscription",
+              "billing/usage",
+              "billing/invoices"
+            ]
+          },
+          {
+            "group": "API Keys",
+            "pages": [
+              "api-keys/add",
+              "api-keys/list",
+              "api-keys/revoke"
+            ]
+          },
+          {
+            "group": "Account",
+            "pages": [
+              "account/profile",
+              "account/password",
+              "account/delete"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/overview",
+              "guides/first-project",
+              "guides/track-keywords",
+              "guides/fix-audit-issues",
+              "guides/ai-visibility",
+              "guides/monthly-report"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "openapi": {
+          "source": "https://api.surnex.io/openapi.json",
+          "directory": "api"
+        },
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api/introduction",
+              "api/quickstart"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "api/concepts/authentication",
+              "api/concepts/organizations",
+              "api/concepts/jobs",
+              "api/concepts/errors",
+              "api/concepts/pagination",
+              "api/concepts/rate-limits",
+              "api/concepts/versioning"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "MCP",
+        "groups": [
+          {
+            "group": "MCP",
+            "pages": [
+              "mcp/overview",
+              "mcp/connect",
+              "mcp/auth",
+              "mcp/tools",
+              "mcp/playbooks",
+              "mcp/troubleshooting"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Releases",
+            "pages": [
+              "changelog/2026-08"
+            ]
+          }
+        ]
+      }
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/surnex",
+      "linkedin": "https://linkedin.com/company/surnex"
     }
   }
 }

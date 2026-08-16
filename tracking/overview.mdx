@@ -1,0 +1,95 @@
+---
+title: "Ranking overview"
+description: "Your tracked keyword positions summarized — distribution, movers, and AI Overview impact."
+---
+
+**Tracking → Overview** is the summary view of every keyword you track. It answers three questions: where do you rank overall, what moved, and are AI Overviews taking your traffic.
+
+## Stat cards
+
+| Card | What it counts |
+| --- | --- |
+| **Total Tracked** | Every tracked keyword, active and paused |
+| **Avg Position** | Mean position across keywords that rank, to one decimal. `—` if nothing ranks yet |
+| **In Top 10** | Keywords at positions 1–10 |
+| **Ranking** | Keywords ranking anywhere in the top 100 |
+
+**Avg Position** excludes keywords that don't rank, so it improves when a keyword falls out of the top 100 entirely. Read it next to **Ranking** — the average is only meaningful if that count is holding steady.
+
+## Position Distribution
+
+A bar per position band, with the keyword count on the right:
+
+- **#1 – #3**
+- **#4 – #10**
+- **#11 – #20**
+- **#21 – #50**
+- **#51 – #100**
+- **Not Ranking**
+
+The bands are **exclusive** — a keyword at position 2 is counted in `#1 – #3` only, not in every band below it. That's why the bars sum to your total tracked count, while the **In Top 10** stat card above sums the first two bands.
+
+Bar lengths are scaled to the largest band, not to your total, so the biggest band always fills the row.
+
+## AI Overview Impact
+
+Two rates, based on whether Google returned an AI Overview for each tracked keyword on its last check:
+
+**Trigger Rate** — the share of your tracked keywords where an AI Overview appeared at all. High trigger rate means AI answers are shaping the results you compete in.
+
+**Citation Rate** — of the keywords that triggered an AI Overview, the share where **your domain was cited** in it. This is the number to move.
+
+Both are shown as a percentage with the underlying counts beneath (`12 of 40 keywords`). Until the first rank check completes you'll see **No AI Overview data yet**.
+
+<Note>
+  Citation Rate is a percentage of triggered keywords, not of all keywords. A citation rate of 50% with a trigger rate of 4% means you're cited in half of a very small number of AI Overviews.
+</Note>
+
+## Improved and Declined
+
+Two counts drawn from the ten most recent position changes — how many moved up and how many moved down. For the full list with date filtering, see [Position changes](/tracking/changes).
+
+## Top Gainers and Top Losers
+
+Two tables, up to five rows each, showing **Keyword**, current **Position**, and **Change**. Gainers are sorted by largest improvement, losers by largest drop. When there's nothing to show, you'll see **No gainers** or **No losers**.
+
+These come from the same recent-changes data as the counts above, so on a brand new project both are empty until there's a second rank check to compare against.
+
+## Changing the schedule
+
+Click **Settings** in the page header to open the **Rank Tracking Schedule** panel:
+
+| Field | Options | Default |
+| --- | --- | --- |
+| **Frequency** | Every day, Every 3 days, Once a week | Every day |
+| **Check Hour** | Any hour, 00:00–23:00 | 00:00 |
+| **Timezone** | Any IANA timezone | Your browser's timezone |
+
+Click **Save Settings**.
+
+The **Timezone** is applied — a check set to 09:00 with `America/New_York` selected runs at 09:00 New York time, and follows daylight saving.
+
+Frequencies are real intervals measured from the last run, not calendar rules:
+
+- **Every day** — every 24 hours at the chosen hour.
+- **Every 3 days** — three days after the last run, not a fixed day of the month.
+- **Once a week** — seven days after the last run, not a fixed weekday.
+
+Lowering the cadence reduces how much of your keyword quota you consume. See [Usage and limits](/billing/usage).
+
+## Related pages
+
+<CardGroup cols={2}>
+  <Card title="Tracked keywords" icon="list" href="/tracking/add-keywords">
+    Add, pause, edit, and remove the keywords behind these numbers.
+  </Card>
+  <Card title="Position changes" icon="arrow-trend-up" href="/tracking/changes">
+    The full movement list, not just the top five.
+  </Card>
+  <Card title="Competitors" icon="users" href="/tracking/competitors">
+    The same keywords, measured against competitor domains.
+  </Card>
+  <Card title="Ranking alerts" icon="bell" href="/tracking/alerts">
+    Get told when something moves instead of checking.
+  </Card>
+</CardGroup>

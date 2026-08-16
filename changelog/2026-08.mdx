@@ -1,0 +1,42 @@
+---
+title: "August 2026"
+description: "What shipped in August 2026."
+---
+
+<Update label="August 2026" description="Documentation">
+  ## Documentation launched
+
+  These docs are new. They cover the dashboard, the REST API, and the MCP server.
+
+  Start with the [Introduction](/introduction) or jump to a [guide](/guides/overview).
+
+  ### Behaviour worth knowing
+
+  Several things work differently from how the interface suggests. They're documented on the relevant pages, and collected here.
+
+  **Creating a project collects nothing immediately.** It creates four schedules — rank checks, backlink snapshots, GEO snapshots, local ranking checks — all set to daily at 00:00 UTC. The first data arrives when those come due, up to 24 hours later. See [Create a project](/projects/add).
+
+  **All four schedules default to daily**, which is the most expensive setting available. Backlinks in particular are worth lowering. See [How data collection works](/projects/data-collection).
+
+  **Members can't create projects.** A project counts against the plan, so creating one needs the admin role. See [Roles and permissions](/organizations/roles).
+
+  **An API key acts as an owner.** Any member can create one, and it isn't limited by that member's role — so a key made by a member can delete projects and open the billing portal. See [API authentication](/api/concepts/authentication).
+
+  **Invitations must be accepted.** Inviting someone adds a pending row; they get no access, and the organization doesn't appear in their switcher, until they accept. The address must already have a Surnex account. See [Invite your team](/organizations/team).
+
+  **Not being a member returns 404, not 403.** A 403 would confirm the organization or project exists. A 404 therefore isn't proof something was deleted. See [Errors](/api/concepts/errors).
+
+  ### Known defects
+
+  **The API Keys page shows MCP snippets that don't work.** Both the `claude mcp add` command and the `mcpServers` JSON block configure an `X-API-Key` header, which the MCP server rejects — it uses [OAuth](/mcp/auth). Only the `curl` snippet on that screen is correct. See [Create an API key](/api-keys/add).
+
+  **Project creation drops most of its form.** The create form collects keywords, competitors, location, language, and search engine, but the API accepts only the name, domain, and schedules — the rest is silently discarded rather than rejected. Add keywords and competitors from their own pages afterwards. See [Create a project](/projects/add).
+
+  **The Domain field in Project settings doesn't save.** It's editable but only the project name is submitted, and the API has no way to change a domain either — a project's domain is fixed for its life. See [Project settings](/projects/settings).
+
+  **Editing a tracked keyword saves location and language only.** The keyword text and search engine fields are editable but discarded. See [Tracked keywords](/tracking/add-keywords).
+
+  **There is no promote-to-tracking action** for saved keywords. Saving and tracking are separate. See [Saved keywords](/keywords/saved).
+
+  **Admins cannot change billing**, despite the invite panel describing them as having full access including billing. Only the owner can. See [Roles and permissions](/organizations/roles).
+</Update>

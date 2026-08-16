@@ -1,0 +1,86 @@
+---
+title: "Keyword metrics"
+description: "What volume, difficulty, CPC, competition, and intent mean, and how to read them together."
+---
+
+Every keyword in Surnex carries the same set of metrics, on the [research table](/keywords/research), [saved keywords](/keywords/saved), and tracked keyword cards. This page explains what each one measures — and, more usefully, what each one doesn't.
+
+## Volume
+
+Average monthly searches for the keyword, in the project's [location and language](/projects/settings).
+
+It's an average over the preceding twelve months, so a strongly seasonal keyword shows a figure it rarely actually hits. Check the **Trend** sparkline before treating volume as a monthly forecast: a term averaging 1,000 might be 6,000 in December and 200 in July.
+
+Volume is per market. The same keyword has a different figure in the US and the UK, which is why changing the project locale changes the numbers.
+
+## Trend
+
+A sparkline of the last twelve months of search interest. Expand a row for the full-size chart.
+
+Read it for shape, not precision. Three shapes matter: **steadily rising** (worth investing in early), **seasonal spikes** (time your content), and **declining** (the term is losing relevance regardless of what the average says).
+
+## Keyword difficulty (KD)
+
+A 0–100 estimate of how hard ranking on page one would be, based on the strength of the pages currently ranking.
+
+Colour-coded throughout the interface:
+
+| KD | Colour | Reading |
+| --- | --- | --- |
+| 0–39 | Green | Achievable |
+| 40–69 | Amber | Competitive |
+| 70–100 | Red | Hard |
+
+The thresholds are fixed. Note they're relative to *the whole web*, not to you: a KD of 35 is easy for an established domain and can still be out of reach for a new one. Judge KD against your own [domain authority](/domains/overview), not in isolation.
+
+## CPC
+
+What advertisers pay per click on this keyword, on average, in US dollars.
+
+CPC is the best available proxy for **commercial value**. A keyword with modest volume and a high CPC is one people pay real money for, which usually means it converts. A high-volume keyword with a CPC near zero is informational — traffic, but rarely revenue.
+
+Expand a row for **Low Bid** and **High Bid**, the range behind that average. A wide range means advertisers disagree about what the click is worth.
+
+## Competition
+
+Advertiser competition — how contested the keyword is in **paid** search.
+
+Shown as `LOW`, `MEDIUM`, or `HIGH`, colour-coded green, amber, and red. Expanding a row also gives you **Competition (raw)**, the underlying 0–1 score, and **Competition Index**, the same figure on a 0–100 scale.
+
+<Warning>
+  Competition is a paid-search metric and says nothing about organic difficulty. Use **KD** for how hard it is to rank organically. A keyword can be `LOW` competition and still have a KD of 80.
+</Warning>
+
+## Intent
+
+What the searcher is trying to do. Expanded rows show a **Main Intent** and any **Foreign Intent** — secondary intents the query also carries.
+
+Intent decides what you should build, and it's the metric most often ignored:
+
+| Intent | The searcher wants | Page that wins |
+| --- | --- | --- |
+| Informational | To learn | Guide, article |
+| Commercial | To compare | Comparison, review, listicle |
+| Transactional | To buy | Product or pricing page |
+| Navigational | A specific site | Usually unwinnable if it's not yours |
+
+Targeting a transactional keyword with a blog post loses to a product page no matter how good the writing is. Match the format to the intent first, then worry about volume.
+
+## SERP features
+
+The features present in the results — featured snippets, local packs, AI Overviews, and so on. Shown on expanded [saved keywords](/keywords/saved).
+
+These compete for the click. Ranking first under a featured snippet and a four-result local pack can deliver less traffic than ranking third on a clean results page.
+
+## Reading them together
+
+No single metric decides anything. In practice:
+
+- **High volume, high KD, high CPC** — valuable and contested. A long-term project, not a quick win.
+- **Low volume, low KD, high CPC** — the best opportunities on most sites. Small, winnable, and commercially real.
+- **High volume, low CPC, informational** — traffic that rarely converts. Fine for awareness, poor for pipeline.
+- **Any volume, wrong intent** — skip it. Intent mismatches don't rank however good the page is.
+
+## Freshness
+
+Metrics are captured when the lookup runs and don't refresh themselves. A [saved keyword](/keywords/saved) shows the figures from the day you saved it, and a [research job](/keywords/research) from the day it ran. Expanded rows show a **Last Updated** field. Re-run the research for current numbers.

@@ -1,0 +1,71 @@
+---
+title: "MCP playbooks"
+description: "Prompt patterns that get useful work out of the Surnex MCP server."
+---
+
+The MCP server is most valuable for questions that span several parts of the platform — the ones that would otherwise mean opening four pages and reconciling them by hand. These are patterns that work.
+
+## Weekly review
+
+> Look at the project for example.com. Summarize what changed this week: ranking movement, new and lost backlinks, and anything from the latest audit. Lead with what needs attention.
+
+The agent chains `get_ranking_changes`, `get_new_lost_backlinks`, and `get_audit_summary`, then writes the summary. Faster than three pages, and it does the correlation for you.
+
+## Triage an audit for developers
+
+> Read the most recent audit for this project. Group the issues by severity, and for each group say what a developer would actually have to change. Put anything that's a template-wide fix first.
+
+Uses `list_audits`, `get_audit_summary`, and `get_audit_issues`. The value is the last sentence — sitewide patterns are one fix each and move the score far more than one-off issues.
+
+## Find link opportunities
+
+> Run a backlink gap for this project against competitor-a.com, competitor-b.com, and competitor-c.com. Rank the results by how many of the three link to them and by domain authority, and tell me which ten to approach first.
+
+`get_backlink_gap` returns the raw comparison; the agent does the ranking. Domains linking to all three competitors are the strongest targets — your absence is conspicuous rather than a matter of taste.
+
+## Plan content for a topic
+
+> We want to rank for "rank tracking for agencies". Research the keyword and related terms, check who's currently cited in AI answers for it, then write a content brief.
+
+Chains `research_keyword`, `get_keyword_suggestions`, `get_ai_top_competitors`, and `generate_content_brief`. Note that `generate_content_brief` has no dashboard equivalent — this workflow is only available through MCP.
+
+## Audit your AI visibility
+
+> Run a citation gap for this project against our competitors on our top 20 commercial keywords. For every gap, tell me which sources were cited instead and whether they mention us at all.
+
+`get_citation_gap` plus `get_chatgpt_visibility` on the gaps. The second half is the useful part: if a comparison site is cited and doesn't list you, the fix is getting listed, not editing your own page.
+
+## Cross-referencing
+
+The strongest prompts join data that lives in different places:
+
+> Which keywords did we lose top-10 positions on this month, and do any of the pages that dropped have audit issues?
+
+> Compare our tracked keyword positions against our AI Overview citation rate. Are we losing traffic on keywords where we still rank well?
+
+> Which of our top pages by traffic have the worst web vitals?
+
+None of these is a page in the dashboard. That's the point of the integration.
+
+## Prompting well
+
+**Name the project.** "The project for example.com" saves the agent guessing between several.
+
+**State the market.** Locale-taking tools default to United States and English. If you target another market, say so — the agent won't infer your project's locale on every call.
+
+**Ask for a conclusion, not a dump.** "Tell me the ten to approach first" produces something usable; "get the backlink gap" produces a table you still have to read.
+
+**Bound the scope.** "Top 20 commercial keywords" rather than "our keywords" keeps quota consumption predictable.
+
+## Being careful
+
+**Turn on tool approval** if your client supports it. The agent can call `delete_project`, which destroys all of a project's history irreversibly.
+
+**Watch quota.** Research, audits, backlink refreshes, and AI lookups all draw on your plan allowance. An agent asked to audit every project will spend your [monthly audit budget](/billing/usage) doing exactly that.
+
+**Verify writes.** Before asking an agent to add fifty keywords, confirm you have room under your [tracked keyword limit](/billing/plans) — hitting it mid-run leaves a partial result.
+
+## Related
+
+- [MCP tools](/mcp/tools) — the full inventory and which ones write
+- [Troubleshooting](/mcp/troubleshooting)

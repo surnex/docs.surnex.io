@@ -1,0 +1,44 @@
+---
+title: "Manage projects"
+description: "Browse, search, and switch between the projects in your organization."
+---
+
+**Projects** is the landing page for an organization. It lists every project as a card in a responsive grid — one column on mobile, two on tablet, three on desktop.
+
+## The header
+
+The title shows your usage against your plan: `3 of 5 projects`. On Enterprise this reads `Unlimited`.
+
+Two controls sit on the right:
+
+- **Search** — filters the grid as you type, matching against both the project **name** and its **domain**. Filtering is client-side and instant; there's no submit.
+- **Add Project** — opens the [create form](/projects/add) in a panel.
+
+## Project cards
+
+Each card shows the project name, its domain, and when it was created as a relative time (`3 days ago`). Clicking anywhere on the card opens that project's [dashboard](/dashboard/overview).
+
+<Note>
+  Cards don't show ranking or traffic figures — they're a navigation surface, not a summary. Open the project to see its data.
+</Note>
+
+## Switching projects
+
+Clicking a card changes the `{projectId}` in the URL and loads that project's data everywhere in the sidebar. The project you're in is shown in the project switcher at the top of the sidebar, which is the faster route once you're already inside a project — it avoids a round trip back to this page.
+
+## Empty states
+
+| What you see | Why |
+| --- | --- |
+| **No projects yet** — "Add a project to start tracking your SEO", with an **Add Project** button | The organization has no projects |
+| **No projects found** — "Try a different search term" | Your search matched nothing; clear the search box |
+
+## When you hit the project limit
+
+At your plan's limit, **Add Project** is greyed out and clicking it takes you to [Billing](/billing/subscription) rather than opening the form. An upgrade prompt also pins itself to the bottom of the page while you're over the limit.
+
+To make room without upgrading, [delete a project](/projects/delete) you no longer need — but note that deletion is permanent and its history can't be rebuilt.
+
+## Deleting
+
+There's no delete action on the cards. Open the project and use **Project Settings → Danger Zone**. See [Delete a project](/projects/delete).

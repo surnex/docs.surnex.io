@@ -1,0 +1,79 @@
+---
+title: "Page detail"
+description: "Everything the crawler recorded about a single page."
+---
+
+Open an audit and click a row in its **Pages** tab to see one page in full. The heading shows the page URL.
+
+This is the diagnostic view: when an issue on the [issue list](/audits/issues) doesn't make sense, this page shows the underlying measurements it was derived from.
+
+## Content
+
+| Field | What it is |
+| --- | --- |
+| **Title** | The `<title>` tag as crawled |
+| **Description** | The meta description |
+| **H1** | The page's H1 heading |
+| **Word Count** | Words of body content |
+| **Status Code** | The HTTP status returned |
+
+**Word Count** is what the thin-content check measures against its 300-word threshold. If a page is flagged as thin but reads as substantial, the count usually reveals that most of the text is rendered client-side and never seen by the crawler.
+
+## Technical
+
+| Field | What it is |
+| --- | --- |
+| **Load Time** | Response time in milliseconds |
+| **Page Size** | Total size in KB |
+| **Encoding** | The `Content-Encoding` header |
+| **Indexable** | Whether the page can be indexed |
+| **Robots Meta** | The robots directives found |
+
+**Load Time** feeds the slow-page check (3,000 ms) and **Page Size** the large-page check (3 MB). An empty **Encoding** is what raises *uncompressed resource*.
+
+**Indexable** and **Robots Meta** together answer "why isn't this page ranking?" faster than anything else in Surnex.
+
+## Links & Media
+
+| Field | What it is |
+| --- | --- |
+| **Internal Links** | Links to your own pages |
+| **External Links** | Links off-site |
+| **Images** | Images on the page |
+| **Images w/o Alt** | How many are missing alt text |
+
+A page with zero **Internal Links** pointing at it is what makes it an orphan; the count here is links *from* the page.
+
+## SEO
+
+| Field | What it is |
+| --- | --- |
+| **Has Canonical** | Whether a canonical link element exists |
+| **Canonical URL** | Where it points |
+| **Has Schema** | Whether structured data was found |
+| **Schema Types** | Which schema types |
+
+Check **Canonical URL**, not just **Has Canonical**. A canonical pointing at a *different* page tells search engines not to index this one — a common and easily missed cause of a page disappearing from results.
+
+## Performance
+
+| Field | What it is |
+| --- | --- |
+| **Title Length** | Characters in the title |
+| **Description Length** | Characters in the meta description |
+| **Scripts Count** | Script tags on the page |
+| **Stylesheets Count** | Stylesheet links |
+| **Render-Blocking Scripts** | Scripts that delay rendering |
+
+**Title Length** and **Description Length** are the exact numbers behind the too-long and too-short warnings — 50–60 characters for titles, 120–155 for descriptions.
+
+**Render-Blocking Scripts** is the most actionable field here. It's usually the direct cause of a high **Load Time**, and moving those scripts to `async` or `defer` is a smaller change than the load time suggests.
+
+## Not found
+
+**Page not found** — "This page may have been deleted" — means the page record no longer exists, usually because its audit was removed. Open a current audit from [Audits](/audits/overview).
+
+## Related
+
+- [Audit issues](/audits/issues) — the thresholds these measurements are checked against
+- [Web vitals](/web-vitals/overview) — performance measured properly, rather than from one crawl request

@@ -1,0 +1,65 @@
+---
+title: "AI search overview"
+description: "Track whether AI-generated search results mention and cite your brand."
+---
+
+Search increasingly answers questions directly instead of listing links. Ranking first is worth less when the answer sits above you and the user never scrolls. The **AI** section measures whether you appear in those answers.
+
+## The six tools
+
+| Page | Question it answers | Input |
+| --- | --- | --- |
+| [Google AI Overviews](/ai/google-ai-overviews) | Which of my tracked keywords trigger an AI Overview, and am I cited? | None — uses tracked keywords |
+| [Google AI Mode](/ai/google-ai-mode) | What does Google's AI Mode say about this query? | One keyword |
+| [ChatGPT visibility](/ai/chatgpt-visibility) | What does ChatGPT say, and what does it cite? | One keyword |
+| [LLM benchmarking](/ai/benchmarking) | Which AI platforms cite me for this query? | One keyword |
+| [AI keyword trends](/ai/keyword-trends) | Which prompts are growing in AI search? | A list of keywords |
+| [Citation gap](/ai/citation-gap) | Where are competitors cited and I'm not? | Keywords + competitors |
+
+[Google AI Overviews](/ai/google-ai-overviews) is the only one that runs off your tracked keywords automatically. The rest are lookups you run per query.
+
+## Two metrics that matter
+
+Everything here reduces to two rates, and they're often confused:
+
+**Trigger rate** — of your tracked keywords, how many produce an AI answer at all. You don't control this. It tells you how exposed your market is: a high trigger rate means the traditional blue links matter less for your keywords than they used to.
+
+**Citation rate** — of the queries that trigger an AI answer, how many cite your domain. This is the number you can actually move, and the goal of everything in this section.
+
+Both appear on [Tracking → Overview](/tracking/overview) and on the [project dashboard](/dashboard/overview).
+
+<Note>
+  Citation rate is a percentage of *triggered* queries, not of all queries. 50% citation on a 4% trigger rate means you're cited in half of a very small number of answers.
+</Note>
+
+## Where to start
+
+1. **[Google AI Overviews](/ai/google-ai-overviews)** — it needs no input and covers keywords you already track. Read the trigger rate first: if it's near zero, AI search isn't yet affecting your market and the rest can wait.
+2. **[Citation gap](/ai/citation-gap)** — if competitors are cited where you aren't, that's a concrete, addressable list.
+3. **[LLM benchmarking](/ai/benchmarking)** on your most important queries, to see whether the picture differs by platform.
+
+## Being cited
+
+Citation behaves differently from ranking. Three things follow from how these systems work:
+
+- **You can be cited without ranking well.** AI answers draw on sources that answer the question directly, not necessarily the top result. A clear, direct answer on page two can be cited over a longer page at position one.
+- **Being cited elsewhere matters.** AI systems cite the sources they consider authoritative on a topic, which includes third-party sites that mention you. [Citation gap](/ai/citation-gap) surfaces those sources.
+- **Structure helps.** Content that answers a question plainly, near the top, in language matching how people ask, is easier to extract than the same information buried in a long narrative.
+
+## How this data is collected
+
+[GEO snapshots](/geo/overview) run on a **daily** schedule by default and track topic-level share of voice.
+
+The AI search tools on these pages are **run on demand**, apart from the initial collection when a project is created. AI Overview data for tracked keywords is captured as part of each [rank check](/tracking/overview), which is why that page needs no input. See [How data collection works](/projects/data-collection).
+
+## AI search vs. GEO
+
+Two related sections that answer different questions:
+
+|  | AI search | [GEO](/geo/overview) |
+| --- | --- | --- |
+| Unit | A keyword or query | A topic |
+| Question | "Am I cited for this query?" | "What's my share of voice on this subject?" |
+| Cadence | On demand | Daily |
+
+Use AI search for specific queries, GEO for tracking a subject area over time.

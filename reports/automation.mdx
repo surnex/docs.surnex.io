@@ -1,0 +1,70 @@
+---
+title: "Automate delivery"
+description: "Email a report to recipients on a recurring schedule."
+---
+
+Open a report and go to **Automation** — *"Schedule automated delivery for 'Report name'"*. Turn on the toggle, set a schedule and recipients, and the report is emailed automatically.
+
+## Schedule
+
+| Field | Options | Default |
+| --- | --- | --- |
+| **Enabled** | On / off | Off |
+| **Frequency** | Daily, Weekly (Monday), Bi-weekly, Monthly (1st) | Weekly |
+| **Hour** | Any hour, 00:00–23:00 | 09:00 |
+| **Timezone** | Any IANA timezone | UTC |
+
+A report's schedule works the same way as a project's [collection schedules](/projects/data-collection): the cadence is a real interval measured from the last send, and the **timezone is applied**.
+
+| Label | Interval |
+| --- | --- |
+| **Daily** | 1 day |
+| **Weekly (Monday)** | 7 days |
+| **Bi-weekly** | 14 days |
+| **Monthly (1st)** | 1 month |
+
+<Note>
+  The labels still name a weekday and a date — "Weekly (Monday)", "Monthly (1st)" — but the schedule is an interval from the last run, not a fixed calendar slot. A weekly report enabled on a Thursday sends on Thursdays.
+</Note>
+
+Set the hour in your own timezone; it's honoured, including across daylight saving.
+
+## Delivery
+
+Add recipient email addresses one at a time. Validation rejects a malformed address (*"Please enter a valid email address"*) and a duplicate (*"Email already added"*).
+
+Recipients don't need Surnex accounts.
+
+## Preview
+
+A summary line describes what will happen in plain language — the frequency, the hour, the timezone, and how many recipients. It appears only when the automation is **enabled**.
+
+Read it before saving. Because the timezone is displayed but not applied, the preview is also the clearest reminder to double-check the hour.
+
+## What recipients get
+
+The report is delivered by email on the schedule. Its widgets read live project data for the report's [date range](/reports/editor#date-range), so what's sent reflects the data at send time.
+
+This is the detail that decides whether recurring delivery works: if the range is fixed to a specific month, every send after that month closes contains identical figures. For a monthly report that should move with time, set a rolling range so each send covers the period just finished.
+
+## Turning it off
+
+Switch **Enabled** off and save. The schedule and recipients are kept, so you can resume later without re-entering them.
+
+Deleting the report also stops delivery — but silently, with no notice to recipients. Disable rather than delete if you might resume.
+
+## Automation vs. share links
+
+|  | Automation | [Share link](/reports/share) |
+| --- | --- | --- |
+| Delivery | Pushed by email on a schedule | Pulled by the recipient, any time |
+| Access control | Recipient list | Optional password and expiry |
+| Best for | Clients who expect a regular deliverable | Stakeholders who check in ad hoc |
+
+They work together. A monthly automated email for the formal deliverable, plus a password-protected link for anyone who wants to look between sends.
+
+## Related
+
+- [Report editor](/reports/editor) — the date range that determines what gets sent
+- [Share a report](/reports/share) — links and manual exports
+- [Notification preferences](/notifications/preferences) — unrelated; those govern your own alerts, not report delivery

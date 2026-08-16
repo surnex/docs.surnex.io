@@ -1,0 +1,83 @@
+---
+title: "How data collection works"
+description: "Which data is collected on a schedule, which runs on demand, and which is fetched live."
+---
+
+Almost nothing in Surnex is fetched when you open a page. Data is collected in the background, written to your project, and read back when you visit. This is why a page can show yesterday's figures and why a fresh project looks empty at first.
+
+Understanding which mode a feature uses tells you what to expect when a number looks stale.
+
+## The three modes
+
+### Scheduled
+
+Four job types have a schedule, and every project gets all four:
+
+| Job | Feature |
+| --- | --- |
+| `rank_check` | [Rank tracking](/tracking/overview) |
+| `backlink_snapshot` | [Backlinks](/backlinks/overview) |
+| `geo_snapshot` | [GEO visibility](/geo/overview) |
+| `local_ranking_check` | [Local SEO](/local/overview) |
+
+A new project gets all four **daily at 00:00 UTC**, enabled. Report delivery is scheduled separately, per report — see [Automate delivery](/reports/automation).
+
+Each schedule has three parts:
+
+| Part | Meaning |
+| --- | --- |
+| **Cadence** | How often — daily, every 3 days, weekly, biweekly, or monthly |
+| **Run hour** | Which hour of the day, in the schedule's own timezone. Can be unset |
+| **Timezone** | Any IANA timezone, and it **is** applied |
+
+Cadence is a real interval — three days means three days, everywhere in the year. It isn't a day-of-week or day-of-month rule, so "weekly" is seven days from the last run rather than a fixed weekday.
+
+Leaving the **run hour** unset makes the cadence pure elapsed time: the job runs every N hours from whenever it last ran, with no calendar involved.
+
+The scheduler wakes every minute and claims whatever is due. Claiming a schedule advances its next run in the same statement, so a job can't be picked up twice — there's no dedup window to reason about and no "did this already run recently" guard.
+
+### Collected on demand
+
+These have no schedule. They run when you ask:
+
+- [Site audits](/audits/run) — start a crawl from the Audits page
+- [Web vitals](/web-vitals/overview)
+- [AI search](/ai/overview) — AI Mode, ChatGPT visibility, benchmarking, citation gap
+- [Domain overview](/domains/overview) and [tech stack](/domains/tech-stack)
+- [Keyword research](/keywords/research)
+
+<Note>
+  Creating a project **does not collect anything immediately**. Its first jobs run when their schedules come due — which, on the default midnight-UTC schedule, may be up to 24 hours later. A new project looking empty is expected.
+
+  Audits and web vitals never run on their own at all. A months-old audit score means nobody has crawled since.
+</Note>
+
+### Live
+
+Two pages call out while you wait, with no stored history:
+
+- [Explore trends](/trends/explore)
+- [Trending now](/trends/trending)
+
+These are the only pages where refreshing gives you newer numbers.
+
+## Why a page is empty
+
+| Cause | What you'll see | What to do |
+| --- | --- | --- |
+| No scheduled run yet | Empty state on a new project | Wait for the schedule, or lower the run hour |
+| It's an on-demand feature | Empty audits, web vitals, domain data | Run it |
+| Nothing to collect | No backlinks on a new domain, no local pack results | Nothing — the job succeeded and found nothing |
+| The job failed | Data for other features but not this one | Check [Notifications](/notifications/view) |
+
+## One job at a time
+
+The most expensive jobs refuse to start if one is already running for that project. Requesting a second [site audit](/audits/run) while the first is in flight is rejected rather than queued — a crawl is the slowest and costliest thing the platform does, and the slowest to notice you've started twice.
+
+## Usage
+
+Scheduled collection consumes plan quota the same way manual actions do. A daily rank check on 500 keywords draws on your keyword allowance every day, and lowering a cadence is usually the cheapest way to stay inside a limit.
+
+[Usage and limits](/billing/usage) shows what's been consumed; [Plans](/billing/plans) lists the allowance on each tier.
+
+This is why tracked keyword counts matter more than they look: each one is a recurring daily cost, not a one-off.

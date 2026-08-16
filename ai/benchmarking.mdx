@@ -1,0 +1,59 @@
+---
+title: "LLM benchmarking"
+description: "Compare whether you're cited for the same query across multiple AI platforms."
+---
+
+**AI → LLM Benchmarking** runs one query against several AI platforms at once and reports which of them cite you. It's the fastest way to see whether an absence is universal or specific to one system.
+
+## Running a benchmark
+
+Enter a query in **Enter a keyword to benchmark across LLMs…** and submit. Results appear as one row per platform. Past benchmarks are kept for reference.
+
+## The results table
+
+| Column | What it shows |
+| --- | --- |
+| **Platform** | The AI platform queried |
+| **Cited** | Whether your domain was cited |
+| **Sources** | How many sources that platform cited |
+| **Model** | The specific model used, or `N/A` |
+
+Expand a row for the full **Response** from that platform and its cited sources, each with a **Visit** link.
+
+## Reading the comparison
+
+The pattern across rows is the finding, not any single row:
+
+**Cited everywhere.** You're an established authority for this query. Nothing to do.
+
+**Cited nowhere.** A content problem, not a platform quirk. The sources cited instead show what the platforms consider a good answer — compare them against your page.
+
+**Cited on some platforms only.** The most informative outcome. Platforms weight sources differently: some lean on documentation and community discussion, others on conventional web authority. Look at which sources the platforms citing you have in common versus those that don't, and you have a specific hypothesis about what earns the citation.
+
+**Sources count varies widely by platform.** A platform citing two sources is close to winner-take-all for that query; one citing ten leaves room. Prioritize the narrow ones — being one of two is worth much more than being one of ten.
+
+## The Model column
+
+Names the specific model behind each result, where the platform exposes it. Worth recording when you're tracking visibility over time: a change in citation behaviour often follows a model change rather than anything you did.
+
+`N/A` means the platform didn't report a model.
+
+## Variance
+
+AI responses aren't deterministic. The same query can return different sources on different runs, so a single benchmark is a sample.
+
+For queries that matter commercially, run the benchmark a few times over a week before drawing conclusions. Consistent absence is a finding; a single absence is noise.
+
+## How this differs from the single-platform pages
+
+|  | Benchmarking | [ChatGPT visibility](/ai/chatgpt-visibility) / [AI Mode](/ai/google-ai-mode) |
+| --- | --- | --- |
+| Platforms | Several at once | One |
+| Depth | Response and sources per platform | Full response, with snippets and scoring |
+| Best for | "Is this absence universal?" | "Why exactly am I absent here?" |
+
+Benchmark first to find where you're missing, then use the single-platform page to investigate.
+
+## Usage
+
+A benchmark queries multiple platforms in one run and draws on your plan's allowance accordingly — it costs more than a single-platform lookup. See [Usage and limits](/billing/usage).

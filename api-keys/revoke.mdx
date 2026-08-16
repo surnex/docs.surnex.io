@@ -1,0 +1,39 @@
+---
+title: "Revoke an API key"
+description: "Disable a key immediately and permanently."
+---
+
+On **Settings → API Keys**, use the revoke action on the key's row. Confirmation reads: *"This will permanently revoke this API key. Any applications using it will stop working."*
+
+Revoking is immediate and permanent. The confirmation is *"API key revoked"*.
+
+## What happens
+
+The key stops authenticating at once. Anything using it — a script, a CI job, a scheduled integration — starts failing on its next request. There's no grace period and no way to un-revoke; recovering means [creating a new key](/api-keys/add) and updating every consumer.
+
+## Revoke when
+
+- **The key leaked.** Committed to a repository, pasted into a chat, included in a screenshot. Revoke first and investigate afterwards — a key carries full organization access, so the cost of a false alarm is far lower than the cost of waiting.
+- **Someone with access left.** Keys aren't tied to a person and keep working after a member is removed from the organization. Removing someone from [Team](/organizations/team) does **not** revoke keys they created or held.
+- **The integration is retired.** Decommissioned service, cancelled project, abandoned experiment.
+- **It's never been used.** A key with no last-used date is a live credential doing nothing.
+
+## Rotating a key
+
+There's no rotate action, so do it in this order to avoid downtime:
+
+1. [Create a new key](/api-keys/add) with a name marking it as the replacement.
+2. Update every consumer to the new key.
+3. Confirm the new key is working — check its **Last used** on the [key list](/api-keys/list).
+4. Revoke the old key.
+
+Creating first and revoking last means there's no window where nothing works. It also means the old key's last-used date tells you whether anything is still on it before you pull the plug.
+
+## Finding what a key is used for
+
+Only the **name** and **last used** date are recorded — there's no request log or per-key usage breakdown. If a key is unnamed or vaguely named and you can't tell what it does, revoking and waiting for something to break is the only way to find out, which is a strong argument for naming keys properly at creation.
+
+## Related
+
+- [Create an API key](/api-keys/add)
+- [Manage API keys](/api-keys/list)

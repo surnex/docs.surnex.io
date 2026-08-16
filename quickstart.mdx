@@ -1,47 +1,64 @@
 ---
 title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+description: "Create an organization, add your first project, and see your first rankings."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
-
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+This walkthrough takes you from a new account to a project collecting ranking, backlink, and audit data. It takes about five minutes of setup; the first full data pull completes in the background afterwards.
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
-
-    ```bash
-    npm install your-package
-    ```
+  <Step title="Create your account">
+    Sign up at [app.surnex.io](https://app.surnex.io). Verify your email address, then sign back in.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
-    ```
+  <Step title="Create an organization">
+    Give your organization a name. Everything in Surnex — projects, team members, billing, API keys — belongs to an organization, and you can belong to more than one.
+
+    You can invite teammates now or later from **Settings → Team**. See [Roles and permissions](/organizations/roles) for what each role can do.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+  <Step title="Add your first project">
+    A project is one domain you want to track. You'll need:
+
+    - **Domain** — the site to track, for example `example.com`
+    - **Location** — the country or city whose search results you want to measure
+    - **Language** — the language of the search results
+
+    Location and language decide which SERP Surnex measures you in, so pick the market you actually compete in. You can change them later in [Project settings](/projects/settings).
+  </Step>
+
+  <Step title="Add keywords to track">
+    Open **Keywords** to find ideas with volume and difficulty, and bookmark the ones worth pursuing — they collect on [Saved keywords](/keywords/saved) as a shortlist.
+
+    Then add the ones you want checked daily on the **Tracking** page. Saving and tracking are separate steps: a saved keyword isn't monitored until you [add it to tracking](/tracking/add-keywords).
+  </Step>
+
+  <Step title="Add competitors">
+    Add the domains you compete with on **Competitors**. Surnex measures them on the same keywords as you, which powers position comparisons and the [backlink gap](/backlinks/gap).
+  </Step>
+
+  <Step title="Wait for the first data pull">
+    Creating a project queues the initial collection run — rankings, backlinks, a site audit, domain metrics, web vitals, AI search, and local visibility. Keyword and ranking data usually lands within minutes; a full site audit takes longer on large sites.
+
+    The project dashboard fills in as each job finishes. You don't need to keep the page open.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## What to do next
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+<CardGroup cols={2}>
+  <Card title="Review your audit" icon="magnifying-glass" href="/audits/issues">
+    Triage the technical issues from your first crawl.
+  </Card>
+
+  <Card title="Watch position changes" icon="arrow-trend-up" href="/tracking/changes">
+    See which keywords moved once you have a few days of history.
+  </Card>
+
+  <Card title="Build a report" icon="file-lines" href="/reports/add">
+    Turn your project data into a shareable report.
+  </Card>
+
+  <Card title="Set up alerts" icon="bell" href="/tracking/alerts">
+    Get notified when tracked keywords move significantly.
+  </Card>
+</CardGroup>

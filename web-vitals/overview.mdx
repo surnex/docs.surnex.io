@@ -1,0 +1,79 @@
+---
+title: "Web vitals"
+description: "Lighthouse performance scores and Core Web Vitals for any page on your site."
+---
+
+**Web Vitals** runs Lighthouse audits against individual URLs and stores each result, so you can watch page performance over time.
+
+## Running a check
+
+Enter a URL in the **Enter URL to check** field and submit. The check runs in the background and appears in the list when it completes.
+
+Checks are per URL, not per site. Your home page performing well says nothing about a heavy product template — check the pages that matter individually.
+
+Checks are also per **device** — a URL measured on mobile and on desktop are separate checks, and mobile is usually the worse and more important of the two.
+
+<Note>
+  A web vitals check does **not** consume your monthly site audit allowance — unlike [site audits](/audits/overview), it has no plan-limit check of its own. What it does have is a one-at-a-time guard: starting a check while one is already running for the project is refused rather than queued.
+</Note>
+
+## Performance score
+
+Each completed check shows a **performance score** gauge — the Lighthouse score from 0 to 100. It's a weighted composite of the metrics below, not a separate measurement.
+
+## Metrics
+
+A completed check records seven metrics, all straight from Lighthouse:
+
+| Metric | What it measures |
+| --- | --- |
+| **LCP** — Largest Contentful Paint | When the main content finishes rendering |
+| **INP** — Interaction to Next Paint | How quickly the page responds to input |
+| **CLS** — Cumulative Layout Shift | How much the layout jumps while loading |
+| **FCP** — First Contentful Paint | When anything first appears |
+| **TTFB** — Time to First Byte | Server response time |
+| **SI** — Speed Index | How quickly content visibly populates |
+| **TBT** — Total Blocking Time | Main-thread blocking during load |
+
+Times are in milliseconds; CLS is a unitless score. Any metric Lighthouse couldn't measure comes back null and displays as `—`.
+
+**LCP**, **INP**, and **CLS** are the three Core Web Vitals — the ones Google uses as a ranking signal. The other four are diagnostics that explain them.
+
+Surnex stores the raw values rather than a pass/fail grade. For reference, Google's own thresholds are LCP ≤ 2.5 s, INP ≤ 200 ms, and CLS ≤ 0.1 for "good".
+
+## Reading the diagnostics
+
+The four supporting metrics tell you *why* a Core Web Vital is failing, which is what makes them worth having:
+
+- **High TTFB with high LCP** — the problem is server-side. No amount of front-end optimization fixes a slow origin; look at hosting, caching, and database queries.
+- **Low TTFB but high LCP** — the server is fine and the page is heavy. Look at image sizes and render-blocking resources.
+- **High TBT with poor INP** — JavaScript is monopolizing the main thread. Split bundles, defer what isn't needed for first paint.
+- **High SI with acceptable LCP** — content arrives in stages and the page feels slow even though the headline metric passes.
+
+## Opportunities
+
+Completed checks list **Opportunities** — specific fixes Lighthouse identified, each with a description and the estimated time saving in milliseconds.
+
+Sort your effort by the savings figure, but sanity-check it: a 400 ms saving on a page with a 4-second LCP is worth more than a 400 ms saving on one already passing.
+
+## History
+
+Every check is stored, so the list is a performance record for the URL. Re-check after a deploy and compare against the previous run to confirm the change helped.
+
+## Lab data, not field data
+
+These are **lab** measurements — a single synthetic load under controlled conditions — not what your real visitors experienced.
+
+That means results are reproducible and good for comparing before and after a change, but they won't match Chrome User Experience Report figures or Search Console. Real users are on slower devices and worse networks, so field data is typically worse than lab data. Use these numbers to diagnose and to measure improvement, not to predict what Google sees.
+
+## Relationship to site audits
+
+Both touch performance and they don't measure the same thing:
+
+|  | [Site audit](/audits/overview) | Web vitals |
+| --- | --- | --- |
+| Scope | Many pages in one crawl | One URL per check |
+| Performance data | Load time and page size from one crawl request | Full Lighthouse run |
+| Thresholds | Slow page at 3,000 ms, large page at 3 MB | The seven metrics above |
+
+Use an audit to find *which* pages are slow across the site, then web vitals to work out *why* on the worst offenders.

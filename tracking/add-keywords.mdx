@@ -1,0 +1,103 @@
+---
+title: "Tracked keywords"
+description: "Add keywords to a project, pause them, edit their locale, and remove them."
+---
+
+**Tracking** lists every keyword the project monitors, one card per keyword. This is where you manage what gets checked.
+
+## Add keywords
+
+Click **Add Keywords** to open the panel.
+
+<Steps>
+  <Step title="Enter your keywords">
+    The **Keywords** box is a multi-line textarea. Separate keywords with **commas** to add several at once:
+
+    ```
+    seo tools, rank tracker, backlink checker
+    ```
+
+    Each comma-separated value is trimmed and empty entries are dropped, so trailing commas and stray spaces are harmless. Line breaks are not separators — only commas are.
+  </Step>
+
+  <Step title="Set Location">
+    Defaults to **United States**. Searchable dropdown of roughly 185 locations.
+  </Step>
+
+  <Step title="Set Language">
+    Defaults to **English**. Around 65 options.
+  </Step>
+
+  <Step title="Set Search Engine">
+    **Google** (default), **Bing**, or **Yahoo**.
+  </Step>
+
+  <Step title="Click Add Keywords">
+    All keywords in the box are added with the same location, language, and search engine. A confirmation names how many were added.
+  </Step>
+</Steps>
+
+To track one keyword in two markets, add it twice — once per location. They're tracked as separate keywords with separate histories.
+
+New keywords show a **Pending** badge until their first check completes.
+
+## Reading a keyword card
+
+Each card shows:
+
+- The **keyword**, with either a **Pending** badge or `Checked 3 hours ago`
+- The **current position** in large type, or `—` when it doesn't rank
+- The **change** since the previous check, with an up, down, or flat arrow
+- **Vol:** monthly search volume, when known
+- The **ranking URL** — which of your pages actually ranks, which is often not the one you expected
+- An **AI Overview** badge when Google returned an AI Overview for this keyword. It reads **AI Cited** in green if your domain was cited in it, or **AI Overview** in purple if the overview appeared without you
+
+Click a card to open its [history](/tracking/keyword-history).
+
+## Active and All
+
+The toggle in the header switches between **Active** (the default) and **All**. Paused keywords are hidden under **Active** and shown dimmed under **All**.
+
+## Pause a keyword
+
+Use the switch on the card. Pausing stops future rank checks but **keeps all collected history** — flip it back on and checking resumes, leaving a gap in the chart for the paused period.
+
+Pause rather than delete when you're at your keyword limit but might want the keyword back. Note that a paused keyword still counts toward your plan's tracked-keyword limit.
+
+## Edit a keyword
+
+Click the pencil icon to reopen the panel in edit mode.
+
+<Warning>
+  Only **Location** and **Language** are saved by the edit form. The **Keyword** text and **Search Engine** fields are editable on screen but are not submitted — changes to them are silently discarded. To change a keyword's text or search engine, remove it and add it again.
+</Warning>
+
+Changing location or language doesn't rewrite history. Past positions keep the locale they were collected under, so the chart spans two different search markets across the change.
+
+## Remove a keyword
+
+Click the trash icon and confirm. Removal is permanent — the keyword and its **entire position history** are deleted and can't be recovered. If you might want the data later, [pause it](#pause-a-keyword) instead.
+
+## Export
+
+**Export** appears in the header once you have at least one keyword, and downloads your tracked keywords with their current positions.
+
+## AI Overview summary
+
+When any tracked keyword has AI Overview data, three cards appear above the list:
+
+| Card | Reads |
+| --- | --- |
+| **AI Overview Triggered** | `12 / 40` — keywords where an AI Overview appeared, out of all tracked |
+| **Domain Cited in AI** | `5 / 12` — of those, how many cited your domain |
+| **AI Citation Rate** | `42%` — the second figure as a percentage of the first |
+
+## Plan limits
+
+Tracked keywords are capped per plan. At the limit, **Add Keywords** greys out with a padlock and the tooltip *"Upgrade to track more keywords"*, and an upgrade prompt pins to the bottom of the page.
+
+Every tracked keyword is a **recurring** cost: a daily-frequency project checks all of them every day. Reducing frequency on [Tracking → Overview](/tracking/overview) is often better than removing keywords. See [Plans](/billing/plans).
+
+## Empty state
+
+A project with no keywords shows **No tracked keywords** — "Add keywords to monitor their search engine rankings" — with an **Add Keywords** button. Projects created through the normal flow always start with at least one keyword, since [project creation](/projects/add) requires one.
