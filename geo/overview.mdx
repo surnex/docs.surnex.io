@@ -7,13 +7,30 @@ description: "Generative engine optimization — track how often AI answers ment
 
 The page is headed **AI Visibility**.
 
+## The six engines
+
+Every topic is put, live, to six AI engines on each snapshot:
+
+| Engine | What's asked |
+| --- | --- |
+| **Google AI Overviews** | The AI summary at the top of Google's results |
+| **Google AI Mode** | Google's conversational AI search |
+| **ChatGPT** | OpenAI's assistant, searching the web |
+| **Claude** | Anthropic's assistant, searching the web |
+| **Gemini** | Google's assistant, searching the web |
+| **Perplexity** | Perplexity's answer engine |
+
+Google's two and the assistants are asked in your topic's country; Gemini doesn't take a country, so its web search isn't localised. An engine that's down is recorded as not answering, and the other five still count.
+
 ## Stat cards
 
 | Card | What it shows |
 | --- | --- |
 | **Topics Tracked** | How many topics you monitor |
-| **Avg. Mentions** | Average times your brand is mentioned per snapshot |
-| **Avg. Citation Rate** | Average share of answers that cite your domain |
+| **Avg. Mentions** | How many of the six engines name your brand, on average per topic |
+| **Avg. Citation Rate** | The share of engines that cite your site, on average per topic |
+
+Open a topic to see each engine's full answer, marked **Mentioned** or **Not mentioned**, and **Cited** or **Not cited**.
 
 **Mentions** and **citations** aren't the same thing, and the distinction is the point of this page. A mention is the AI naming your brand in its answer; a citation is it linking your domain as a source. Being mentioned without being cited means you have brand awareness but the model isn't treating your site as the authority — that's a content problem. Being cited without being mentioned means your page is feeding answers that don't credit you.
 
@@ -49,18 +66,18 @@ Aim for questions where a good answer would naturally name a product like yours.
 
 Set it in **Project Settings → Schedules**, under **AI visibility**: frequency (every day, every 3 days or once a week), hour and timezone, or pause it. See [Project settings](/projects/settings#schedules).
 
-GEO defaults to **daily at 00:00 UTC**, matching every other schedule on a new project.
+GEO defaults to **once a week at 00:00 UTC** — AI answers change slowly, and a week-on-week trend is the useful reading. Every day and every 3 days are there if you want them.
 
 The **Timezone** is applied, and cadences are intervals from the last run rather than calendar rules. See [How data collection works](/projects/data-collection).
 
-Each snapshot asks every active topic of the AI assistants this page tracks. Each topic is one of your plan's **AI prompts**, and the scheduled snapshots are covered by holding it — they don't spend any monthly allowance, whatever the frequency. See [Plans](/billing/plans).
+Each snapshot asks every active topic of all six engines. Each topic is one of your plan's **AI prompts**, and the scheduled snapshots are covered by holding it — they don't spend any monthly allowance, whatever the frequency. Asking about one topic now, outside the schedule, spends one research lookup. See [Plans](/billing/plans).
 
 ## GEO vs. AI search
 
 |  | GEO | [AI search](/ai/overview) |
 | --- | --- | --- |
 | Unit | A topic, tracked over time | A query, looked up now |
-| Cadence | Scheduled, daily by default | On demand |
+| Cadence | Scheduled, weekly by default | On demand |
 | History | Yes — snapshots accumulate | Only past lookups |
 | Question | "Is my share of voice growing?" | "Am I cited for this, right now?" |
 
