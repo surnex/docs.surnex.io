@@ -5,7 +5,7 @@ description: "How Surnex protects your data, credentials, and organization acces
 
 ## Authentication
 
-Accounts are email and password, handled by **Supabase Auth**. Passwords are never stored by Surnex. Sign-up requires email confirmation — an account can't be used until the link is followed.
+There are no passwords. Accounts sign in with Google or a one-time link emailed to the address, handled by **Supabase Auth** — so there is no password for Surnex to store or leak, and an account can't be used without access to its mailbox.
 
 The dashboard authenticates each request with a short-lived JWT issued at sign-in.
 
@@ -44,9 +44,11 @@ Membership is checked on every scoped request, and role is checked additionally 
 
 ## Roles
 
-Three roles per organization — owner, admin, member. The creator is the first owner, and an owner can make others owners. An admin can do everything an owner can except delete the organization or make, change or remove an owner, so an admin can never promote themselves to the one role that can delete it.
+Three roles per organization — owner, admin, member. The creator is the owner, and owner is never given to anyone else: nobody can be invited as owner or changed to it. An admin can do everything the owner can except delete the organization or change or remove the owner, so no admin can ever reach the one action that deletes everything.
 
-The last owner can't be demoted or removed, so an organization always has someone who can administer it. The Users page also doesn't offer changing your own role or removing yourself.
+The owner can't be removed, so an organization always has someone who can administer it. The Users page also doesn't offer changing your own role or removing yourself.
+
+An invitation grants nothing until the invited person clicks its link, which signs them in as the address it was sent to.
 
 There is **no read-only role and no per-project access**. Every member can view and edit every project in the organization. If someone must not see a project, it belongs in a separate organization.
 

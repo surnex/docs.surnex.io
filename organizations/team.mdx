@@ -5,11 +5,7 @@ description: "Invite people to your organization, change their roles, and remove
 
 Go to **Settings → Users** to see everyone in the organization and manage their access.
 
-<Warning>
-  You can only invite an email address that **already has a Surnex account**. If the person hasn't signed up, the invite fails with *"That address has no Surnex account yet. Ask them to sign up first, then invite them."*
-</Warning>
-
-An invitation must be **accepted** before it grants anything. Until then the person has no access, and the organization doesn't appear in their switcher — being added to someone's organization without consent would put a stranger's data in your sidebar.
+You can invite anyone, whether or not they already use Surnex. They get an email; clicking **Accept invitation** signs them in and puts them straight into the organization. Until they click it they're **pending** and have no access.
 
 ## Invite a user
 
@@ -17,24 +13,25 @@ An invitation must be **accepted** before it grants anything. Until then the per
   <Step title="Click Invite User">
     A panel opens from the right.
   </Step>
-  <Step title="Enter their email address">
-    Use the address they signed up with. A different address — even an alias that reaches the same inbox — won't match an account.
+  <Step title="Enter their full name and email address">
+    Someone new gets a Surnex account under that name, which they can change later. Someone who already has an account keeps their own name.
   </Step>
   <Step title="Choose a role">
     Pick a card:
 
-    - **Member** — works in every project. Can't create or delete projects, or manage users or billing.
-    - **Admin** — everything, except deleting the organization or managing its owners.
-    - **Owner** — shown only when an owner is inviting. Full control, including owners and deleting the organization.
+    - **Admin** — full access to the organization, its projects and settings.
+    - **Member** — works in every project: keywords, audits and reports.
+
+    See [Roles and permissions](/organizations/roles) for exactly what each can do.
   </Step>
-  <Step title="Click Send Invite">
-    They appear in the users list straight away as **pending** — invited but not yet accepted. They gain no access until they accept.
+  <Step title="Click Send invite">
+    They appear in the users list straight away as **pending**, and the email goes out.
   </Step>
 </Steps>
 
-Every plan includes unlimited users, so there's no seat limit and no seat fee for an invitation. See [Plans](/billing/plans).
+If the email's link has expired by the time they open it, they sign in with their email as usual and land in the organization all the same. Inviting someone who is still pending sends the email again. Inviting someone already in the organization fails with *"That person is already a member."*
 
-Inviting someone already in the organization fails with *"That person is already a member."*
+Every plan includes unlimited users, so there's no seat limit and no seat fee for an invitation. See [Plans](/billing/plans).
 
 ## The users list
 
@@ -42,15 +39,15 @@ Each row shows the person's avatar (or their initials), name, email, and role. Y
 
 ## Change someone's role
 
-Click the pencil on their row, pick a role and save. Their access updates on their next request. Admins and owners can change roles; only an owner can make someone an owner or change an owner's role, so an admin sees no pencil on an owner's row.
+Click the pencil on their row, pick **Admin** or **Member** and save. Their access updates on their next request. Admins and owners can change roles; an owner's row has no pencil for an admin.
 
-The pencil doesn't appear on your own row — you can't change your own role. Demoting the **last owner** is refused, since an organization with no owner can't be administered.
+The pencil doesn't appear on your own row — you can't change your own role.
 
 ## Remove a user
 
 Click the trash icon on their row and confirm. They lose access to the organization immediately, but their Surnex account and any other organizations they belong to are untouched.
 
-You can't remove yourself here. An owner can't be removed from this page at all — demote them to admin first, which only an owner can do — and the **last owner** can never be demoted, because an organization with no owner can't be administered and isn't recoverable through the product.
+You can't remove yourself here, and the owner can't be removed — an organization with no owner can't be administered and isn't recoverable through the product. Removing someone who is still pending withdraws the invitation; its link stops working.
 
 ## Who can do what
 
@@ -60,7 +57,7 @@ You can't remove yourself here. An owner can't be removed from this page at all 
 | Create or delete a project | Yes | Yes | **No** |
 | Add and remove members and admins | Yes | Yes | No |
 | Change member and admin roles | Yes | Yes | No |
-| Make, change or remove an owner | Yes | **No** | No |
+| Change or remove an owner | Yes | **No** | No |
 | Rename the organization | Yes | Yes | No |
 | View plan and usage | Yes | Yes | Yes |
 | Change plan or payment details | Yes | Yes | No |

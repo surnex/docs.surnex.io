@@ -7,11 +7,13 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 
 ## The three roles
 
-**Owner** — assigned to whoever creates the organization. Only an owner can delete the organization, and only an owner can make someone an owner or change or remove one. Owner *can* be granted to someone else through the role dropdown; what can't happen is the organization ending up with none, so the **last owner can't be demoted or removed**.
+**Owner** — whoever created the organization. It isn't a role anyone is given: nobody can be invited as owner or changed to it. Only the owner can delete the organization, and the owner can't be removed.
 
-**Admin** — everything an owner can do except those two things: projects, billing, the team and its roles, API keys, notifications. An admin can't delete the organization, and can't make, change or remove an owner — otherwise an admin could make themselves owner and delete it.
+**Admin** — everything the owner can do except delete the organization or change the owner: projects, billing, users and their roles, API keys, notifications.
 
-**Member** — the default. Full access to the work itself: every project, keywords, audits, reports. Can't create, rename or delete projects, manage the team, or change the plan.
+**Member** — the default. Full access to the work itself: every project, keywords, audits, reports. Can't create, rename or delete projects, manage users, or change the plan.
+
+When you invite someone or change their role, the choice is **Admin** or **Member**.
 
 <Note>
   There is no read-only or per-project role. Every member can edit every project in the organization. If someone needs access to one project but not another, put those projects in separate [organizations](/organizations/overview).
@@ -41,7 +43,7 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 | Change a member's or admin's role | Yes | Yes | No |
 | Remove a member or admin | Yes | Yes | No |
 | Rename the organization | Yes | Yes | No |
-| **Make someone an owner, or change or remove an owner** | Yes | **No** | **No** |
+| **Change or remove an owner** | Yes | **No** | **No** |
 | **Delete the organization** | Yes | **No** | **No** |
 
 ### Billing
@@ -71,16 +73,13 @@ Everyone can see how much of the plan's quota is used — that's operational inf
 
 - **You can't change your own role** from the Users page. Your row shows a badge but no role button.
 - **You can't remove yourself** there either; another admin or owner has to.
-- **The last owner is protected.** Demoting or removing them fails, because an organization with no owner can't be administered at all — not recoverable through the product.
-
-Note the last point is about the *last* owner, not the owner. With two owners, either can be demoted.
+- **The owner is protected.** An organization always keeps its owner — one with none couldn't be administered at all, and isn't recoverable through the product.
 
 ## Choosing a role
 
 | Give them | When |
 | --- | --- |
-| **Member** | They do SEO work: keywords, audits, reports. This covers most people. |
 | **Admin** | They manage the account: creating projects, inviting people, billing, cleaning up. |
-| **Owner** | They should be able to delete the organization, or manage its owners. Keep this to the people who own the account. |
+| **Member** | They do SEO work: keywords, audits, reports. This covers most people. |
 
 Default to Member — but note that members **can't create projects**, which is the one restriction likely to surprise someone. If a person needs to add sites, they need admin. Everything else a member can't do is destructive or administrative, and easy to change later from the [Users](/organizations/team) page.

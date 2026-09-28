@@ -55,10 +55,12 @@ Failing a **role** check is a genuine `FORBIDDEN` (403), with a message naming w
 | Create, list and revoke API keys | admin |
 | Rename the organization | admin |
 | Billing checkout and portal | admin |
-| Grant the owner role, or change or remove an owner | owner |
+| Change or remove an owner | owner |
 | Delete the organization | owner |
 
-An admin can do everything an owner can except the last two. Inviting someone as `owner`, changing an owner's role, or removing an owner answers 403 for an admin — otherwise an admin could make themselves owner and then delete the organization.
+An admin can do everything an owner can except the last two. The role you can give — on an invite or a role change — is `admin` or `member`; `owner` fails validation for everyone, because the creator is the owner and nobody is made one afterwards.
+
+An invite (`POST /v1/organizations/{orgId}/members`, with `full_name`, `email` and `role`) works for any address: somebody new gets an account under that name. It emails a link that signs them in and joins them (`POST /v1/invitations/{orgId}/accept`); until then the membership is pending and grants nothing.
 
 Creating a project requires admin because a project commits the organization to scheduled collection. Projects are unlimited on every plan, but creating one needs a live plan — without one it answers `PLAN_REQUIRED` (402).
 
@@ -66,11 +68,9 @@ Creating a project requires admin because a project commits the organization to 
   An **API key acts as an owner** within its organization. It isn't limited by the role of whoever created it; only an admin or owner can create one. Billing and the team are the exceptions — choosing a plan, opening the billing portal, managing members and managing keys refuse API keys. See [Authentication](/api/concepts/authentication).
 </Warning>
 
-## An organization always keeps one owner
+## An organization always keeps its owner
 
-The last owner can't be demoted or removed. Attempting it fails rather than leaving an organization nobody can administer.
-
-Owner *can* be granted to someone else — unlike the previous implementation, it's a normal role change. What can't happen is the count reaching zero.
+The owner can't be demoted or removed. Attempting it fails rather than leaving an organization nobody can administer.
 
 ## Working across organizations
 
