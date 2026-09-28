@@ -51,15 +51,19 @@ Failing a **role** check is a genuine `FORBIDDEN` (403), with a message naming w
 | Add and remove tracked keywords, run research, build reports | member |
 | **Create a project** | **admin** |
 | Delete a project | admin |
-| Invite, remove, and re-role members | admin |
+| Invite and remove members, change their roles | admin |
+| Create, list and revoke API keys | admin |
 | Rename the organization | admin |
-| Billing checkout and portal | owner |
+| Billing checkout and portal | admin |
+| Grant the owner role, or change or remove an owner | owner |
 | Delete the organization | owner |
 
-Creating a project requires admin because a project counts against the plan.
+An admin can do everything an owner can except the last two. Inviting someone as `owner`, changing an owner's role, or removing an owner answers 403 for an admin — otherwise an admin could make themselves owner and then delete the organization.
+
+Creating a project requires admin because a project commits the organization to scheduled collection. Projects are unlimited on every plan, but creating one needs a live plan — without one it answers `PLAN_REQUIRED` (402).
 
 <Warning>
-  An **API key acts as an owner** within its organization. It isn't limited by the role of whoever created it, and any member can create one — so a key made by a member can delete projects and change billing. See [Authentication](/api/concepts/authentication).
+  An **API key acts as an owner** within its organization. It isn't limited by the role of whoever created it; only an admin or owner can create one. Billing and the team are the exceptions — choosing a plan, opening the billing portal, managing members and managing keys refuse API keys. See [Authentication](/api/concepts/authentication).
 </Warning>
 
 ## An organization always keeps one owner

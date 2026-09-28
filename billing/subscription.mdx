@@ -1,58 +1,78 @@
 ---
 title: "Manage your subscription"
-description: "Upgrade, downgrade, or change your billing period."
+description: "Choose a plan, upgrade, downgrade, or change your billing period."
 ---
 
-**Settings → Billing** shows your **Current Plan**, your usage against its limits, and the plans you can move to.
+**Settings → Billing** shows your **Current plan**, your usage against its limits, and the four [plans](/billing/plans) side by side.
 
-## Changing plan
+## The trial
 
-Toggle between **Monthly** and **Annual** to see both prices — annual is shown as its effective monthly cost, so the two are directly comparable. Annual saves roughly a third on Pro and Team.
+Every new organization starts on a 14-day trial of **Growth**, with no card. The **Current plan** section says how many days are left.
 
-Select a plan to start a checkout. You're redirected to the payment provider and returned to Surnex when it completes. Your current plan isn't offered as a choice.
+Choosing a plan during the trial doesn't cut it short: the remaining trial days carry over and the first charge is made when the trial ends. (A trial with less than about two days left isn't carried over; billing starts straight away.)
 
-**Enterprise** is custom-priced and isn't self-serve.
+## Choosing or changing plan
+
+Toggle between **Monthly** and **Yearly** to see both prices. Yearly is 10% off and is shown per month, with the yearly total underneath.
+
+- **With no paid subscription** — on the trial, or after one ended — choosing a plan opens a Stripe checkout. You're returned to Surnex when it completes, and the plan is applied within a few seconds.
+- **With a paid subscription**, the plan is changed in place, with no checkout. The change takes effect straight away and is prorated on your next invoice. Switching between monthly and yearly works the same way.
+
+Choosing a plan also undoes a pending cancellation.
 
 ## Who can change it
 
-Only the **owner** can start a checkout or open the billing portal.
+**Admins and owners** can choose a plan or open the billing portal, and only from the dashboard — an API key can't.
 
-Admins and members can see the current plan and usage — they need that to know whether they can run an audit — but can't change what you pay. The invite panel describes admins as having "full access including billing", which overstates it. See [Roles and permissions](/organizations/roles).
+Members can see the current plan and usage — they need that to know whether they can run an audit — but can't change what you pay. See [Roles and permissions](/organizations/roles).
 
-## Manage Billing
+## Billing portal
 
-**Manage Billing** opens the payment provider's portal, where you can:
+Once something has been bought, the **Invoices and payment** section shows a **Billing portal** button. It opens Stripe's portal, where you can:
 
 - Update the card on file
 - Download [invoices](/billing/invoices)
-- Change or cancel the subscription
+- Cancel the subscription
 
-This is also where cancellation happens — there's no cancel button inside Surnex.
+This is where cancellation happens — there's no cancel button inside Surnex. [Deleting the organization](/organizations/settings) also cancels its subscription, immediately.
 
 ## Upgrading
 
-Takes effect immediately. New limits apply at once, so a blocked **Add Project** or **Add Keywords** button unblocks as soon as you're back.
+Takes effect immediately. New limits apply at once, so a blocked **Add Keywords** button unblocks as soon as you're back.
 
 ## Downgrading
 
-Check your current usage first. If you're above the lower plan's limits — more projects than it allows, more tracked keywords, more team members — you'll need to reduce before the smaller plan is workable.
+Check your current usage first. A move to a plan the organization already holds more of than it allows — say 300 tracked keywords onto Starter's 200 — is refused, listing what's over. Remove the extra first, then change plan.
+
+Only held allowances block a downgrade: tracked keywords, AI prompts and local locations. What you've already spent this month isn't undone; the smaller monthly allowance applies to what's left of the month.
 
 <Warning>
-  Reducing usage means deleting things, and deletions are permanent. Removing a project destroys its ranking and backlink history with no way to rebuild it. Export or [report](/reports/share) anything you need before downgrading.
+  Removing keywords, topics or locations is permanent for their history. Export or [report](/reports/share) anything you need before downgrading.
 </Warning>
 
-The gentler order is: reduce [check frequency](/tracking/overview) first, pause keywords second, and only delete as a last step.
+## When a trial or subscription ends
 
-## No subscription means free
+The organization keeps reading everything already collected, but nothing billable runs — no scheduled checks, no new projects, no lookups, no audits. Choose a plan to start collecting again. A run skipped while there was no plan isn't made up afterwards.
 
-An organization without an active subscription runs on the **free** plan's limits. A subscription counts as active while its status is `active` or `trialing`.
+A subscription whose renewal payment failed keeps its access while Stripe retries the payment. Update the card in the billing portal to keep the plan.
 
 ## Per organization
 
 Subscriptions belong to an organization. If you own two, you pay for two — and upgrading one changes nothing about the other. Switch organizations in the sidebar switcher before checking billing so you're looking at the right one.
 
+## Through the API
+
+| Endpoint | What it does |
+| --- | --- |
+| `GET /v1/plans` | The four plans, with `price` in US cents (`year` is the whole year's charge), `limits` and `features` |
+| `GET /v1/organizations/{orgId}/billing/subscription` | `plan_id`, `status`, `billing_interval`, `cancel_at_period_end`, `current_period_start`, `current_period_end`, `is_card_free_trial` and `active_plan` — which is `null` when nothing is live |
+| `POST /v1/organizations/{orgId}/billing/checkout` | Body `{ plan, interval, success_url, cancel_url }`, where `plan` is `starter`, `growth`, `agency` or `scale` and `interval` is `month` (default) or `year`. Answers `{ url, changed }`: a checkout `url` to send the buyer to, or `url: null` and `changed: true` when an existing subscription was changed in place |
+| `POST /v1/organizations/{orgId}/billing/portal` | Body `{ return_url }`. Answers `{ url }` for the billing portal |
+
+A checkout to a plan the organization holds more than answers `CONFLICT` (409) with the overages in `details`. Checkout and portal need the admin or owner role and refuse API keys.
+
 ## Related
 
 - [Plans](/billing/plans) — the full limit table
-- [Usage and limits](/billing/usage) — what you've consumed
+- [Usage and limits](/billing/usage) — what you've used
 - [Invoices](/billing/invoices) — receipts and payment details

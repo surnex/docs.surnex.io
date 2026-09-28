@@ -20,14 +20,14 @@ Tools marked **write** below change your account; **quota** means the call spend
 | Tool | |
 | --- | --- |
 | `list_organizations` | |
-| `list_projects` | |
+| `list_projects` | 100 per `page`; `total` says how many there are |
 | `create_project` | **write** |
 | `delete_project` | **write — destroys all project data** |
 | `get_usage_summary` | |
 
-Start here. `list_projects` gives the agent the `project_id` nearly everything else needs.
+Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
 
-`delete_project` is the one tool annotated destructive. Everything it removes cascades and cannot be recovered.
+Five tools are annotated destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics` and `delete_saved_keywords`. Everything `delete_project` removes cascades and cannot be recovered.
 
 ## Rank tracking
 
@@ -114,7 +114,7 @@ Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` le
 | --- | --- |
 | `get_ai_visibility_overview` | |
 | `get_ai_top_competitors` | |
-| `get_llm_response_for_keyword` | |
+| `get_llm_response_for_keyword` | **write**, **quota** — one research lookup |
 | `list_geo_topics` | |
 | `get_geo_topic_detail` | |
 | `add_geo_topics` | **write** |
@@ -172,8 +172,6 @@ Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` le
 | `check_grammar` | quota |
 | `paraphrase_text` | quota |
 
-`generate_meta_tags` and `generate_content_brief` have **no dashboard equivalent** — they're only available through MCP.
-
 ## Common arguments
 
 **`organization`** — optional on org-scoped tools, taking a name or an id. Resolved automatically when you belong to exactly one organization. With several and none named, the call is **refused** and the error lists them; the server doesn't guess. See [choosing an organization](/mcp/auth#choosing-an-organization).
@@ -184,7 +182,7 @@ Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` le
 
 ## Your role applies
 
-The [OAuth token](/mcp/auth) acts as you, so a tool can only do what your role permits. A member's connection can't call `delete_project`; an owner's can.
+The [OAuth token](/mcp/auth) acts as you, so a tool can only do what your role permits. `create_project` and `delete_project` need an admin or owner, exactly as in the dashboard; a member's connection is refused both.
 
 No token can mint an API key, change billing, invite or remove people, or reach an organization you're not a member of — regardless of role.
 

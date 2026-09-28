@@ -29,7 +29,7 @@ Topics are seeded automatically when a [project is created](/projects/add), so t
 
 ### Pause a topic
 
-Toggle a topic to pause it. Paused topics stop being snapshotted but keep their history, and appear dimmed in the list. Useful when you want to reduce cost without losing the record.
+Toggle a topic to pause it. Paused topics stop being snapshotted but keep their history, and appear dimmed in the list. A paused topic still counts against your plan's AI prompts — only removing it frees the slot.
 
 ### Remove a topic
 
@@ -47,13 +47,13 @@ Aim for questions where a good answer would naturally name a product like yours.
 
 ## Schedule
 
-Click **Settings** to open the **AI Visibility Schedule** panel: **Frequency** (Every day / Every 3 days / Once a week), a **Check Hour**, and a **Timezone**.
+Set it in **Project Settings → Schedules**, under **AI visibility**: frequency (every day, every 3 days or once a week), hour and timezone, or pause it. See [Project settings](/projects/settings#schedules).
 
 GEO defaults to **daily at 00:00 UTC**, matching every other schedule on a new project.
 
 The **Timezone** is applied, and cadences are intervals from the last run rather than calendar rules. See [How data collection works](/projects/data-collection).
 
-Each snapshot queries AI platforms for every active topic, so cost scales with topic count multiplied by frequency. Twenty topics checked daily is 600 checks a month.
+Each snapshot asks every active topic of the AI assistants this page tracks. Each topic is one of your plan's **AI prompts**, and the scheduled snapshots are covered by holding it — they don't spend any monthly allowance, whatever the frequency. See [Plans](/billing/plans).
 
 ## GEO vs. AI search
 

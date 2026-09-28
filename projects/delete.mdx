@@ -9,7 +9,7 @@ You're returned to the Projects list.
 
 ## Who can delete
 
-Deleting requires the **owner** or **admin** role. A member sees the button, but the request is rejected. See [Roles and permissions](/organizations/roles).
+Deleting requires the **admin** or **owner** role. Members don't see the Danger Zone. See [Roles and permissions](/organizations/roles).
 
 ## What gets removed
 
@@ -32,7 +32,7 @@ Shared report links stop working immediately. Anyone holding one gets a not-foun
 - Your plan and billing history
 - API keys — they're organization-scoped, so they keep working for other projects
 
-Deleting a project frees a slot against your plan's project limit right away.
+Projects are unlimited, so deleting one doesn't free a project slot. It does free what the project held — its tracked keywords, AI prompts and local locations stop counting against your plan right away.
 
 <Warning>
   Deletion cannot be undone and there is no archive or trash. Ranking and backlink history is accumulated day by day — creating a new project for the same domain starts from zero, with no back-fill. A year of position history is gone permanently.
@@ -42,11 +42,10 @@ Deleting a project frees a slot against your plan's project limit right away.
 
 If you might want the data later, export what you need first. Reports are the practical way to preserve a snapshot: build one covering the period you care about and [share or download it](/reports/share) before deleting.
 
-Consider whether you actually need to delete. A project you stop looking at costs you a project slot, but the alternatives are worse if you're wrong:
+Consider whether you actually need to delete. A project you stop looking at costs you only what it holds — its tracked keywords and other held allowances — and the alternatives are worse if you're wrong:
 
 | Situation | Better option |
 | --- | --- |
 | Site moved to a new domain | Create a second project so you keep the old history for comparison |
-| Client left, might return | Keep the project unless you need the slot |
-| At your project limit | [Upgrade](/billing/subscription), or delete the project with the least history |
+| Client left, might return | Keep the project, and remove its keywords if you need the room |
 | Too many keywords tracked | Remove keywords instead — see [Add tracked keywords](/tracking/add-keywords) |

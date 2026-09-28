@@ -88,6 +88,6 @@ Audits, web vitals, domain analysis, and keyword research have no schedule at al
 
 ## Plan limits and role
 
-Creating a project requires the **admin** or **owner** role — a project counts against the plan, so it isn't a member action. See [Roles and permissions](/organizations/roles).
+Creating a project requires the **admin** or **owner** role — a project commits the organization to scheduled collection, so it isn't a member action. See [Roles and permissions](/organizations/roles).
 
-The Projects page header shows `X of Y projects`. At your plan's project limit, **Add Project** turns grey and clicking it sends you to [Billing](/billing/subscription); through the API the request is refused with `USAGE_LIMIT_EXCEEDED`. Tracked keywords have a separate limit — see [Plans](/billing/plans).
+Projects are unlimited on every plan, and the Projects page header shows how many you have. Creating one does need a live plan: once the trial or subscription has ended, **Add Project** turns grey and clicking it sends you to [Billing](/billing/subscription); through the API the request is refused with `PLAN_REQUIRED`. Tracked keywords and the other allowances are counted across the organization — see [Plans](/billing/plans).

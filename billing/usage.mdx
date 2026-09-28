@@ -1,74 +1,90 @@
 ---
 title: "Usage and limits"
-description: "What you've consumed this period, and what happens when you hit a limit."
+description: "What you hold, what you've used this month, and what happens when you hit a limit."
 ---
 
-**Settings → Billing** has a **Usage** section showing consumption against your plan's limits.
+**Settings → Billing** has a **Usage** section showing what the organization holds and has used against its plan's limits.
 
 ## What's tracked
 
-| Metric | Period | Notes |
+| Metric | Kind | Notes |
 | --- | --- | --- |
-| **Projects** | Current | Total projects in the organization |
-| **Keywords Tracked** | Current | Total tracked keywords, active and paused |
-| **Site audits** | Monthly | Site audit crawls |
-| **Keyword lookups** | Daily | Research, suggestions, SERP lookups, rank checks |
-| **Backlink lookups** | Daily | Backlink refreshes and gap analyses |
-| **Domain lookups** | Daily | Domain overview and analysis |
+| **AI prompts** | Held | [GEO](/geo/overview) (generative engine optimization) topics across every project |
+| **Tracked keywords** | Held | Every tracked keyword, active and paused |
+| **Local locations** | Held | Distinct places the Maps pack is checked from |
+| **Research lookups this month** | Monthly | Every on-demand keyword, SERP, trends, domain, backlink and content-tool lookup, keyword research jobs, and GEO questions asked outside the schedule — one per topic |
+| **AI brand audits this month** | Monthly | One per AI search run — AI Mode, ChatGPT visibility, LLM benchmark, AI keyword trends, citation gap |
+| **Site audit pages this month** | Monthly | Pages crawled by site audits, plus one per Core Web Vitals check |
 
-Each is shown against its plan limit. On Enterprise, limits read **Unlimited**.
+Each is shown against its plan limit. The numbers per plan are on [Plans](/billing/plans).
 
 <Note>
-  **Domain lookups have their own daily allowance** — 10 on Free, 100 on Pro, 500 on Team — separate from keyword and backlink lookups. Analysing a competitor's domain draws on it.
+  **A cached answer is free.** When Surnex already has a recent answer to the exact question — whoever first asked it — it's served without spending a research lookup.
 
-  **Web vitals checks are not metered.** They have no plan-limit check, only a one-at-a-time guard per project.
+  **A local location is a place, not a keyword.** Five keywords checked at the same place, with the same map pin or none, are one location.
 </Note>
 
 ## Two kinds of limit
 
-**Standing limits** — projects, tracked keywords, team members — count what currently exists. Deleting a project frees its slot immediately.
+**Held limits** — AI prompts, tracked keywords, local locations — count what currently exists across the whole organization. Every row counts, paused or not. Pausing a keyword doesn't free its slot; removing it does, immediately.
 
-**Consumption limits** — audits per month, lookups per day — count actions taken in a window. They reset when the window rolls over, and you can't free them by deleting anything.
+**Monthly limits** — research lookups, AI brand audits, site audit pages — count what's been spent this calendar month. They reset on the **1st of each month, UTC**, and you can't free them by deleting anything. There are no daily allowances.
 
-Knowing which kind you've hit tells you what to do. A project limit is fixed by deleting; an audit limit is fixed by waiting or upgrading.
+Knowing which kind you've hit tells you what to do. A held limit is fixed by removing something; a monthly limit is fixed by waiting for the 1st or upgrading.
 
-## Scheduled collection consumes quota
+## Site audits spend pages
 
-This is the part that surprises people. Every scheduled check draws on the same allowance as a manual action:
+A site audit costs the pages it crawls, not a flat fee per audit:
 
-- A daily [rank check](/tracking/overview) on 500 keywords consumes keyword lookups **every day**
-- A [backlink snapshot](/backlinks/overview) consumes backlink lookups on its cadence — daily on a new project until you lower it
-- [GEO](/geo/overview) and [local SEO](/local/overview) snapshots consume theirs daily by default
+- When a crawl starts, its page limit is lowered to what's left of this month's allowance. The audit is refused only when nothing is left.
+- That page limit is set aside while the crawl runs, so two audits started together can't both spend the same remainder.
+- When the crawl finishes, pages it didn't crawl are given back.
 
-All four schedules default to **daily**, which is the most expensive setting available. Lowering the ones you don't watch closely is the single biggest saving.
+Each [Core Web Vitals check](/web-vitals/overview) uses one site audit page.
 
-<Warning>
-  Exhausting a daily lookup limit doesn't only block you from doing things by hand — it can stop scheduled collection. A rank check that doesn't run leaves a gap in your position history, and history can't be back-filled. Enable the **Usage Limit Warning** in [notification preferences](/notifications/preferences) so you hear about it first.
-</Warning>
+## Scheduled collection is included
+
+Scheduled checks don't spend the monthly allowances:
+
+- A daily [rank check](/tracking/overview) on 400 keywords is covered by holding 400 tracked keywords
+- Scheduled [GEO](/geo/overview) snapshots are covered by your AI prompts; asking about a topic now, or a snapshot taken on request through the API, spends a research lookup per topic
+- [Local SEO](/local/overview) checks are covered by your local locations
+- [Backlink snapshots](/backlinks/overview) run on their cadence at no cost to your research lookups
+
+Running out of research lookups never stops scheduled collection.
+
+If the organization holds more than its plan allows — after a downgrade, for example — scheduled checks cover the oldest rows up to the limit, counted across the whole organization. The newest ones aren't checked until you remove enough to fit or upgrade.
 
 ## At the limit
 
 | Limit reached | What you see |
 | --- | --- |
-| Projects | **Add Project** greys out; clicking it goes to Billing |
 | Tracked keywords | **Add Keywords** shows a padlock and *"Upgrade to track more keywords"* |
-| Site audits | New crawls are refused for the month |
-| Daily lookups | Research and scheduled checks fail until the next day |
+| AI prompts, local locations | Adding more is refused |
+| Research lookups, AI brand audits | New lookups and runs are refused until the 1st |
+| Site audit pages | New audits start smaller, and are refused once nothing is left |
 
-An upgrade prompt pins to the bottom of the page while you're at a limit.
+An upgrade prompt appears while you're at a limit. The API answers `USAGE_LIMIT_EXCEEDED` (402) — see [Errors](/api/concepts/errors).
 
-## Reducing consumption
+## No plan
 
-In the order that costs you least:
+When a trial or subscription ends, every limit reads zero. Everything already collected stays readable, but nothing new runs — scheduled checks stop, and lookups, audits and new projects are refused with `PLAN_REQUIRED` (402). Choose a plan on the [Billing](/billing/subscription) page to start again.
 
-1. **Lower check frequencies.** Rank tracking from daily to weekly cuts that consumption by about 85%, and most sites don't move enough day to day to justify daily checks. Set it per feature on the relevant overview page.
-2. **Pause keywords you're not acting on.** Stops the checks, keeps the history. Note a paused keyword still counts toward the tracked-keyword *limit* — this saves lookups, not slots.
-3. **Batch audits.** One audit costs the same at any page limit, so one 1,000-page crawl beats ten 100-page crawls.
-4. **Consolidate projects.** Each project runs its own scheduled collection, so a project nobody looks at is a daily cost.
+## Getting more from a plan
+
+1. **Remove what you're not acting on.** A paused keyword still holds its slot; removing it frees the slot.
+2. **Size audits to the site.** A crawl only spends the pages it crawls, so a page limit close to the site's real size wastes nothing.
+3. **Reuse recent answers.** Repeating a lookup Surnex has a cached answer for is free.
 
 ## Who can see it
 
-Every member can view usage, whatever their role — you need it to know whether an audit will run. Only the owner can change the plan. See [Roles and permissions](/organizations/roles).
+Every member can view usage, whatever their role — you need it to know whether an audit will run. Only admins and owners can change the plan. See [Roles and permissions](/organizations/roles).
+
+## Through the API and MCP
+
+`GET /v1/organizations/{orgId}/billing/usage` returns the same summary: the active `plan` (`null` when there's none), `resets_at` for the next monthly reset, and one entry per metric in `metrics`, each with `metric`, `kind` (`held` or `monthly`), `used`, `limit` and `remaining`. `features` says whether the plan includes `white_label` and `custom_report_domain`.
+
+The metric names are `ai_prompts`, `keywords_tracked`, `local_locations`, `research_lookups`, `ai_brand_audits` and `site_audit_pages`. The MCP tool `get_usage_summary` returns the same summary.
 
 ## Related
 

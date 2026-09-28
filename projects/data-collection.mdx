@@ -76,8 +76,10 @@ The most expensive jobs refuse to start if one is already running for that proje
 
 ## Usage
 
-Scheduled collection consumes plan quota the same way manual actions do. A daily rank check on 500 keywords draws on your keyword allowance every day, and lowering a cadence is usually the cheapest way to stay inside a limit.
+Scheduled collection doesn't spend your monthly allowances. It's what the held allowances pay for: a daily rank check on 400 keywords is covered by holding 400 tracked keywords, whatever the cadence. GEO snapshots are covered by your AI prompts, and local checks by your local locations.
 
-[Usage and limits](/billing/usage) shows what's been consumed; [Plans](/billing/plans) lists the allowance on each tier.
+On-demand work is what spends: audits spend site audit pages, AI search runs spend AI brand audits, and research spends research lookups.
 
-This is why tracked keyword counts matter more than they look: each one is a recurring daily cost, not a one-off.
+If the organization holds more than its plan allows — after a downgrade, say — scheduled checks cover the oldest rows up to the limit, across the whole organization. When a trial or subscription ends, scheduled runs stop, and runs skipped while there was no plan aren't made up afterwards.
+
+[Usage and limits](/billing/usage) shows what's been used; [Plans](/billing/plans) lists the allowance on each plan.

@@ -57,15 +57,15 @@ These come from the same recent-changes data as the counts above, so on a brand 
 
 ## Changing the schedule
 
-Click **Settings** in the page header to open the **Rank Tracking Schedule** panel:
+The page header shows the current schedule. To change it, open **Project Settings → Schedules** and click **Edit** on **Rank tracking** — owners and admins only:
 
 | Field | Options | Default |
 | --- | --- | --- |
 | **Frequency** | Every day, Every 3 days, Once a week | Every day |
-| **Check Hour** | Any hour, 00:00–23:00 | 00:00 |
-| **Timezone** | Any IANA timezone | Your browser's timezone |
+| **Hour** | Any hour, 00:00–23:00 | 00:00 |
+| **Timezone** | Any IANA timezone | UTC |
 
-Click **Save Settings**.
+You can also pause it there. See [Project settings](/projects/settings#schedules).
 
 The **Timezone** is applied — a check set to 09:00 with `America/New_York` selected runs at 09:00 New York time, and follows daylight saving.
 
@@ -75,7 +75,7 @@ Frequencies are real intervals measured from the last run, not calendar rules:
 - **Every 3 days** — three days after the last run, not a fixed day of the month.
 - **Once a week** — seven days after the last run, not a fixed weekday.
 
-Lowering the cadence reduces how much of your keyword quota you consume. See [Usage and limits](/billing/usage).
+The cadence doesn't change what you use of your plan: a tracked keyword counts once, however often it's checked. See [Usage and limits](/billing/usage).
 
 ## Related pages
 

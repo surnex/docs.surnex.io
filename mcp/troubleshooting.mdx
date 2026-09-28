@@ -92,7 +92,7 @@ A project you can't access returns "not found" rather than "not yours" — confi
 
 ## A tool is refused but the data exists
 
-The token carries **your role**, so the agent can only do what you can. A member's connection can't delete a project; an owner's can. See [Roles and permissions](/organizations/roles).
+The token carries **your role**, so the agent can only do what you can. A member's connection can't create or delete a project; an admin's or owner's can. See [Roles and permissions](/organizations/roles).
 
 Tools can also never mint an API key, change billing, or invite and remove people, whatever your role.
 
@@ -108,14 +108,17 @@ See [How data collection works](/projects/data-collection).
 
 ## Quota errors
 
-Tools that call external services fail when your plan allowance is exhausted:
+Tools that call external services fail with `USAGE_LIMIT_EXCEEDED` when a monthly allowance is exhausted:
 
-- Research and SERP tools draw on daily keyword lookups
-- `start_site_audit` and `trigger_web_vitals_check` share the monthly audit allowance
-- `refresh_backlinks` and `get_backlink_gap` draw on backlink lookups
-- AI search tools draw on their own allowance
+- Research, SERP, trends, domain, content and backlink tools — including `refresh_backlinks` and `get_backlink_gap` — draw on **research lookups**
+- `start_site_audit` and `trigger_web_vitals_check` draw on **site audit pages** — an audit spends the pages it crawls, a vitals check one page
+- AI search tools draw on **AI brand audits**, one per run
 
-Check `get_usage_summary` or the [Usage](/billing/usage) page. Daily limits reset the next day; monthly ones at the start of the period.
+Adding tracked keywords, GEO topics or local keywords fails the same way when the organization already holds its plan's limit.
+
+Check `get_usage_summary` or the [Usage](/billing/usage) page. Monthly allowances reset on the 1st of the month, UTC.
+
+If every billable tool fails with `PLAN_REQUIRED`, the organization's trial or subscription has ended. Reading stored data still works; an admin or owner needs to [choose a plan](/billing/subscription) in the dashboard.
 
 ## The agent did something you didn't want
 
@@ -131,7 +134,7 @@ State the market in your prompt if it isn't the US.
 
 ## Rate limits
 
-The REST API is rate-limited per credential. Sustained heavy tool use — an agent looping over many projects — can hit a limit. Narrow the scope of the request and try again.
+MCP isn't subject to the REST API's per-credential rate limit. What an agent can hit is the data provider's limit, shared by the whole platform: sustained heavy tool use — an agent looping over many keywords or projects — can slow down or be refused for a moment. Narrow the scope of the request and try again.
 
 ## Related
 

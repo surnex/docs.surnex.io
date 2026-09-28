@@ -1,70 +1,85 @@
 ---
 title: "Plans"
-description: "What's included on Free, Pro, Team, and Enterprise."
+description: "What's included on Starter, Growth, Agency, and Scale."
 ---
 
 Plans are per [organization](/organizations/overview). Belonging to two organizations means two subscriptions, and limits are counted separately for each.
 
+There is no free plan. Every new organization starts on a **14-day trial of Growth**, with no card required — see [Trial](#trial) below.
+
 ## Pricing
 
-| Plan | Monthly | Annual | Effective monthly on annual |
+| Plan | Monthly | Yearly | Effective monthly on yearly |
 | --- | --- | --- | --- |
-| **Free** | $0 | $0 | — |
-| **Pro** | $29 | $240 | $20 |
-| **Team** | $79 | $648 | $54 |
-| **Enterprise** | Custom | Custom | — |
+| **Starter** | $49 | $529.20 | $44.10 |
+| **Growth** — *most teams start here* | $99 | $1,069.20 | $89.10 |
+| **Agency** | $199 | $2,149.20 | $179.10 |
+| **Scale** | $399 | $4,309.20 | $359.10 |
 
-Annual billing saves roughly 31% on Pro and 32% on Team. Toggle between **Monthly** and **Annual** on the [Billing](/billing/subscription) page to compare.
+Yearly billing is 10% off twelve months. Toggle between **Monthly** and **Yearly** on the [Billing](/billing/subscription) page to compare.
+
+Every plan includes **unlimited users and unlimited projects** — no seat fees, no project limit — and access to the [API](/api/introduction) and the [MCP server](/mcp/overview).
 
 ## Limits
 
-| Limit | Free | Pro | Team | Enterprise |
+| Limit | Starter | Growth | Agency | Scale |
 | --- | --- | --- | --- | --- |
-| **Projects** | 1 | 5 | 25 | Unlimited |
-| **Tracked keywords** | 10 | 500 | 2,500 | Unlimited |
-| **Keyword lookups per day** | 25 | 500 | 2,000 | Unlimited |
-| **Backlink lookups per day** | 10 | 100 | 500 | Unlimited |
-| **Domain lookups per day** | 10 | 100 | 500 | Unlimited |
-| **Site audits per month** | 3 | 25 | 100 | Unlimited |
-| **Team members** | 1 | 3 | 10 | Unlimited |
+| **AI prompts** | 25 | 50 | 100 | 200 |
+| **Tracked keywords** | 200 | 400 | 750 | 1,500 |
+| **Local locations** | — | 1 | 5 | 10 |
+| **Research lookups per month** | 100 | 200 | 400 | 750 |
+| **AI brand audits per month** | 2 | 4 | 8 | 15 |
+| **Site audit pages per month** | 2,500 | 5,000 | 10,000 | 20,000 |
+| **White-label reports** | — | — | Yes | Yes |
 
-## Which limit will bite first
+Agency and Scale both include a custom report domain, and Scale adds dedicated onboarding.
 
-The two that constrain real use are **tracked keywords** and **site audits per month** — and for different reasons.
+Starter has no [local SEO](/local/overview). Every other plan includes it, up to its number of local locations.
 
-**Tracked keywords is a recurring cost, not a one-off.** Every tracked keyword is re-checked on your [schedule](/tracking/overview) — daily by default. Free's 10 keywords is enough to try the product, not to monitor a site. Where Pro's 500 sits depends on how many projects you're spreading them across, since the limit is organization-wide, not per project.
+## What each limit counts
 
-**Site audits per month is the tightest allowance on Free.** Three crawls a month is barely enough to audit, fix, and re-audit once. [Web vitals checks](/web-vitals/overview) are *not* metered, so they don't eat into it.
+The first three are **held** — a count of what the organization has right now, across all its projects. The monthly ones are what it **spends**, and reset on the 1st of each calendar month (UTC).
 
-**Team members** is the other common wall. Free is genuinely single-user; Pro's 3 covers a small team but not an agency.
+- **AI prompts** — the [GEO](/geo/overview) (generative engine optimization) topics you track, each asked of the AI assistants the GEO page tracks.
+- **Tracked keywords** — every keyword under [rank tracking](/tracking/overview), paused or not.
+- **Local locations** — the places the Maps pack is checked from. A location is one place plus, optionally, a map pin; five keywords checked at the same place are one location.
+- **Research lookups** — every on-demand question: keyword research, SERP results, Google Trends, domain analysis, backlink profile refreshes and gap analyses, live backlink and domain lookups, the content tools, and keyword research jobs. An answer Surnex already has cached is free.
+- **AI brand audits** — each [AI search](/ai/overview) run counts as one, whichever it is: Google AI Mode, ChatGPT visibility, the LLM benchmark, AI keyword trends, or a citation gap.
+- **Site audit pages** — pages crawled, not audits run. Each [Core Web Vitals check](/web-vitals/overview) uses one page.
 
-## No subscription means free
+See [Usage and limits](/billing/usage) for how each is checked.
 
-An organization without an active subscription is treated as being on **free**, and an unrecognised plan is treated as free too — limits fail closed rather than open.
+## Scheduled collection is included
+
+The rank checks, GEO snapshots, local checks and backlink snapshots that run on a [schedule](/projects/data-collection) don't spend the monthly allowances. They're what the held allowances pay for: 400 tracked keywords means 400 keywords checked on their schedule, however often that is.
+
+## Trial
+
+A new organization gets 14 days of **Growth**, with no card. Choosing a plan during the trial keeps the remaining trial days — you're first charged when the trial ends.
+
+## When a trial or subscription ends
+
+The organization keeps reading everything already collected. Nothing billable runs: no scheduled checks, no new projects, no lookups, no audits. The API answers these with `PLAN_REQUIRED` (402). Choose a plan on the [Billing](/billing/subscription) page to start collecting again.
+
+A subscription whose renewal payment failed keeps its access while the payment is retried.
 
 ## Hitting a limit
 
 Limits are enforced before the work happens rather than by billing you for the overage:
 
-- **At the project limit**, **Add Project** greys out and clicking it sends you to Billing.
 - **At the keyword limit**, **Add Keywords** shows a padlock and *"Upgrade to track more keywords"*.
-- **At the audit limit**, new crawls are refused for the rest of the month.
+- **At a monthly limit**, the action is refused until the allowance resets on the 1st, or until you upgrade.
+- **For a site audit**, the crawl's page limit is lowered to what's left this month. It's refused only when nothing is left.
 
-<Warning>
-  Scheduled collection consumes quota too. Exceeding a daily lookup limit doesn't only block manual actions — it can stop your scheduled rank and backlink checks, leaving gaps in history that can't be back-filled. Enable the **Usage Limit Warning** notification in [preferences](/notifications/preferences) so you hear about it before that happens.
-</Warning>
+The API answers these with `USAGE_LIMIT_EXCEEDED` (402). See [Errors](/api/concepts/errors).
 
-## Reducing usage without upgrading
+## Getting more from a plan
 
-- **Lower the check frequency.** Moving rank tracking from daily to weekly cuts that consumption by roughly 85%. Set it on [Tracking → Overview](/tracking/overview).
-- **Pause keywords you're not acting on.** Pausing keeps history but stops checks — though a paused keyword still counts against the tracked-keyword limit.
-- **Run fewer, larger audits.** One audit costs the same whatever its page limit, so a single 1,000-page crawl beats ten 100-page crawls. A crawl already in flight blocks a second one anyway.
-
-## Enterprise
-
-Everything unlimited, with custom pricing. Contact Surnex rather than self-serving through checkout.
+- **Remove keywords you're not acting on.** Pausing keeps history and stops checks, but a paused keyword still counts against the tracked-keyword limit — only removing it frees the slot.
+- **Size an audit's page limit to the site.** Audits cost pages crawled, so a crawl sized to the site spends only what it needs.
+- **Reuse recent answers.** A question Surnex already has a cached answer for costs nothing, so repeating a recent lookup is free.
 
 ## Related
 
 - [Manage your subscription](/billing/subscription) — upgrade, downgrade, cancel
-- [Usage and limits](/billing/usage) — what you've consumed this period
+- [Usage and limits](/billing/usage) — what you've used this month

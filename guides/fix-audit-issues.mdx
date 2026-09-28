@@ -13,7 +13,7 @@ The default of 50 is a sample. It reliably catches **sitewide** problems — a t
 
 It won't catch **per-page** problems. Duplicate titles need both duplicates crawled. Orphan pages need a crawl broad enough to establish what links where. Thin content needs the thin pages themselves.
 
-Set the limit **above your real page count** for a proper audit. One audit costs the same against your monthly allowance whatever the page limit, so there's no saving in running several small crawls.
+Set the limit **at or just above your real page count** for a proper audit. Audits spend your monthly allowance by pages crawled, and unused pages are given back when the crawl finishes — so a limit sized to the site costs what the site costs, and several small crawls save nothing over one full one.
 
 ## 2. Read the score, then ignore it
 
@@ -65,7 +65,7 @@ Run one after any significant deploy, and monthly otherwise. Because every audit
 
 Audit performance figures come from a single crawl request. For real diagnosis use [Web vitals](/web-vitals/overview), which runs a full Lighthouse audit and reports LCP, INP, CLS, and four supporting metrics with specific opportunities.
 
-Use the audit to find *which* pages are slow, and web vitals to work out *why* on the worst ones. Note that vitals checks draw on the same monthly allowance as audits.
+Use the audit to find *which* pages are slow, and web vitals to work out *why* on the worst ones. Note that each vitals check uses one page of the same monthly site audit pages allowance.
 
 ## Next
 

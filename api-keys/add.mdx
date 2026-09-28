@@ -53,7 +53,7 @@ The correct MCP configuration is just the URL:
 A key authenticates as the **organization**, not as the person who created it. It carries the organization's access to every project, and it isn't limited by the creating member's role.
 
 <Warning>
-  Any member can create a key, and a key created by a member has the same reach as one created by the owner. Treat keys as organization-level credentials: store them in a secrets manager, never commit them, and review the [key list](/api-keys/list) periodically.
+  Admins and owners can create keys, and a key created by an admin has the same reach as one created by the owner. Treat keys as organization-level credentials: store them in a secrets manager, never commit them, and review the [key list](/api-keys/list) periodically.
 </Warning>
 
 Keys are scoped to one organization. Working with several organizations means one key each.

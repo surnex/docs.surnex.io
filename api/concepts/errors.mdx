@@ -20,7 +20,7 @@ Branch on `error.code` — it's a fixed enum and stable. `message` is human-read
 
 ## The codes
 
-There are ten, and that's the complete set:
+There are twelve, and that's the complete set:
 
 | Code | Status | Meaning |
 | --- | --- | --- |
@@ -28,9 +28,11 @@ There are ten, and that's the complete set:
 | `UNAUTHORIZED` | 401 | Missing, malformed, or expired credential |
 | `FORBIDDEN` | 403 | Authenticated and a member, but your role can't do this |
 | `NOT_FOUND` | 404 | Doesn't exist, **or** exists and isn't yours |
-| `CONFLICT` | 409 | Already exists |
-| `VALIDATION_ERROR` | 422 | The body failed schema validation |
+| `CONFLICT` | 409 | Already exists, or conflicts with what you hold — such as a downgrade to a plan you're over |
+| `DEMO_PROJECT` | 409 | The project is the read-only sample project |
+| `VALIDATION_ERROR` | 400 | The body failed schema validation |
 | `USAGE_LIMIT_EXCEEDED` | 402 | A plan allowance is exhausted |
+| `PLAN_REQUIRED` | 402 | The organization has no active plan — its trial or subscription ended |
 | `RATE_LIMITED` | 429 | Too many requests |
 | `UPSTREAM_ERROR` | 502 | A provider Surnex depends on failed |
 | `INTERNAL_ERROR` | 500 | Unexpected server error |
@@ -39,7 +41,9 @@ There are ten, and that's the complete set:
 
 ### 402 vs 429 — waiting only fixes one
 
-`USAGE_LIMIT_EXCEEDED` (402) means the **plan allowance** is exhausted. Waiting a minute changes nothing; the daily counter resets tomorrow and the monthly one at the start of the period. Upgrading fixes it now. The dashboard turns this code into its upgrade prompt, which is why it doesn't share a code with rate limiting.
+`USAGE_LIMIT_EXCEEDED` (402) means a **plan allowance** is exhausted on a live plan. Waiting a minute changes nothing: a monthly allowance resets on the 1st of the month (UTC), and a held one — tracked keywords, AI prompts, local locations — only frees up when you remove something. Upgrading fixes it now. `details` carries the `metric`, `limit`, `used` and `plan`. The dashboard turns this code into its upgrade prompt, which is why it doesn't share a code with rate limiting.
+
+`PLAN_REQUIRED` (402) means the organization has **no live plan** — its trial ended, or its subscription did. Everything already collected is still readable, but nothing billable runs until an admin or owner [chooses a plan](/billing/subscription). There's no bigger plan to suggest, which is why it's a separate code from `USAGE_LIMIT_EXCEEDED`.
 
 `RATE_LIMITED` (429) means you're going **too fast**. Waiting *is* the fix, and the response tells you how long — see [Rate limits](/api/concepts/rate-limits).
 
@@ -51,7 +55,7 @@ Never retry a 402 on a short backoff, and never treat a 429 as a billing problem
 
 The same applies to organizations: if you're not a member, you get *"Organization not found."*
 
-`FORBIDDEN` is reserved for the case where you can already see the resource and simply can't perform this action — a member doing an owner's job. The message names the role required, for example *"This action requires the owner role."*
+`FORBIDDEN` is reserved for the case where you can already see the resource and simply can't perform this action — a member doing an admin's job, or an admin deleting the organization. The message names the role required, for example *"This action requires the admin role."*
 
 So: a 404 doesn't prove deletion. Check you're using the right ids before concluding anything.
 
@@ -67,12 +71,15 @@ An upstream failure — the SERP provider, the payment processor, the mail servi
 | --- | --- |
 | `UNAUTHORIZED`, `FORBIDDEN`, `NOT_FOUND`, `CONFLICT`, `VALIDATION_ERROR`, `BAD_REQUEST` | **No** — the request is wrong |
 | `RATE_LIMITED` | Yes, after `Retry-After` |
-| `USAGE_LIMIT_EXCEEDED` | Only after the quota window resets |
+| `USAGE_LIMIT_EXCEEDED` | Only after the monthly allowance resets, or after an upgrade |
+| `PLAN_REQUIRED` | Only after a plan is chosen |
+| `DEMO_PROJECT` | **No** — use a real project |
 | `UPSTREAM_ERROR`, `INTERNAL_ERROR` | Yes, with exponential backoff |
 
 ```python
 NO_RETRY = {"UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND",
-            "CONFLICT", "VALIDATION_ERROR", "BAD_REQUEST"}
+            "CONFLICT", "VALIDATION_ERROR", "BAD_REQUEST",
+            "DEMO_PROJECT", "USAGE_LIMIT_EXCEEDED", "PLAN_REQUIRED"}
 
 def call(fn, attempts=4):
     delay = 1

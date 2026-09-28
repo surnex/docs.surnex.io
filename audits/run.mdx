@@ -50,7 +50,7 @@ Set the limit above your real page count for a complete audit. Use the default f
 
 ## Cost and time
 
-Each audit counts as one against your plan's monthly audit allowance, whatever the page limit — so a 50-page crawl and a 5,000-page crawl cost the same in quota. At the limit the request is refused with a `USAGE_LIMIT_EXCEEDED` error. Given the flat cost, there's little reason to run repeated small crawls when one large one would do.
+An audit spends your plan's monthly **site audit pages** allowance — pages crawled, not audits run. When the crawl starts, its page limit is lowered to what's left this month, and that much is set aside while it runs; pages it didn't crawl are given back when it finishes. The request is refused with a `USAGE_LIMIT_EXCEEDED` error only when nothing is left. See [Usage and limits](/billing/usage).
 
 Time scales with page count. A 50-page crawl typically finishes in a few minutes; a large site can take up to an hour.
 

@@ -42,12 +42,12 @@ Pass `org_id` explicitly in the path wherever the endpoint offers it. Nearly eve
 
 ## What a key can reach
 
-A key carries **owner-level** access to its organization. It isn't restricted by the role of whoever created it, and any member can create one.
+A key carries **owner-level** access to its organization. It isn't restricted by the role of whoever created it. Creating, listing and revoking keys needs an admin or owner.
 
-Verification is a bcrypt comparison, so a resolved key is cached briefly rather than re-hashed on every request. A revoked key stops working immediately — revocation writes a tombstone the cache checks, rather than waiting for the entry to expire.
+A resolved key is cached briefly rather than looked up on every request. A revoked key stops working immediately — revocation writes a tombstone the cache checks, rather than waiting for the entry to expire.
 
 <Warning>
-  **An API key acts as an owner** within its organization — the highest role, regardless of who created it. Any member can create one, so a key made by a member can delete projects and open the billing portal, neither of which that member can do in the dashboard.
+  **An API key acts as an owner** within its organization — the highest role, regardless of who created it. Only admins and owners can create one, but the key can then do anything an owner can — including deleting projects. Billing is the exception: choosing a plan and opening the billing portal refuse API keys whatever the role.
 
   There are no scoped or read-only keys. Treat them as organization-level credentials: one per consumer, in a secrets manager, never committed.
 </Warning>

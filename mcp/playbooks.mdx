@@ -27,7 +27,7 @@ Uses `list_audits`, `get_audit_summary`, and `get_audit_issues`. The value is th
 
 > We want to rank for "rank tracking for agencies". Research the keyword and related terms, check who's currently cited in AI answers for it, then write a content brief.
 
-Chains `research_keyword`, `get_keyword_suggestions`, `get_ai_top_competitors`, and `generate_content_brief`. Note that `generate_content_brief` has no dashboard equivalent — this workflow is only available through MCP.
+Chains `research_keyword`, `get_keyword_suggestions`, `get_ai_top_competitors`, and `generate_content_brief` — the same brief the Content Brief panel on Keyword Research produces, in one conversation.
 
 ## Audit your AI visibility
 
@@ -61,9 +61,9 @@ None of these is a page in the dashboard. That's the point of the integration.
 
 **Turn on tool approval** if your client supports it. The agent can call `delete_project`, which destroys all of a project's history irreversibly.
 
-**Watch quota.** Research, audits, backlink refreshes, and AI lookups all draw on your plan allowance. An agent asked to audit every project will spend your [monthly audit budget](/billing/usage) doing exactly that.
+**Watch quota.** Research, audits, backlink refreshes, and AI lookups all draw on your monthly plan allowances. An agent asked to audit every project will spend your [monthly site audit pages](/billing/usage) doing exactly that — audits cost the pages they crawl.
 
-**Verify writes.** Before asking an agent to add fifty keywords, confirm you have room under your [tracked keyword limit](/billing/plans) — hitting it mid-run leaves a partial result.
+**Verify writes.** Before asking an agent to add fifty keywords, have it call `get_usage_summary` to confirm you have room under your [tracked keyword limit](/billing/plans) — hitting it mid-run leaves a partial result.
 
 ## Related
 

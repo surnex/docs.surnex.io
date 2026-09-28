@@ -6,9 +6,9 @@ description: "Request limits, and how they differ from plan usage quotas."
 Two separate things constrain API use, and confusing them wastes time:
 
 - **Rate limits** cap how *fast* you can make requests. Per credential, per minute.
-- **[Usage limits](/billing/usage)** cap how *much* data you can collect. Set by your plan, counted daily or monthly.
+- **[Usage limits](/billing/usage)** cap how *much* data you can collect. Set by your plan, counted per calendar month or as a total held.
 
-A rate limit answers `RATE_LIMITED` (429) and waiting fixes it. A usage limit answers `USAGE_LIMIT_EXCEEDED` (402) and waiting a minute does nothing.
+A rate limit answers `RATE_LIMITED` (429) and waiting fixes it. A usage limit answers `USAGE_LIMIT_EXCEEDED` (402) and waiting a minute does nothing. An organization with no active plan answers `PLAN_REQUIRED` (402).
 
 ## The limits
 

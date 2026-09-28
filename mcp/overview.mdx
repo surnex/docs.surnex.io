@@ -26,19 +26,17 @@ Surnex exposes an MCP (Model Context Protocol) server at `https://api.surnex.io/
 | Web vitals | 2 | Trigger a check, read results |
 | Tech stack | 1 | Detected technologies |
 
-Some tools go beyond the dashboard — `generate_meta_tags` and `generate_content_brief` have no UI equivalent.
-
 ## Reads and writes
 
 Most tools read. Some **change your account**: `create_project`, `delete_project`, `add_tracked_keywords`, `remove_tracked_keywords`, `add_competitor`, `remove_competitor`, `add_geo_topics`, `remove_geo_topics`, `save_keywords`, `delete_saved_keywords`, `start_site_audit`, `refresh_backlinks`, and `trigger_web_vitals_check`.
 
 <Warning>
-  `delete_project` permanently destroys a project and all its history, and an agent can call it — subject to your role, since the token acts as you. Several tools also consume plan quota: `start_site_audit`, `refresh_backlinks`, and the research tools all draw on your allowance. Configure your client to confirm before running tools if it supports that.
+  `delete_project` permanently destroys a project and all its history, and an agent can call it — subject to your role, since the token acts as you. Several tools also consume plan quota: `start_site_audit` spends site audit pages, the AI search tools spend AI brand audits, and `refresh_backlinks` and the research tools spend research lookups. `get_usage_summary` shows what's left. Configure your client to confirm before running tools if it supports that.
 </Warning>
 
 The consent screen states the grant before you approve it, including that audits and research cost money against your plan.
 
-Tools are also annotated — read-only, destructive, idempotent — so a client that supports it can confirm only the calls that warrant it. `delete_project` is the one marked destructive.
+Tools are also annotated — read-only, destructive, idempotent — so a client that supports it can confirm only the calls that warrant it. Five are marked destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics` and `delete_saved_keywords`.
 
 ## What it's good for
 

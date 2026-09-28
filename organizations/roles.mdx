@@ -7,11 +7,11 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 
 ## The three roles
 
-**Owner** — assigned to whoever creates the organization. Only an owner can change the plan or delete the organization. Owner *can* be granted to someone else through the role dropdown; what can't happen is the organization ending up with none, so the **last owner can't be demoted or removed**.
+**Owner** — assigned to whoever creates the organization. Only an owner can delete the organization, and only an owner can make someone an owner or change or remove one. Owner *can* be granted to someone else through the role dropdown; what can't happen is the organization ending up with none, so the **last owner can't be demoted or removed**.
 
-**Admin** — full operational control. Manages projects and members, but can't change billing or delete the organization.
+**Admin** — everything an owner can do except those two things: projects, billing, the team and its roles, API keys, notifications. An admin can't delete the organization, and can't make, change or remove an owner — otherwise an admin could make themselves owner and delete it.
 
-**Member** — the default. Full access to the work itself: view and edit every project, add keywords, run audits, build reports. Can't manage other members or delete projects.
+**Member** — the default. Full access to the work itself: every project, keywords, audits, reports. Can't create, rename or delete projects, manage the team, or change the plan.
 
 <Note>
   There is no read-only or per-project role. Every member can edit every project in the organization. If someone needs access to one project but not another, put those projects in separate [organizations](/organizations/overview).
@@ -25,7 +25,7 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 | --- | --- | --- | --- |
 | View projects and all collected data | Yes | Yes | Yes |
 | **Create a project** | Yes | Yes | **No** — requires admin |
-| Edit project name and search locale | Yes | Yes | Yes |
+| **Edit project name and search locale** | Yes | Yes | **No** — requires admin |
 | Add and remove tracked keywords | Yes | Yes | Yes |
 | Add competitors | Yes | Yes | Yes |
 | Run audits, research keywords, run lookups | Yes | Yes | Yes |
@@ -37,22 +37,22 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 | Action | Owner | Admin | Member |
 | --- | --- | --- | --- |
 | View the members list | Yes | Yes | Yes |
-| Add a member | Yes | Yes | No |
-| Change a member's role | Yes | Yes | No |
-| Remove a member | Yes | Yes | No |
+| Add a member or admin | Yes | Yes | No |
+| Change a member's or admin's role | Yes | Yes | No |
+| Remove a member or admin | Yes | Yes | No |
 | Rename the organization | Yes | Yes | No |
+| **Make someone an owner, or change or remove an owner** | Yes | **No** | **No** |
 | **Delete the organization** | Yes | **No** | **No** |
-| Transfer owner to someone else | Yes | No | No |
 
 ### Billing
 
 | Action | Owner | Admin | Member |
 | --- | --- | --- | --- |
 | View the current plan and usage | Yes | Yes | Yes |
-| Start a checkout / change plan | Yes | **No** | **No** |
-| Open the billing portal and update payment details | Yes | **No** | **No** |
+| Start a checkout / change plan | Yes | Yes | **No** |
+| Open the billing portal and update payment details | Yes | Yes | **No** |
 
-Everyone can see how much of the plan's quota is used — that's operational information a member needs before starting a big audit. Only the owner can spend money.
+Everyone can see how much of the plan's quota is used — that's operational information a member needs before starting a big audit. Only admins and owners can spend money.
 
 ### Notifications and API keys
 
@@ -61,16 +61,16 @@ Everyone can see how much of the plan's quota is used — that's operational inf
 | View your own notifications | Yes | Yes | Yes |
 | Mark read, clear, delete your notifications | Yes | Yes | Yes |
 | Change organization notification rules | Yes | Yes | No |
-| Create and revoke API keys | Yes | Yes | Yes |
+| Create and revoke API keys | Yes | Yes | **No** |
 
 <Warning>
-  Any member can create an API key, and **a key acts as an owner** — it can delete projects and open the billing portal, neither of which a member can do in the dashboard. Treat key creation as a shared responsibility and review [your key list](/api-keys/list) periodically.
+  Admins can create API keys, and **a key acts as an owner** — it can delete projects, whoever created it. It can't change the plan or open the billing portal, and can't manage the team; those refuse API keys. Review [your key list](/api-keys/list) periodically.
 </Warning>
 
 ## Rules that apply to everyone
 
-- **You can't change your own role** from the Team page. Your row shows a static badge rather than a dropdown.
-- **You can't remove yourself** there either; another admin has to.
+- **You can't change your own role** from the Users page. Your row shows a badge but no role button.
+- **You can't remove yourself** there either; another admin or owner has to.
 - **The last owner is protected.** Demoting or removing them fails, because an organization with no owner can't be administered at all — not recoverable through the product.
 
 Note the last point is about the *last* owner, not the owner. With two owners, either can be demoted.
@@ -80,6 +80,7 @@ Note the last point is about the *last* owner, not the owner. With two owners, e
 | Give them | When |
 | --- | --- |
 | **Member** | They do SEO work: keywords, audits, reports. This covers most people. |
-| **Admin** | They manage the account: creating projects, onboarding teammates, cleaning up. |
+| **Admin** | They manage the account: creating projects, inviting people, billing, cleaning up. |
+| **Owner** | They should be able to delete the organization, or manage its owners. Keep this to the people who own the account. |
 
-Default to Member — but note that members **can't create projects**, which is the one restriction likely to surprise someone. If a person needs to add sites, they need admin. Everything else a member can't do is destructive or administrative, and easy to escalate later from the role dropdown on the [Team](/organizations/team) page.
+Default to Member — but note that members **can't create projects**, which is the one restriction likely to surprise someone. If a person needs to add sites, they need admin. Everything else a member can't do is destructive or administrative, and easy to change later from the [Users](/organizations/team) page.
