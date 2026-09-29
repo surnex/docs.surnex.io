@@ -1,41 +1,47 @@
 ---
 title: "Onboarding"
-description: "What happens when you sign up and how Surnex sets up your first project."
+description: "What happens when you sign up, and the sample project every organization starts with."
 ---
 
-Onboarding is two steps: create an organization, then add a project. Surnex walks you through both immediately after your first sign-in, and the header on each screen shows where you are — **Step 1 of 2** and **Step 2 of 2**.
+Onboarding is one screen, shown straight after your first sign-in. It creates your organization and a sample project, and opens the sample's dashboard. Your real project is created afterwards, from inside the app.
 
-## Step 1 — Create your organization
+## The form
 
-Enter an **Organization name** (for example, `Acme Corp`) and click **Continue**.
+- **Your name** — asked only if your profile doesn't have one yet.
+- **Organization name** — usually your company, for example `Acme Inc.`
+- **Website** — your site, for example `acme.com`. You can paste a full URL; everything after the host is dropped.
 
-Three things happen when the organization is created:
+Click **Continue to Your Dashboard**.
 
-- Surnex generates a URL-safe **slug** from the name — `Acme Corp` becomes `acme-corp`. If that slug is already taken by another organization, a numeric suffix is added (`acme-corp-1`). The slug is generated once and shown read-only in [Organization settings](/organizations/settings).
-- You are added as the **owner** — the one person who can delete the organization. Owner isn't given to anyone else; people you invite are admins or members.
+If something fails partway, the screen offers a retry without asking for your details again, and a retry doesn't create a second organization.
+
+## What gets created
+
+**Your organization.** It holds your projects, team, and billing.
+
+- Surnex generates a URL-safe **slug** from the name — `Acme Corp` becomes `acme-corp`. If another organization already holds that slug, a number is added (`acme-corp-2`). The slug is generated once and shown read-only in [Organization settings](/organizations/settings).
+- You are added as the **owner**. Owner isn't given to anyone else; people you invite are admins or members.
 - The organization starts on a 14-day trial of the **Growth** plan, with no card required. See [Plans](/billing/plans).
 
-## Step 2 — Add your first project
+**A sample project**, named after your organization and pointed at your website. See below.
 
-The second screen is the same [Create project](/projects/add) form you'll use later from the Projects page. You need a project name, a domain, and at least one keyword.
+## The sample project
 
-You can click **Skip for now** to go straight to your empty Projects list and add a project later. Nothing is collected until a project exists, so skipping means an empty dashboard.
+The sample shows every stored-data page already filled in, so your first screen shows what Surnex does rather than a row of empty states. **Every figure in it is made up** — nothing was collected from your site. A banner at the top of each of its pages says so, and it carries a **Sample** badge on the Projects page.
 
-<Note>
-  Skipping doesn't lose your organization — it's already created. You'll land on **Projects** with an **Add Project** button.
-</Note>
+- **It's read-only.** You can't add keywords, run an audit, or change its settings. Project settings shows its name, market and schedules with every control switched off.
+- **It costs nothing.** It has no schedules, runs no jobs, and doesn't count against any allowance or your project count.
+- **It stays current.** Its dates move forward daily, so date ranges like "last 7 days" always have data.
+- **It can be removed, not rebuilt.** **Remove sample** on the banner deletes it. An organization only ever gets one.
 
-## After onboarding
+The sample uses your own domain, and that doesn't block you: your first real project can track the same domain.
 
-Creating a project queues its first data collection run in the background — rankings, backlinks, a site audit, domain metrics, keyword research, web vitals, AI search, GEO, and local visibility all start at once. You're redirected to the project dashboard immediately; you don't wait for the jobs.
+## Create your real project
 
-The dashboard fills in as each job finishes. Keyword and ranking data usually lands first; a full site audit on a large site takes longest. See [How data collection works](/projects/data-collection) for the schedule each feature follows afterwards.
+Click **Create your project** on the sample's banner, or **Add Project** on the Projects page. It's the same [Create project](/projects/add) form either way, and it needs the admin or owner role.
 
-## Where you land
+Creating it starts collection straight away — rankings within minutes, everything else as each job finishes. See [How data collection works](/projects/data-collection) for the schedule each feature follows afterwards.
 
-| Situation | Where Surnex sends you |
-| --- | --- |
-| No organization yet | `/onboarding/organization` |
-| Organization but no project | `/onboarding/project` |
-| Project created | That project's dashboard |
-| Skipped project creation | Your organization's Projects list |
+## Adding another organization
+
+**Create organization** in the organization switcher opens the same screen, headed **Add an organization**. It doesn't ask for your name again, and the new organization gets its own sample project.

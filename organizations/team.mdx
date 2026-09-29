@@ -5,7 +5,7 @@ description: "Invite people to your organization, change their roles, and remove
 
 Go to **Settings → Users** to see everyone in the organization and manage their access.
 
-You can invite anyone, whether or not they already use Surnex. They get an email; clicking **Accept invitation** signs them in and puts them straight into the organization. Until they click it they're **pending** and have no access.
+You can invite anyone, whether or not they already use Surnex. They get an email; clicking **Accept invitation** signs them in and puts them straight into the organization. Until they click it they're **pending** and have no access — they can't see the organization or any of its projects' data until they accept.
 
 ## Invite a user
 
@@ -25,7 +25,7 @@ You can invite anyone, whether or not they already use Surnex. They get an email
     See [Roles and permissions](/organizations/roles) for exactly what each can do.
   </Step>
   <Step title="Click Send invite">
-    They appear in the users list straight away as **pending**, and the email goes out.
+    They appear in the users list straight away with the status **Invited**, and the email goes out.
   </Step>
 </Steps>
 
@@ -35,11 +35,16 @@ Every plan includes unlimited users, so there's no seat limit and no seat fee fo
 
 ## The users list
 
-Each row shows the person's avatar (or their initials), name, email, and role. Your own row is tagged **(you)**. Rows carry both an invited and an accepted timestamp, so a pending invitation is distinguishable from an active member.
+The table has four columns:
+
+- **Person** — initials, name and email. Your own row is tagged **(you)**.
+- **Role** — owner, admin or member.
+- **Status** — **Invited** for someone who hasn't accepted yet, **Active** for a member.
+- **Joined** — the date they accepted, or *Invited* and the date the invitation was sent.
 
 ## Change someone's role
 
-Click the pencil on their row, pick **Admin** or **Member** and save. Their access updates on their next request. Admins and owners can change roles; an owner's row has no pencil for an admin.
+Click the pencil on their row, pick **Admin** or **Member** and save. Their access updates on their next request. Admins and owners can change roles; only an owner can change another owner's, so an owner's row has no pencil for an admin.
 
 The pencil doesn't appear on your own row — you can't change your own role.
 
@@ -47,7 +52,9 @@ The pencil doesn't appear on your own row — you can't change your own role.
 
 Click the trash icon on their row and confirm. They lose access to the organization immediately, but their Surnex account and any other organizations they belong to are untouched.
 
-You can't remove yourself here, and the owner can't be removed — an organization with no owner can't be administered and isn't recoverable through the product. Removing someone who is still pending withdraws the invitation; its link stops working.
+You can't remove yourself here. An owner's row has no trash icon: another owner changes their role to admin or member first, then removes them. The last owner can't be demoted or removed — an organization with no owner can't be administered and isn't recoverable through the product.
+
+Removing someone who is still **Invited** withdraws the invitation. The email's link still signs them in, because their Surnex account exists, but it no longer joins them to the organization.
 
 ## Who can do what
 

@@ -44,9 +44,9 @@ Membership is checked on every scoped request, and role is checked additionally 
 
 ## Roles
 
-Three roles per organization — owner, admin, member. The creator is the owner, and owner is never given to anyone else: nobody can be invited as owner or changed to it. An admin can do everything the owner can except delete the organization or change or remove the owner, so no admin can ever reach the one action that deletes everything.
+Three roles per organization — owner, admin, member. The creator is the owner, and owner is never given to anyone else: nobody can be invited as owner or changed to it. An admin can do everything an owner can except delete the organization or change or remove an owner, so no admin can ever reach the one action that deletes everything.
 
-The owner can't be removed, so an organization always has someone who can administer it. The Users page also doesn't offer changing your own role or removing yourself.
+Only an owner can demote or remove another owner, and the last owner can't be demoted or removed at all. The database enforces that inside the write, so an organization always has someone who can administer it. The Users page also doesn't offer changing your own role or removing yourself.
 
 An invitation grants nothing until the invited person clicks its link, which signs them in as the address it was sent to.
 

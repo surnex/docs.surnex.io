@@ -55,6 +55,16 @@ Running out of research lookups never stops scheduled collection.
 
 If the organization holds more than its plan allows — after a downgrade, for example — scheduled checks cover the oldest rows up to the limit, counted across the whole organization. The newest ones aren't checked until you remove enough to fit or upgrade.
 
+## A new project's first run spends
+
+[Creating a project](/projects/add#what-happens-next) starts its first collection straight away, and the on-demand parts of it spend like the buttons would:
+
+- **About four research lookups** — domain overview, tech stack, keyword research on the domain, and bulk research on your keywords
+- **One AI brand audit** — an LLM benchmark on your first keyword
+- **Site audit pages** — a crawl of up to 100 pages, plus one for a web vitals check
+
+The bulk research and the benchmark only run if you added keywords. The first rank check, backlink snapshot, GEO snapshot and local check are covered by what you hold, like any scheduled run. The [sample project](/onboarding/overview#the-sample-project) spends nothing.
+
 ## At the limit
 
 | Limit reached | What you see |

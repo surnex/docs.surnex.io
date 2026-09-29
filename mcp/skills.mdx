@@ -18,14 +18,14 @@ Restart your AI tool afterwards if it doesn't pick the skill up immediately.
 The `surnex` skill helps your agent:
 
 - Understand that **most tools read stored data**, not live results — reading rankings doesn't check rankings, and a figure can legitimately be a day old
-- Know that **creating a project collects nothing immediately**: it creates four schedules and the first data can be 24 hours away
-- Know that **audits, web vitals, domain analysis, and keyword research never run on a schedule** and have to be started explicitly
+- Know that **creating a project starts its first collection straight away** and spends allowance doing it: rankings arrive within minutes, everything else as each job finishes
+- Know that **audits, web vitals, domain analysis, and keyword research never run on a schedule** — after a project's first run, they have to be started explicitly
 - Recognise **which tools spend plan allowance**, and avoid the failure mode that matters — looping a billable tool over a keyword list
 - Handle **organization ambiguity**: with several memberships the server refuses to guess rather than billing the wrong one
 - Understand it **acts as you**, carrying your role, so a member's connection can't create or delete projects
 - Pass **location and language explicitly**, since tools default to the United States rather than inheriting your project's market
 
-It also names the behaviours that read as failures but aren't: an empty new project waiting on its first scheduled run, a not-found that means wrong organization rather than deleted, and a second audit refused because one is already crawling.
+It also names the behaviours that read as failures but aren't: a new project whose pages fill in one by one as its first jobs finish, a not-found that means wrong organization rather than deleted, and a second audit refused because one is already crawling.
 
 Alongside the guide, it ships references for [all 88 tools](/mcp/tools) flagged for writes and cost, worked [workflows](/mcp/playbooks), how to read the numbers without misinterpreting them, and troubleshooting.
 

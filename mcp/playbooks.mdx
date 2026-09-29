@@ -61,7 +61,7 @@ None of these is a page in the dashboard. That's the point of the integration.
 
 **Turn on tool approval** if your client supports it. The agent can call `delete_project`, which destroys all of a project's history irreversibly.
 
-**Watch quota.** Research, audits, backlink refreshes, and AI lookups all draw on your monthly plan allowances. An agent asked to audit every project will spend your [monthly site audit pages](/billing/usage) doing exactly that — audits cost the pages they crawl.
+**Watch quota.** Research, audits, backlink refreshes, AI lookups, and domain lookups (`get_domain_overview`, `get_domain_top_keywords`, `get_domain_top_pages`, `get_domain_competitors`, `get_tech_stack`) all draw on your monthly plan allowances. Creating a project does too — its first run spends about four research lookups, one AI brand audit, and a crawl of up to 100 pages. An agent asked to audit every project will spend your [monthly site audit pages](/billing/usage) doing exactly that — audits cost the pages they crawl.
 
 **Verify writes.** Before asking an agent to add fifty keywords, have it call `get_usage_summary` to confirm you have room under your [tracked keyword limit](/billing/plans) — hitting it mid-run leaves a partial result.
 

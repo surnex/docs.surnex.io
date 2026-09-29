@@ -68,9 +68,9 @@ Creating a project requires admin because a project commits the organization to 
   An **API key acts as an owner** within its organization. It isn't limited by the role of whoever created it; only an admin or owner can create one. Billing and the team are the exceptions — choosing a plan, opening the billing portal, managing members and managing keys refuse API keys. See [Authentication](/api/concepts/authentication).
 </Warning>
 
-## An organization always keeps its owner
+## An organization always keeps an owner
 
-The owner can't be demoted or removed. Attempting it fails rather than leaving an organization nobody can administer.
+Only an owner can change or remove another owner (`PATCH /v1/organizations/{orgId}/members/{userId}/role`, `DELETE /v1/organizations/{orgId}/members/{userId}`); an admin who tries gets `FORBIDDEN` (403). The last owner can't be demoted or removed by anyone — the request fails with `BAD_REQUEST` (400), *"An organization needs at least one owner."*, rather than leaving an organization nobody can administer. The check runs inside the write, so two owners demoting each other at the same moment can't both succeed.
 
 ## Working across organizations
 

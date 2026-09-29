@@ -1,9 +1,11 @@
 ---
 title: "Project settings"
-description: "Rename a project, change its search locale, or delete it."
+description: "Rename a project, change its search locale and schedules, or delete it."
 ---
 
-Open a project and go to **Settings** in the project sidebar. The page has three sections: **General**, **Search Locale**, and **Danger Zone**. The subtitle under the heading shows the project's domain, so you can confirm which project you're editing.
+Open a project and go to **Settings** in the project sidebar. The page has four sections: **General**, **Search Locale**, **Schedules**, and **Danger Zone**. The subtitle under the heading shows the project's domain, so you can confirm which project you're editing.
+
+On the [sample project](/onboarding/overview#the-sample-project), every setting is shown with its controls switched off; only deleting it works.
 
 ## General
 
@@ -13,11 +15,7 @@ Edit the field and click **Save Changes**. The name updates everywhere immediate
 
 ### Domain
 
-<Warning>
-  The Domain field on this page is editable but **is not saved**. Clicking **Save Changes** submits the project name only, so a domain edit is silently discarded — reload the page and the old domain is back.
-
-  There's no way to change it through the API either: a project update accepts only its **name** and its **schedules**. A project's domain is fixed for the project's life.
-</Warning>
+Shown read-only. A project's domain is fixed for the project's life, because every ranking, backlink and audit is keyed to it. The API doesn't accept a domain change either: a project update takes its **name**, its **schedules**, and its search locale.
 
 To track a different domain, create a **second project**. That's also the better outcome if you're migrating — you keep the old site's history for comparison instead of losing it.
 

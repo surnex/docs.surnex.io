@@ -71,6 +71,8 @@ Subscriptions belong to an organization. If you own two, you pay for two — and
 
 A checkout to a plan the organization holds more than answers `CONFLICT` (409) with the overages in `details`. Checkout and portal need the admin or owner role and refuse API keys.
 
+`success_url`, `cancel_url` and `return_url` must be addresses on the Surnex app, `app.surnex.io`. Anything else answers `BAD_REQUEST` (400), *"Return addresses must be on the Surnex app."*, so a billing page can never send someone on to a site that isn't Surnex.
+
 ## Related
 
 - [Plans](/billing/plans) — the full limit table

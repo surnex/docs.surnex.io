@@ -7,13 +7,15 @@ Setting up takes about ten minutes. Three of the decisions are hard to change la
 
 ## 1. Account and organization
 
-[Sign up](/authentication), confirm your email, and sign in. Create an organization — this holds your projects, team, and billing. A new organization starts on a 14-day trial of the **Growth** plan, with no card required. Projects and members are unlimited on every plan; tracked keywords and the other allowances are listed on [Plans](/billing/plans).
+[Sign up](/authentication) and sign in. [Onboarding](/onboarding/overview) is one screen: your name, your company, and its website. It creates your organization — which holds your projects, team, and billing — and a [sample project](/onboarding/overview#the-sample-project) for your site, filled with made-up data so you can see every page working. Nothing in the sample was collected from your site.
+
+A new organization starts on a 14-day trial of the **Growth** plan, with no card required. Projects and members are unlimited on every plan; tracked keywords and the other allowances are listed on [Plans](/billing/plans).
 
 An agency running several clients should decide now whether each client gets its own organization. Separate organizations mean separate billing, separate teams, and hard data isolation — but also separate subscriptions. One organization with several projects is simpler and cheaper; separate organizations are right when clients need their own invoices or must not see each other's data.
 
 ## 2. Create the project
 
-Three fields matter more than the rest.
+Click **Create your project** on the sample's banner, or **Add Project** on the Projects page. Three fields matter more than the rest.
 
 **Domain.** `example.com` and `www.example.com` are different hosts to a search engine. Enter the one you actually want measured. A domain can only be tracked once per organization.
 
@@ -21,24 +23,26 @@ Three fields matter more than the rest.
 
 **Keywords.** At least one is required. Click **Suggest Keywords** and Surnex returns up to 20 the domain already ranks for, with volumes, all pre-selected. That's a reasonable start for an established site. For a new domain, expect nothing back and type your own.
 
-**Competitors** are optional but worth adding now — up to 10. Adding them here means their first data arrives in the same initial collection run, so you have comparisons on day one instead of day two.
+**Competitors** are optional but worth adding now — up to 10. Adding them here puts them in the first rank check, so you have comparisons from the start.
 
-## 3. Nothing collects yet
+## 3. The first run
 
-This is the step that surprises people: **creating a project collects nothing immediately.** It creates four schedules at 00:00 UTC — daily, except AI visibility, which is weekly — and the first jobs run when those come due.
+**Creating a project starts collecting straight away.** Rankings arrive within minutes, because the first rank check is bought live. Backlinks, GEO, local SEO, a site audit of up to 100 pages, web vitals, domain overview, tech stack, keyword research and one LLM benchmark follow, each appearing as its job finishes. A site audit on a large site takes longest.
 
-So a new project's dashboard is empty, and that's expected.
-
-Two ways to see data sooner:
-
-- **Move the run hour forward.** On each feature's **Settings** panel, set the hour to one still ahead of you today.
-- **Run the on-demand features now.** [Audits](/audits/run), [web vitals](/web-vitals/overview), [domain overview](/domains/overview), and [keyword research](/keywords/research) have no schedule at all — they only ever run when you ask, so there's nothing to wait for.
+That first run spends allowances like the buttons would — about four research lookups, one AI brand audit, and the audit's pages. See [Usage and limits](/billing/usage).
 
 ## 4. Set your schedules
 
-Four features re-collect on schedules you control, each from the **Settings** button on its overview page:
+After the first run, four features re-collect on schedules you control, in [Project settings → Schedules](/projects/settings#schedules):
 
-All four default to **every day at 00:00 UTC**. Scheduled checks don't spend your monthly allowances — they're covered by what you hold — so the cadence is about how fresh you need the data, not about cost.
+| Schedule | Default |
+| --- | --- |
+| **Rank tracking** | Every day at 00:00 UTC |
+| **Backlinks** | Every day at 00:00 UTC |
+| **AI visibility** ([GEO](/geo/overview)) | Once a week at 00:00 UTC |
+| **Local SEO** | Every day at 00:00 UTC |
+
+Scheduled checks don't spend your monthly allowances — they're covered by what you hold — so the cadence is about how fresh you need the data, not about cost.
 
 The **Timezone** is applied, so set the hour in your own zone. Cadences are real intervals from the last run, not calendar rules: "once a week" is seven days later, not a fixed weekday.
 

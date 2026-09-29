@@ -21,11 +21,11 @@ Tools marked **write** below change your account; **quota** means the call spend
 | --- | --- |
 | `list_organizations` | |
 | `list_projects` | 100 per `page`; `total` says how many there are |
-| `create_project` | **write** |
+| `create_project` | **write**, quota — the first run |
 | `delete_project` | **write — destroys all project data** |
 | `get_usage_summary` | |
 
-Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
+Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `create_project` takes a name, a domain and at least one keyword, and starts the project's [first collection](/projects/add#what-happens-next) straight away — which spends about four research lookups, one AI brand audit, and a crawl of up to 100 pages. If the keywords would take the organization past its tracked-keyword allowance, the call is refused before anything is created. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
 
 Five tools are annotated destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics` and `delete_saved_keywords`. Everything `delete_project` removes cascades and cannot be recovered.
 
@@ -120,15 +120,19 @@ Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` le
 | `add_geo_topics` | **write** |
 | `remove_geo_topics` | **write** |
 
+`get_llm_response_for_keyword` queues a fresh snapshot of one topic: all six AI engines — ChatGPT, Claude, Gemini, Perplexity, Google AI Overview and Google AI Mode — are asked, and each answer is stored. It returns a job status, not the answer; read the result with `get_geo_topic_detail`. Its `platform` argument is accepted for compatibility and ignored.
+
 ## Domains and tech stack
 
 | Tool | |
 | --- | --- |
-| `get_domain_overview` | |
-| `get_domain_top_keywords` | |
-| `get_domain_top_pages` | |
-| `get_domain_competitors` | |
-| `get_tech_stack` | |
+| `get_domain_overview` | quota |
+| `get_domain_top_keywords` | quota |
+| `get_domain_top_pages` | quota |
+| `get_domain_competitors` | quota |
+| `get_tech_stack` | quota |
+
+Each is a live lookup and spends one research lookup, unless Surnex already has a cached answer. All five work on any domain, not only your own. The four domain tools still take a `project_id` — any project in the organization, used for access and billing; `get_tech_stack` takes an optional `organization` instead.
 
 ## Competitors
 

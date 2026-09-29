@@ -7,9 +7,9 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 
 ## The three roles
 
-**Owner** — whoever created the organization. It isn't a role anyone is given: nobody can be invited as owner or changed to it. Only the owner can delete the organization, and the owner can't be removed.
+**Owner** — whoever created the organization. It isn't a role anyone is given: nobody can be invited as owner or changed to it. Only an owner can delete the organization, or change or remove another owner. The last owner can't be demoted or removed.
 
-**Admin** — everything the owner can do except delete the organization or change the owner: projects, billing, users and their roles, API keys, notifications.
+**Admin** — everything an owner can do except delete the organization or change or remove an owner: projects, billing, users and their roles, API keys, notifications.
 
 **Member** — the default. Full access to the work itself: every project, keywords, audits, reports. Can't create, rename or delete projects, manage users, or change the plan.
 
@@ -73,7 +73,8 @@ Everyone can see how much of the plan's quota is used — that's operational inf
 
 - **You can't change your own role** from the Users page. Your row shows a badge but no role button.
 - **You can't remove yourself** there either; another admin or owner has to.
-- **The owner is protected.** An organization always keeps its owner — one with none couldn't be administered at all, and isn't recoverable through the product.
+- **The last owner is protected.** An organization always keeps at least one owner — one with none couldn't be administered at all, and isn't recoverable through the product. Demoting or removing the last owner is refused with *"An organization needs at least one owner."*
+- **An owner is demoted before being removed.** On the Users page an owner's row has no trash icon; another owner changes their role first, then removes them.
 
 ## Choosing a role
 
