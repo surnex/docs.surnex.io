@@ -1,74 +1,75 @@
 ---
 title: "Project dashboard"
-description: "Your project's headline metrics in one view — rankings, authority, AI visibility, and recent activity."
+description: "Your project's headline metrics in one view — rankings, AI visibility, local, backlinks and site health."
 ---
 
-The **Dashboard** is where a project opens. It pulls the headline number from each area of Surnex into one screen, so you can see what changed without visiting six pages.
+The **Dashboard** is where a project opens. It pulls the headline figures from each area of Surnex into one screen, each in the chart that suits it, so you can see what changed without visiting ten pages.
 
 ## Stat cards
 
 | Card | What it shows |
 | --- | --- |
-| **Avg Position** | Mean position across your tracked keywords that rank |
-| **Domain Rank** | Your domain's authority score |
-| **AI Overview Rate** | Share of tracked keywords where Google returned an AI Overview |
-| **GEO Citation Rate** | How often your brand is cited in AI answers for your topics |
+| **Avg. Position** | Mean position across your tracked keywords that rank, with how many are in the top 10 |
+| **Domain Rank** | Your domain's authority score, 0–1,000, with its trend |
+| **AI Overview Rate** | Share of tracked keywords where Google showed an AI Overview |
+| **AI Citation Rate** | Share of AI engine answers for your [GEO](/geo/overview) topics that cite your site |
 
-The four are deliberately from different systems: [rank tracking](/tracking/overview), [backlinks](/backlinks/overview), [AI search](/ai/overview), and [GEO](/geo/overview). Each updates on its own [collection schedule](/projects/data-collection), so they won't all be from the same moment.
+Each card shows its change since the previous reading. The four come from different systems — [rank tracking](/tracking/overview), [backlinks](/backlinks/overview), [AI search](/ai/overview) and GEO — and each updates on its own [collection schedule](/projects/data-collection), so they won't all be from the same moment.
 
-**Avg Position** excludes keywords that don't rank at all, so it can improve when a keyword falls out of the top 100 entirely. Read it alongside the distribution bar below rather than on its own.
+**Avg. Position** excludes keywords that don't rank at all, so it can improve when a keyword falls out of the top 100 entirely. Read it alongside **Keyword Rankings**.
 
-## Ranking Distribution
+## Rankings
 
-A single stacked bar showing how your tracked keywords are spread across position bands:
+**Keyword Rankings** shows your tracked keywords as one bar, split by position band, with the count and share in each:
 
-| Segment | Positions |
+| Band | Positions |
 | --- | --- |
 | **Top 3** | 1–3 |
-| **Top 10** | 4–10 |
-| **Top 20** | 11–20 |
-| **Top 50** | 21–50 |
-| **Top 100** | 51–100 |
-| **Not Ranking** | Outside the top 100 |
+| **4–10** | 4–10 |
+| **11–20** | 11–20 |
+| **21–50** | 21–50 |
+| **51–100** | 51–100 |
+| **Not ranking** | Outside the top 100 |
 
-The bands are exclusive, so the segments sum to your total tracked keywords. Hover a segment for its label and count.
+The bands are exclusive, so they add up to your tracked keywords. A bar dominated by **Not ranking** and **51–100** means you're tracking keywords you're not competitive for yet — a useful target list, but **Avg. Position** only averages the few that rank.
 
-The shape matters more than any single number. A bar dominated by **Not Ranking** and **Top 100** means you're tracking keywords you're not competitive for yet — useful as a target list, but the **Avg Position** figure above will be misleading, since it only averages the minority that rank.
+**Top Movers**, beside it, lists the biggest position changes since the last check. It's empty on a new project: movement needs two checks to compare.
 
-## Recent Audits
+## AI search and GEO
 
-The latest [site audits](/audits/overview) with their scores and status. Empty state: **No audits yet** — "Run a site audit to see results".
+- **Google AI Overviews** — one bar per check day for the last 30 days, split into keywords whose AI Overview cites you, keywords with an AI Overview that doesn't, and keywords with none
+- **AI Engines** — for each of the six engines, how often its answers cite your site and how often they mention your brand, across your GEO topics
+- **AI Visibility Trend** — the share of engine answers citing your site over the last 90 days
 
-Because audits don't run on a schedule, this panel is the quickest way to notice your last crawl was months ago.
+## Local
 
-## Top Movers
+**Local Map** shows the [Local SEO](/local/overview) grid for your best-placed keyword: your position at each point around your listing, the share of points in the top 3, and your average position where you're found. **Open grid** goes to that keyword.
 
-Keywords whose positions changed most recently, from the same data as [Position changes](/tracking/changes). Empty state: **No ranking changes** — "Position changes will appear here".
+## Backlinks
 
-Empty on a new project: movement needs two rank checks to compare.
+- **Backlink Growth** — total backlinks and referring domains over the last 90 days, each on its own axis so both are readable
+- **Link Profile** — the dofollow and nofollow split from the latest snapshot, with total backlinks and referring domains and their change
 
-## Backlink Stats
+A profile that's nearly all dofollow can indicate bought links; one that's nearly all nofollow isn't passing authority.
 
-Four figures from your [backlink profile](/backlinks/overview):
+## Site health
 
-| Figure | What it is |
-| --- | --- |
-| **Referring Domains** | Distinct domains linking to you |
-| **Total Backlinks** | Every individual link |
-| **Dofollow / Nofollow** | The split between them |
-| **Dofollow Ratio** | Dofollow links as a share of the total |
+- **Audit Scores** — one bar per recent [site audit](/audits/overview), green from 80, amber from 50, red below
+- **Site Health** — the latest audit's score as a gauge, with its errors, warnings and notices
 
-**Dofollow Ratio** is the one to watch over time. A natural profile has a healthy mix; a ratio that's very high or very low is worth investigating — near-total dofollow can indicate bought links, while near-total nofollow means your links aren't passing authority.
+Audits don't run on a schedule, so **Audit Scores** is the quickest way to notice your last crawl was a while ago.
 
-## A new project
+## While data is being collected
 
-Immediately after [creating a project](/projects/add), most of this is empty. Panels fill in as each background job finishes — the first rankings within minutes, a full site audit up to an hour. You don't need to keep the page open.
+A section with no data yet says why. If the job that fills it is queued or running — a rank check, an audit, an AI visibility snapshot, a backlink snapshot or a local check — the section shows it in progress, when it started, and how long that job usually takes. The first rankings arrive within minutes; a full site audit can take up to an hour.
+
+When a job finishes, the dashboard refreshes that data in place. You don't need to reload or keep the page open.
 
 ## Where to go next
 
 <CardGroup cols={2}>
   <Card title="Rank tracking" icon="chart-line" href="/tracking/overview">
-    The full picture behind Avg Position and the distribution bar.
+    The full picture behind Avg. Position and Keyword Rankings.
   </Card>
   <Card title="Site audits" icon="magnifying-glass" href="/audits/overview">
     Run a crawl and work through the issues.

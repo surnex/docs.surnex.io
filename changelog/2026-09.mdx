@@ -1,7 +1,65 @@
 ---
 title: "September 2026"
-description: "Local SEO on a Maps grid, email notifications on by default, and fixes across audits, domains and backlinks."
+description: "A personal Inbox and channels, invoices in Billing, a new dashboard, Local SEO on a Maps grid, and fixes across audits, domains and backlinks."
 ---
+
+<Update label="29 September 2026" description="MCP tools">
+
+### MCP: 97 tools, and tighter checks on the ones that spend
+
+- **New: `get_backlink_gap_result`** reads a gap analysis already started, free. When `get_backlink_gap` times out, collect the result with it — calling `get_backlink_gap` again buys another analysis. `get_backlink_gap` now always compares your project's own site; it no longer takes a `target_domain`.
+- **Domain tools are the organization's.** `get_domain_overview`, `get_domain_top_keywords`, `get_domain_top_pages` and `get_domain_competitors` take an optional `organization` instead of a `project_id`, so they work while your only project is the sample.
+- **`start_site_audit` and `trigger_web_vitals_check`** take a full URL, and default to the project's home page when none is given.
+- **`get_local_rankings`** returns the latest check's pack by default; `latest_only: false` gives the history, `own_only: true` only your listing.
+- **Counts are what happened.** `remove_tracked_keywords`, `delete_saved_keywords` and `remove_geo_topics` report how many were actually removed, not how many ids were sent.
+- **Inputs match the API.** Ids must be valid ids, and keywords, tags, content text and Trends date ranges are checked and trimmed the same way the API checks them — so the same question isn't bought twice for a stray space.
+- **Local SEO, managed from MCP.** New `update_local_location` changes a location's name, grid or listing; `update_local_keyword` pauses or resumes a keyword; `remove_local_keywords` removes keywords and their history. A grid's spacing is now 0.5, 1, 2 or 5 km — the dashboard's choices — over the API and MCP too.
+- **Audits and web vitals checks are of the project's own site** — its domain or a subdomain — in the dashboard, the API and MCP. Other sites are refused.
+- **Finding a Google Business listing needs an active plan**, and isn't available on the sample project. It still doesn't use an allowance.
+- **Rate limited** per person, like the API.
+
+</Update>
+
+<Update label="29 September 2026" description="Inbox and channels">
+
+### Your own inbox, and your own email switch
+
+Notifications are now **Inbox**, and every member has their own. Reading, selecting or deleting a notification changes it for you and nobody else. See [Inbox](/notifications/view).
+
+- **Search, filter and settings in the header.** Filter by **Unread only** and by category: rankings, backlinks, site audits, AI visibility, Local SEO, web vitals or reports.
+- **Select several at once.** Hover a notification and its icon becomes a checkbox; a bar above the list marks them read or deletes them.
+- **Clearer notifications.** Ranking changes show each keyword's old and new position; backlink changes show the metric before and after, with a referring-domains spike flagged as possible spam; AI visibility leads with how many topics cite you; web vitals name the page; reports link straight to the report.
+- **The Inbox has moved** to `/<organization>/inbox`. The old address still works.
+
+**Channels** now splits what's yours from what's the team's. See [Channels](/notifications/preferences).
+
+- **Your notifications — Inbox and Email.** Each member switches these for themselves. Turning Email off stops it reaching you; your teammates keep theirs.
+- **Team channels — Slack and Discord.** One post per notification for the organization, connected by an owner or admin.
+
+**API.** Every inbox endpoint now acts for the member calling it. New: `GET` and `PATCH /v1/organizations/{orgId}/notifications/me` for your own switches, `PATCH …/notifications/read` and `POST …/notifications/bulk-delete` for several notifications at once. `PUT …/notifications` now configures Slack and Discord only.
+
+</Update>
+
+<Update label="29 September 2026" description="Billing">
+
+### Invoices in Billing, and a banner that says where your plan stands
+
+- **Invoices are listed in Surnex** — date, number, what it was for, amount and status, with **View** and **PDF**. See [Invoices](/billing/invoices).
+- **The plan banner changes with your plan's state** — amber for a trial or a failed payment, red when a trial has ended or a plan is cancelled — with the one action that fixes it: **Choose a plan**, **Update payment** or **Keep my plan**. See [Manage your subscription](/billing/subscription#the-plan-banner).
+- **Billing portal** has moved to the top of the page.
+
+</Update>
+
+<Update label="29 September 2026" description="Dashboard">
+
+### A new project dashboard
+
+The [dashboard](/dashboard/overview) now shows each area in the chart that suits it: keyword rankings as a distribution bar, Google AI Overviews as stacked bars per check, AI citations per engine, your Local SEO grid, backlink growth with referring domains on their own axis, a link-profile donut, audit scores per audit and a site-health gauge.
+
+- **Sections that are still collecting say so.** While a job is filling a page — a rank check, an audit, a snapshot — its empty sections show the job in progress and how long it usually takes, instead of looking as if there's no data.
+- **Pages refresh when a job finishes**, without reloading.
+
+</Update>
 
 <Update label="29 September 2026" description="Local SEO grids">
 

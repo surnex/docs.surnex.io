@@ -1,15 +1,30 @@
 ---
 title: "Invoices"
-description: "Download invoices and update your payment details."
+description: "See and download your invoices, and update your payment details."
 ---
 
-Invoices and payment details are handled by the payment provider, not inside Surnex.
+Your invoices are listed in Surnex, and payment details are kept by the payment provider, Stripe.
 
-## Getting there
+## Invoices in Surnex
 
-Go to **Settings → Billing** and click **Billing portal**, in the **Invoices and payment** section. It appears once something has been bought — a card-free trial has no invoices yet. You're taken to the provider's portal, where you can:
+**Settings → Billing** lists every invoice for the organization under **Invoices**, newest first, once something has been bought. Each shows:
 
-- Download past invoices and receipts
+| Column | Shows |
+| --- | --- |
+| **Date** | When the invoice was issued |
+| **Invoice** | Its number — the one a receipt or your accountant quotes |
+| **Description** | What it was for, and the billing period |
+| **Amount** | What was paid, or for an unpaid invoice, what's owed |
+| **Status** | **Paid**, **Due** (issued and not yet paid), **Void**, or **Unpaid** |
+
+Every invoice has **View**, which opens it on Stripe, and **PDF** to download it. A due invoice's **View** reads **Pay**. Twelve are shown at a time; **Show older invoices** loads more.
+
+The list is read from Stripe each time you open the page, so a payment that's just gone through, a retried card or a refund shows as Stripe has it now.
+
+## Billing portal
+
+**Billing portal**, at the top right of **Settings → Billing**, opens Stripe's portal. It appears once something has been bought. There you can:
+
 - Update the card on file
 - Change your billing email
 - Update billing address and tax details
@@ -17,7 +32,7 @@ Go to **Settings → Billing** and click **Billing portal**, in the **Invoices a
 
 ## Who can access it
 
-**Admins and owners** can open the billing portal. Members can see the current plan and usage in Surnex but can't reach invoices or payment details. See [Roles and permissions](/organizations/roles).
+**Admins and owners** see the invoices and can open the billing portal. Members can see the current plan and usage in Surnex but not invoices or payment details. See [Roles and permissions](/organizations/roles).
 
 If your finance team needs invoices, either make the person handling them an admin, or set the billing email to a shared finance address in the portal so invoices arrive there automatically.
 
@@ -27,7 +42,7 @@ Invoices go to the billing email held by the provider, which is set in the porta
 
 ## One subscription per organization
 
-Each [organization](/organizations/overview) bills separately, with its own invoices. Owning two means two subscriptions and two invoice histories — switch organizations in the sidebar before opening the portal, or you'll be looking at the wrong account.
+Each [organization](/organizations/overview) bills separately, with its own invoices. Owning two means two subscriptions and two invoice histories — switch organizations in the sidebar first, or you'll be looking at the other one's invoices.
 
 For agencies billing clients separately, that separation is the intended pattern: one organization per client keeps invoices, usage, and access cleanly divided.
 

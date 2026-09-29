@@ -1,60 +1,85 @@
 ---
-title: "Notification center"
-description: "Review ranking changes, audit results, backlink alerts, and finished checks."
+title: "Inbox"
+description: "Your own notifications: ranking changes, audit results, backlink alerts and finished checks."
 ---
 
-**Notifications** — "Stay up to date with ranking changes, audit results, backlinks, and usage alerts" — is the in-app feed for everything Surnex wants to tell you.
+The **Inbox** is where Surnex tells you what happened. Open it from your avatar menu in the sidebar, or go to `app.surnex.io/<organization>/inbox`.
 
-## Tabs
+The header says how many notifications are unread, or **You're all caught up** when none are.
 
-| Tab | Shows |
+## Your inbox is yours
+
+Every member of an organization has their own inbox. Reading, selecting or deleting a notification changes it for you and nobody else.
+
+To stop receiving inbox notifications in an organization, switch **Inbox** off under **Your notifications** in [Channels](/notifications/preferences). It only affects you.
+
+## Search and filter
+
+The header holds everything the list is controlled from:
+
+- **Search** — matches a notification's title or message
+- **Filter** — the filter button opens two choices, and shows how many are active
+  - **Show** — **Everything**, or **Unread only**
+  - **Category** — **Rankings**, **Backlinks**, **Site audits**, **AI visibility**, **Local SEO**, **Web vitals** or **Reports**
+- **Settings** — opens [Channels](/notifications/preferences)
+
+**Clear** in the filter resets both choices.
+
+## Select, mark read, delete
+
+Hover a notification and its icon becomes a checkbox. Tick one, and every notification on the page shows its checkbox, so you can keep picking.
+
+A bar appears above the list while anything is ticked:
+
+- **Select all** — tick every notification on the page
+- **Mark as read**
+- **Delete** — confirmed first: *"They'll be removed from your inbox. Nobody else's is touched. This can't be undone."*
+- **×** — clear the selection
+
+Changing the search, a filter or the page clears the selection. Opening a notification marks it read and shows its details.
+
+## What each notification shows
+
+| Category | Shows |
 | --- | --- |
-| **Unread** | Notifications you haven't opened |
-| **Ranking** | Position changes and threshold crossings |
-| **Audits** | Audit completions |
-| **Backlinks** | Drops in backlinks, referring domain movement, domain rank changes |
+| **Rankings** | Each keyword that moved, from its old position to its new one, and by how much. **Lost** when it stopped ranking, **New** when it started |
+| **Backlinks** | The metric that changed — backlinks, referring domains or domain rank — before and after, and the percentage. A referring-domains spike is flagged in amber: it can be spam links pointed at the site |
+| **Site audits** | The audit's score, and its errors, warnings and notices |
+| **AI visibility** | How many topics' answers cite your site, how many answers mention your brand, and how many engines were asked |
+| **Local SEO** | Keywords checked, how many grid points found you, and the share in the top 3 |
+| **Web vitals** | The performance score, on which device, and which page |
+| **Reports** | That a scheduled report is ready, with **Open report** |
 
-## Actions
-
-- **Mark as read** — opening a notification marks it read
-- **Delete** — remove one, confirmed with *"Are you sure you want to delete this notification? This action cannot be undone."*
-- **Clear all read** — *"This will permanently delete all notifications you've already read."*
-
-**Clear all read** is the practical way to keep the feed usable. Completion notifications accumulate quickly on a project checking daily.
+Notifications are grouped by **Today**, **Yesterday**, **This week** and **Older**, newest first.
 
 ## Empty states
 
-| Tab state | Message |
+| State | Message |
 | --- | --- |
-| No unread | **You're all caught up** |
-| Nothing at all | **No notifications yet** |
+| **Unread only**, and nothing unread | **You're all caught up** |
+| Nothing at all | **Your inbox is empty** |
+| A search or category that matches nothing | **No matching notifications** — clear it to see the rest |
 
-## What appears here
-
-Everything you've enabled for the **In-App** channel in [notification preferences](/notifications/preferences): ranking alerts, audit and check completions, backlink movement, and report readiness. Each ranking alert type and each kind of backlink change arrives as its own notification.
-
-A [Local SEO](/local/overview) check's notification reports its grids: how many keywords were checked, how many grid points found you, and the share in the top 3.
-
-Being notified doesn't mark the matching [ranking alerts](/tracking/changes) read — they stay unread in the feed until you open them.
-
-Notifications are per member. Clearing yours doesn't affect a teammate's.
-
-## Notifications vs. the ranking alert feed
+## Inbox vs. the ranking alert feed
 
 They overlap, and it's worth knowing which to use:
 
-|  | Notification center | [Position changes](/tracking/changes) |
+|  | Inbox | [Position changes](/tracking/changes) |
 | --- | --- | --- |
-| Scope | Everything across the project | Ranking alerts only |
-| Grouping | By category tab | By date, with type filters |
+| Scope | Everything, across your projects | Ranking alerts for one project |
+| Grouping | By day, filtered by category | By date, with type filters |
 | Extra views | — | Biggest Movers over a chosen date range |
 
-Use the notification center as an inbox — has anything happened I should know about? Use [Position changes](/tracking/changes) when you're specifically investigating ranking movement, because it groups by date and lets you compare arbitrary ranges.
+Use the Inbox to check whether anything has happened you should know about. Use [Position changes](/tracking/changes) when you're investigating ranking movement, because it lets you compare date ranges.
+
+Being notified doesn't mark the matching [ranking alerts](/tracking/changes) read.
 
 ## Not seeing something
 
-If an event you expected isn't here, check three things in order:
+If a notification you expected isn't here, check three things in order:
 
-1. **Is the In-App channel enabled for that event** in [preferences](/notifications/preferences)?
-2. **Did the underlying job run?** A completion notification only fires when the job completes — see [How data collection works](/projects/data-collection).
-3. **Did the event actually meet its threshold?** Ranking alerts need a 5+ position move or a band crossing. See [Ranking alerts](/tracking/alerts).
+1. **Is your Inbox switched on** under **Your notifications** in [Channels](/notifications/preferences)?
+2. **Did the underlying job run?** A notification only arrives when the job finishes — see [How data collection works](/projects/data-collection).
+3. **Did the event meet its threshold?** Ranking alerts need a 5+ position move or a band crossing. See [Ranking alerts](/tracking/alerts).
+
+Notifications sent before you joined an organization aren't in your inbox.

@@ -1,32 +1,46 @@
 ---
-title: "Notification preferences"
-description: "Choose where notifications are delivered, and which events send them."
+title: "Channels"
+description: "Choose where your own notifications reach you, and where the team's are posted."
 ---
 
-**Settings → Channels** lists the places a notification can arrive. Channels belong to the **organization**, not to you: switching one off switches it off for every member.
+**Settings → Channels** has two sections: the channels that are **yours**, and the ones that are **the team's**.
 
-## Channels
+## Your notifications
 
-| Channel | Default | Setup |
+These are yours alone. Switching one off changes it for you in this organization, and nobody else on the team is affected. Any member can change their own.
+
+| Channel | Default | What it does |
 | --- | --- | --- |
-| **In-app** | Always on | None — delivers to the [Notification center](/notifications/view) |
-| **Email** | **On** | None — sent to every member's sign-in address |
-| **Slack** | Off | An incoming webhook URL (`https://hooks.slack.com/services/…`) |
-| **Discord** | Off | An incoming webhook URL (`https://discord.com/api/webhooks/…`) |
+| **Inbox** | On | Notifications in your [Inbox](/notifications/view) in Surnex |
+| **Email** | On | Notifications emailed to your sign-in address, which the page shows |
 
-**Email is on for every organization until an owner or admin turns it off.** In-app has no switch — it's the record the Notification center reads from.
+Switch **Email** off to stop Surnex's emails reaching you. Your teammates keep getting theirs.
 
-Slack and Discord are opt-in. Click **Set up** on the channel and paste the channel's own incoming webhook. The URL must use HTTPS and be Slack's or Discord's webhook address exactly; anything else — another host, a proxy, a port — is refused. **Disconnect** turns the channel off and deletes the stored webhook, so reconnecting means pasting a new one.
-
-A webhook URL is the credential that posts into your channel, so members see only its host (`https://hooks.slack.com/…`). Owners and admins see the full URL.
+Each organization you're in has its own switches, so you can keep email on for one and off for another.
 
 ### Scheduled reports
 
-[Automated reports](/reports/automation) are always emailed to the recipients the automation names, even with the Email channel switched off. The Email switch covers Surnex's own notifications, not a delivery you've set up on purpose.
+[Automated reports](/reports/automation) are always emailed to the recipients the automation names, whatever anyone's Email switch says. The switch covers Surnex's own notifications, not a delivery somebody set up on purpose.
+
+## Team channels
+
+Slack and Discord belong to the **organization**. Each posts once per notification, into one channel, for everyone who reads it. Only an **owner** or **admin** can connect, change or disconnect them.
+
+| Channel | Default | Setup |
+| --- | --- | --- |
+| **Slack** | Off | An incoming webhook URL (`https://hooks.slack.com/services/…`) |
+| **Discord** | Off | An incoming webhook URL (`https://discord.com/api/webhooks/…`) |
+
+Click **Connect** on the channel and paste its own incoming webhook. The URL must use HTTPS and be Slack's or Discord's webhook address exactly; anything else — another host, a proxy, a port — is refused.
+
+- **Configure** — change the webhook, or pause the channel without removing it. A paused channel shows **Paused**
+- **Disconnect** — turns the channel off and deletes the stored webhook, so reconnecting means pasting a new one
+
+A webhook URL is the credential that posts into your channel, so members see only its host (`https://hooks.slack.com/…`). Owners and admins see the full URL.
 
 ## Events
 
-Every event is on by default for every channel that's on. Each can be turned off individually per channel with the API's `PUT /v1/organizations/{orgId}/notifications/rules`.
+Every event is on by default for every channel that's on. An owner or admin can turn an event off for a channel, for the whole organization, with the API's `PUT /v1/organizations/{orgId}/notifications/rules`.
 
 ### Ranking
 
@@ -70,10 +84,16 @@ Each change is its own notification, so each event can be turned off without los
 
 ## Choosing what to keep
 
-The completion events — audit, snapshot, local, vitals — fire every time a job finishes. On a project checking daily, that's a notification a day per feature. With email on by default, those are the first to turn off for email if the inbox gets noisy.
+The completion events — audit, snapshot, local, vitals — fire every time a job finishes. On a project checking daily, that's a notification a day per feature. If your email gets noisy, switch **Email** off for yourself and read them in the [Inbox](/notifications/view) instead.
 
-The events genuinely worth pushing to email or Slack are the ones you'd act on: **Lost Top 10**, **Lost Top 100**, **Referring Domains Spike** and **Domain Rank Dropped**. Everything else reads fine in the [Notification center](/notifications/view) when you next look.
+The events worth pushing to Slack are the ones the team would act on: **Lost Top 10**, **Lost Top 100**, **Referring Domains Spike** and **Domain Rank Dropped**.
 
 ## Permissions
 
-Changing channels and event rules requires the **owner** or **admin** role. Members can view the channels — with webhook URLs masked — and read notifications. See [Roles and permissions](/organizations/roles).
+| Change | Who |
+| --- | --- |
+| Your own **Inbox** and **Email** switches | Any member, for themselves |
+| Connecting, pausing or disconnecting Slack and Discord | Owners and admins |
+| Event rules for the organization | Owners and admins |
+
+Members see the team channels with webhook URLs masked. See [Roles and permissions](/organizations/roles).

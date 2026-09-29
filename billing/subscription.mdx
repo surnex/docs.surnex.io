@@ -3,11 +3,11 @@ title: "Manage your subscription"
 description: "Choose a plan, upgrade, downgrade, or change your billing period."
 ---
 
-**Settings → Billing** shows your **Current plan**, your usage against its limits, and the four [plans](/billing/plans) side by side.
+**Settings → Billing** opens with a banner saying where your plan stands, then your usage against its limits, the four [plans](/billing/plans) side by side, and your [invoices](/billing/invoices).
 
 ## The trial
 
-Every new organization starts on a 14-day trial of **Growth**, with no card. The **Current plan** section says how many days are left.
+Every new organization starts on a 14-day trial of **Growth**, with no card. The banner says how many days are left, with **Choose a plan**.
 
 Choosing a plan during the trial ends it: you're charged straight away, and the plan starts that day.
 
@@ -28,13 +28,29 @@ Members can see the current plan and usage — they need that to know whether th
 
 ## Billing portal
 
-Once something has been bought, the **Invoices and payment** section shows a **Billing portal** button. It opens Stripe's portal, where you can:
+Once something has been bought, a **Billing portal** button appears at the top right of the page. It opens Stripe's portal, where you can:
 
 - Update the card on file
 - Download [invoices](/billing/invoices)
 - Cancel the subscription
 
 This is where cancellation happens — there's no cancel button inside Surnex. [Deleting the organization](/organizations/settings) also cancels its subscription, immediately.
+
+## The plan banner
+
+The banner at the top of **Settings → Billing** changes with your plan's state. Amber needs your attention soon; red means billing has stopped, or will.
+
+| State | Banner | Button |
+| --- | --- | --- |
+| Free trial | Amber — **Free Growth trial — 14 days left**, with the end date | **Choose a plan** |
+| Trial ended | Red — **Your free trial has ended**. Your data is kept; nothing new is checked | **Choose a plan** |
+| No active plan | Red — **No active plan**, after a subscription ended | **Choose a plan** |
+| Payment failed | Amber — **Your last payment failed**, while Stripe retries the card | **Update payment**, which opens the billing portal |
+| Cancelled, still active | Red — **Growth is cancelled**, active until the end of the period | **Keep my plan**, which undoes the cancellation |
+| Paid plan in its trial | Blue — the first charge date | — |
+| Active | The plan, its price, and the renewal date | — |
+
+Only admins and owners see the buttons. **Keep my plan** keeps the billing period you already pay, monthly or yearly.
 
 ## Upgrading
 

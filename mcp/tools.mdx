@@ -3,7 +3,7 @@ title: "MCP tools"
 description: "Every tool the Surnex MCP server exposes to agents, and which ones write."
 ---
 
-The server exposes **93 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
+The server exposes **97 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
 
 Every tool carries MCP annotations describing what it does, so a well-behaved client can prompt for confirmation selectively rather than on every call:
 
@@ -25,9 +25,9 @@ Tools marked **write** below change your account; **quota** means the call spend
 | `delete_project` | **write — destroys all project data** |
 | `get_usage_summary` | |
 
-Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `create_project` takes a name, a domain and at least one keyword, and starts the project's [first collection](/projects/add#what-happens-next) straight away — which spends about five research lookups, one AI brand audit, and a crawl of up to 100 pages. If the keywords would take the organization past its tracked-keyword allowance, the call is refused before anything is created. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
+Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `create_project` takes a name, a domain and at least one keyword, and starts the project's [first collection](/projects/add#what-happens-next) straight away — which spends at least five research lookups, one AI brand audit, and up to 101 site audit pages — a crawl of up to 100 pages and a web vitals check. If the keywords would take the organization past its tracked-keyword allowance, the call is refused before anything is created. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
 
-Six tools are annotated destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics`, `remove_local_location` and `delete_saved_keywords`. Everything `delete_project` removes cascades and cannot be recovered.
+Seven tools are annotated destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics`, `remove_local_location`, `remove_local_keywords` and `delete_saved_keywords`. Everything `delete_project` removes cascades and cannot be recovered.
 
 ## Rank tracking
 
@@ -81,6 +81,7 @@ A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resum
 | `get_new_lost_backlinks` | |
 | `get_tld_distribution` | |
 | `get_backlink_gap` | quota |
+| `get_backlink_gap_result` | |
 | `get_project_backlink_history` | |
 | `refresh_backlinks` | **write**, quota |
 | `export_backlinks_csv` | |
@@ -138,7 +139,7 @@ A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resum
 | `get_domain_competitors` | quota |
 | `get_tech_stack` | quota |
 
-Each is a live lookup and spends one research lookup, unless Surnex already has a cached answer. All five work on any domain, not only your own. The four domain tools still take a `project_id` — any project in the organization, used for access and billing; `get_tech_stack` takes an optional `organization` instead.
+Each is a live lookup and spends one research lookup, unless Surnex already has a cached answer. All five work on any domain, not only your own. They're billed to the organization, not a project: each takes an optional `organization`, needed only if you're in more than one. They work even when your only project is the sample.
 
 ## Competitors
 
@@ -156,9 +157,12 @@ Each is a live lookup and spends one research lookup, unless Surnex already has 
 | `list_local_locations` | |
 | `search_local_listings` | not charged |
 | `add_local_location` | **write** — uses a local location |
+| `update_local_location` | **write** |
 | `remove_local_location` | **write — removes its keywords and history** |
 | `get_local_keywords` | |
 | `add_local_keywords` | **write** |
+| `update_local_keyword` | **write** |
+| `remove_local_keywords` | **write — removes their history** |
 | `get_local_grid` | |
 | `get_local_rankings` | |
 | `get_google_business_profile` | |
@@ -170,7 +174,9 @@ Local SEO starts from a [location](/local/locations): the business's Google list
 3. `add_local_keywords` — up to 10 keywords at the `location_id`; the first check is queued straight away and lands in a few minutes
 4. `get_local_grid` — one keyword's position at every grid point, the top 3 at each, and every check's summary
 
-A position of `null` means the business isn't in the top 20 at that point. `get_local_rankings` is the Maps pack at each location's centre.
+A position of `null` means the business isn't in the top 20 at that point. `get_local_rankings` is the Maps pack at each location's centre, from the latest check unless `latest_only` is false.
+
+To change a location's grid or listing, use `update_local_location`; `spacing_km` is 0.5, 1, 2 or 5. `update_local_keyword` pauses or resumes one keyword and keeps its history; `remove_local_keywords` deletes keywords and their history to free room at the location.
 
 ## Web vitals
 

@@ -7,7 +7,7 @@ Surnex exposes an MCP (Model Context Protocol) server at `https://api.surnex.io/
 
 ## What it gives an agent
 
-**93 tools** across 14 areas, covering essentially everything in the dashboard:
+**97 tools** across 14 areas, covering essentially everything in the dashboard:
 
 | Area | Tools | Examples |
 | --- | --- | --- |
@@ -28,7 +28,7 @@ Surnex exposes an MCP (Model Context Protocol) server at `https://api.surnex.io/
 
 ## Reads and writes
 
-Most tools read. Some **change your account**: `create_project`, `delete_project`, `add_tracked_keywords`, `remove_tracked_keywords`, `add_competitor`, `remove_competitor`, `add_geo_topics`, `remove_geo_topics`, `add_local_location`, `remove_local_location`, `add_local_keywords`, `save_keywords`, `delete_saved_keywords`, `start_site_audit`, `refresh_backlinks`, and `trigger_web_vitals_check`.
+Most tools read. Some **change your account**: `create_project`, `delete_project`, `add_tracked_keywords`, `remove_tracked_keywords`, `add_competitor`, `remove_competitor`, `add_geo_topics`, `remove_geo_topics`, `add_local_location`, `update_local_location`, `remove_local_location`, `add_local_keywords`, `update_local_keyword`, `remove_local_keywords`, `save_keywords`, `delete_saved_keywords`, `start_site_audit`, `refresh_backlinks`, and `trigger_web_vitals_check`.
 
 <Warning>
   `delete_project` permanently destroys a project and all its history, and an agent can call it — subject to your role, since the token acts as you. Several tools also consume plan quota: `start_site_audit` spends site audit pages, the AI search tools spend AI brand audits, and `refresh_backlinks` and the research tools spend research lookups. `get_usage_summary` shows what's left. Configure your client to confirm before running tools if it supports that.
@@ -36,7 +36,7 @@ Most tools read. Some **change your account**: `create_project`, `delete_project
 
 The consent screen states the grant before you approve it, including that audits and research cost money against your plan.
 
-Tools are also annotated — read-only, destructive, idempotent — so a client that supports it can confirm only the calls that warrant it. Six are marked destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics`, `remove_local_location` and `delete_saved_keywords`.
+Tools are also annotated — read-only, destructive, idempotent — so a client that supports it can confirm only the calls that warrant it. Seven are marked destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics`, `remove_local_location`, `remove_local_keywords` and `delete_saved_keywords`.
 
 ## What it's good for
 
