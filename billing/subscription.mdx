@@ -65,7 +65,7 @@ Subscriptions belong to an organization. If you own two, you pay for two — and
 | Endpoint | What it does |
 | --- | --- |
 | `GET /v1/plans` | The four plans, with `price` in US cents (`year` is the whole year's charge), `limits` and `features` |
-| `GET /v1/organizations/{orgId}/billing/subscription` | `plan_id`, `status`, `billing_interval`, `cancel_at_period_end`, `current_period_start`, `current_period_end`, `is_card_free_trial` and `active_plan` — which is `null` when nothing is live |
+| `GET /v1/organizations/{orgId}/billing/subscription` | `plan_id`, `status`, `billing_interval`, `cancel_at_period_end`, `current_period_start`, `current_period_end`, `is_card_free_trial` and `active_plan` — which is `null` when nothing is live. `status` is `trialing`, `active`, `past_due`, `canceled`, `unpaid`, or `trial_expired` for a card-free trial that has ended (set within the hour after it does) |
 | `POST /v1/organizations/{orgId}/billing/checkout` | Body `{ plan, interval, success_url, cancel_url }`, where `plan` is `starter`, `growth`, `agency` or `scale` and `interval` is `month` (default) or `year`. Answers `{ url, changed }`: a checkout `url` to send the buyer to, or `url: null` and `changed: true` when an existing subscription was changed in place |
 | `POST /v1/organizations/{orgId}/billing/portal` | Body `{ return_url }`. Answers `{ url }` for the billing portal |
 
