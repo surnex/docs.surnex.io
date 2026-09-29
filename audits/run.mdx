@@ -11,6 +11,7 @@ Open **Audits** and click **Run Audit**.
 | --- | --- | --- |
 | **Target URL** | `https://` + your project domain | Any URL |
 | **Max pages to crawl** | 50 | 1 – 10,000 |
+| **Render JavaScript** | Off | On or off |
 
 Click **Start Audit**. The audit appears in the list immediately with a pending status, and the crawl runs in the background — closing the page doesn't stop it.
 
@@ -32,6 +33,10 @@ The starting URL constrains what the crawler can reach. Starting at `/blog` won'
 <Note>
   Include the scheme. The field is a URL input, so `example.com` without `https://` may be rejected by the browser before it reaches Surnex.
 </Note>
+
+## Render JavaScript
+
+Off by default: pages are read as the server sends them, which is how most sites are built. Turn it on for a site built as a single-page app, where the content and links only appear once scripts have run — without it, such a site looks nearly empty. It makes the crawl slower. Pages count against your site-audit pages the same either way.
 
 ## Max pages
 

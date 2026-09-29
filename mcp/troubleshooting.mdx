@@ -100,7 +100,7 @@ Tools can also never mint an API key, change billing, or invite and remove peopl
 
 Usually not an error — most Surnex data is collected in the background, so a tool returns what's stored:
 
-- **A new project** has nothing until its first collection run finishes. Rankings arrive in minutes; a full audit can take an hour.
+- **A new project** has nothing until its first collection run finishes. A new project's first rankings arrive within minutes, and each scheduled check's within about half an hour of it starting; a full audit can take an hour.
 - **Audits and web vitals don't run on a schedule.** `get_audit_summary` returns the last crawl, which may be old. Have the agent call `start_site_audit` for fresh data.
 - **Ranking changes need two checks.** A project on its first day has no movement to report.
 
