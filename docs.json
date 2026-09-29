@@ -158,6 +158,7 @@
             "group": "Local SEO",
             "pages": [
               "local/overview",
+              "local/locations",
               "local/keywords"
             ]
           },
@@ -292,6 +293,7 @@
           {
             "group": "Releases",
             "pages": [
+              "changelog/2026-09",
               "changelog/2026-08",
               "changelog/2026-07",
               "changelog/2026-06",

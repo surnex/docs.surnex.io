@@ -1,37 +1,45 @@
 ---
 title: "Notification preferences"
-description: "Choose which events notify you and through which channels."
+description: "Choose where notifications are delivered, and which events send them."
 ---
 
-**Settings → Notifications** is a grid: events down the side, channels across the top. Tick the combinations you want.
+**Settings → Channels** lists the places a notification can arrive. Channels belong to the **organization**, not to you: switching one off switches it off for every member.
 
 ## Channels
 
-| Channel | Setup |
-| --- | --- |
-| **In-App** | None — delivers to the [Notification center](/notifications/view) |
-| **Email** | None — sent to your account address |
-| **Slack** | Requires an incoming webhook URL (`https://hooks.slack.com/services/…`) |
-| **Discord** | Requires a webhook URL (`https://discord.com/api/webhooks/…`) |
+| Channel | Default | Setup |
+| --- | --- | --- |
+| **In-app** | Always on | None — delivers to the [Notification center](/notifications/view) |
+| **Email** | **On** | None — sent to every member's sign-in address |
+| **Slack** | Off | An incoming webhook URL (`https://hooks.slack.com/services/…`) |
+| **Discord** | Off | An incoming webhook URL (`https://discord.com/api/webhooks/…`) |
 
-Slack and Discord must be configured before they can be selected. Until you've added a webhook URL, their column shows *"Enable [channel] in settings first"* — click the channel to open its settings panel and paste the URL.
+**Email is on for every organization until an owner or admin turns it off.** In-app has no switch — it's the record the Notification center reads from.
 
-Saving a channel confirms with *"[Channel] settings saved"*.
+Slack and Discord are opt-in. Click **Set up** on the channel and paste the channel's own incoming webhook. The URL must use HTTPS and be Slack's or Discord's webhook address exactly; anything else — another host, a proxy, a port — is refused. **Disconnect** turns the channel off and deletes the stored webhook, so reconnecting means pasting a new one.
+
+A webhook URL is the credential that posts into your channel, so members see only its host (`https://hooks.slack.com/…`). Owners and admins see the full URL.
+
+### Scheduled reports
+
+[Automated reports](/reports/automation) are always emailed to the recipients the automation names, even with the Email channel switched off. The Email switch covers Surnex's own notifications, not a delivery you've set up on purpose.
 
 ## Events
+
+Every event is on by default for every channel that's on. Each can be turned off individually per channel with the API's `PUT /v1/organizations/{orgId}/notifications/rules`.
 
 ### Ranking
 
 | Event | Fires when |
 | --- | --- |
-| **Rank Improved** | A keyword improved by 5+ positions |
-| **Rank Dropped** | A keyword dropped by 5+ positions |
-| **Entered Top 3** | A keyword entered positions 1–3 |
-| **Entered Top 10** | A keyword entered positions 1–10 |
-| **Lost Top 10** | A keyword fell out of the top 10 |
-| **Lost Top 100** | A keyword stopped ranking |
+| **Rank Improved** (`rank_improved`) | A keyword improved by 5+ positions |
+| **Rank Dropped** (`rank_dropped`) | A keyword dropped by 5+ positions |
+| **Entered Top 3** (`entered_top3`) | A keyword entered positions 1–3 |
+| **Entered Top 10** (`entered_top10`) | A keyword entered positions 1–10 |
+| **Lost Top 10** (`lost_top10`) | A keyword fell out of the top 10 |
+| **Lost Top 100** (`lost_top100`) | A keyword stopped ranking |
 
-These match the [ranking alerts](/tracking/alerts) exactly — the thresholds are the same, and these preferences only control *delivery*. The alerts themselves are always generated and always appear in the feed.
+These match the [ranking alerts](/tracking/alerts) exactly — the thresholds are the same. A rank check sends one notification per alert type it raised, so turning off **Rank Improved** silences only improvements. The alerts themselves are always generated and always appear in the feed.
 
 ### Audits
 
@@ -41,34 +49,31 @@ These match the [ranking alerts](/tracking/alerts) exactly — the thresholds ar
 
 | Event | Fires when |
 | --- | --- |
-| **New Backlinks** | New backlinks discovered |
-| **Lost Backlinks** | Previously known backlinks lost |
-| **Referring Domains Dropped** | Referring domains fell by 10% or more |
-| **Referring Domains Spike** | Referring domains rose by 50% or more — flagged as potential spam |
-| **Domain Rank Dropped** | Domain rank fell by 50+ points |
+| **Backlinks Dropped** (`lost_backlinks`) | Total backlinks fell by 20% or more |
+| **Referring Domains Dropped** (`referring_domains_dropped`) | Referring domains fell by 10% or more |
+| **Referring Domains Spike** (`referring_domains_spike`) | Referring domains rose by 50% or more — flagged as potential spam |
+| **Domain Rank Dropped** (`domain_rank_dropped`) | Domain rank fell by 50+ points |
 
-**Referring Domains Spike** is the one worth enabling even if you turn off the rest. A sudden 50% jump in referring domains is more often a negative-SEO or spam-link event than a marketing success, and it's the kind of thing you want to hear about immediately.
+Each change is its own notification, so each event can be turned off without losing the others.
+
+**Referring Domains Spike** is the one worth keeping even if you turn off the rest. A sudden 50% jump in referring domains is more often a negative-SEO or spam-link event than a marketing success, and it's the kind of thing you want to hear about immediately.
 
 ### AI Visibility, Local SEO, Web Vitals
 
 - **Snapshot Complete** — an AI visibility snapshot finished
-- **Rankings Check Complete** — a local SEO check finished
+- **Rankings Check Complete** — a [local SEO](/local/overview) check finished, with how many keywords were checked, how many grid points found you, and the share in the top 3
 - **Vitals Check Complete** — a Core Web Vitals audit finished
 
 ### Reports
 
 **Scheduled Report Ready** — an [automated report](/reports/automation) has been generated.
 
-### Account
+## Choosing what to keep
 
-**Usage Limit Warning** — you're approaching your plan's [usage limits](/billing/usage). Hitting a monthly limit blocks new research, audits and AI search runs until the 1st; scheduled collection isn't affected.
+The completion events — audit, snapshot, local, vitals — fire every time a job finishes. On a project checking daily, that's a notification a day per feature. With email on by default, those are the first to turn off for email if the inbox gets noisy.
 
-## Choosing what to enable
-
-The completion events — audit, snapshot, local, vitals — fire every time a scheduled job finishes. On a project checking daily, that's a notification a day per feature saying nothing happened of note. Enable them while you're waiting on a specific run, and turn them off once you trust the schedule.
-
-The events genuinely worth pushing to email or Slack are the ones you'd act on: **Lost Top 10**, **Lost Top 100**, **Referring Domains Spike**, **Domain Rank Dropped**, and **Usage Limit Warning**. Everything else reads fine in the [Notification center](/notifications/view) when you next look.
+The events genuinely worth pushing to email or Slack are the ones you'd act on: **Lost Top 10**, **Lost Top 100**, **Referring Domains Spike** and **Domain Rank Dropped**. Everything else reads fine in the [Notification center](/notifications/view) when you next look.
 
 ## Permissions
 
-Changing organization notification rules requires the **owner** or **admin** role. Members can view them and read their own notifications. See [Roles and permissions](/organizations/roles).
+Changing channels and event rules requires the **owner** or **admin** role. Members can view the channels — with webhook URLs masked — and read notifications. See [Roles and permissions](/organizations/roles).

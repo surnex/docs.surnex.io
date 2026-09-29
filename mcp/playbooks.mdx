@@ -21,7 +21,7 @@ Uses `list_audits`, `get_audit_summary`, and `get_audit_issues`. The value is th
 
 > Run a backlink gap for this project against competitor-a.com, competitor-b.com, and competitor-c.com. Rank the results by how many of the three link to them and by domain authority, and tell me which ten to approach first.
 
-`get_backlink_gap` returns the raw comparison; the agent does the ranking. Domains linking to all three competitors are the strongest targets — your absence is conspicuous rather than a matter of taste.
+`get_backlink_gap` returns the raw comparison, against up to four competitors; the agent does the ranking. Domains linking to all three competitors are the strongest targets — your absence is conspicuous rather than a matter of taste.
 
 ## Plan content for a topic
 
@@ -34,6 +34,12 @@ Chains `research_keyword`, `get_keyword_suggestions`, `get_ai_top_competitors`, 
 > Run a citation gap for this project against our competitors on our top 20 commercial keywords. For every gap, tell me which sources were cited instead and whether they mention us at all.
 
 `get_citation_gap` plus `get_chatgpt_visibility` on the gaps. The second half is the useful part: if a comparison site is cited and doesn't list you, the fix is getting listed, not editing your own page.
+
+## Set up local tracking
+
+> Find the Google Business listing for Austin Plumbery in Austin, TX, add it as a location with a 5×5 grid 1 km apart, and track "plumber near me" and "emergency plumber" there. When the first check lands, tell me where on the map we're outside the top 3 and who ranks above us there.
+
+Chains `search_local_listings`, `add_local_location`, `add_local_keywords` and `get_local_grid`. The first check starts as soon as the keywords are added and takes a few minutes. The last step is the useful one: the grid's top 3 at each weak point names the competitors to study.
 
 ## Cross-referencing
 
@@ -61,7 +67,7 @@ None of these is a page in the dashboard. That's the point of the integration.
 
 **Turn on tool approval** if your client supports it. The agent can call `delete_project`, which destroys all of a project's history irreversibly.
 
-**Watch quota.** Research, audits, backlink refreshes, AI lookups, and domain lookups (`get_domain_overview`, `get_domain_top_keywords`, `get_domain_top_pages`, `get_domain_competitors`, `get_tech_stack`) all draw on your monthly plan allowances. Creating a project does too — its first run spends about four research lookups, one AI brand audit, and a crawl of up to 100 pages. An agent asked to audit every project will spend your [monthly site audit pages](/billing/usage) doing exactly that — audits cost the pages they crawl.
+**Watch quota.** Research, audits, backlink refreshes, AI lookups, and domain lookups (`get_domain_overview`, `get_domain_top_keywords`, `get_domain_top_pages`, `get_domain_competitors`, `get_tech_stack`) all draw on your monthly plan allowances. Creating a project does too — its first run spends about five research lookups, one AI brand audit, and a crawl of up to 100 pages. An agent asked to audit every project will spend your [monthly site audit pages](/billing/usage) doing exactly that — audits cost the pages they crawl.
 
 **Verify writes.** Before asking an agent to add fifty keywords, have it call `get_usage_summary` to confirm you have room under your [tracked keyword limit](/billing/plans) — hitting it mid-run leaves a partial result.
 

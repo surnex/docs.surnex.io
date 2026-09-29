@@ -20,7 +20,7 @@ Four job types have a schedule, and every project gets all four:
 | `geo_snapshot` | [GEO visibility](/geo/overview) |
 | `local_ranking_check` | [Local SEO](/local/overview) |
 
-A new project gets all four enabled at **00:00 UTC** — daily, except GEO visibility, which is weekly because each check asks six AI engines per topic. Report delivery is scheduled separately, per report — see [Automate delivery](/reports/automation).
+A new project gets all four enabled at **00:00 UTC** — daily, except GEO visibility and Local SEO, which are weekly: each GEO check asks six AI engines per topic, and each Local SEO check searches every keyword from every point of its [grid](/local/locations). Report delivery is scheduled separately, per report — see [Automate delivery](/reports/automation).
 
 Each schedule has three parts:
 
@@ -47,7 +47,7 @@ These have no schedule. They run when you ask:
 - [Keyword research](/keywords/research)
 
 <Note>
-  Creating a project **starts its first collection straight away**: the four scheduled checks, a site audit, a web vitals check, domain overview, tech stack, keyword research, and one LLM benchmark. Rankings arrive within minutes; the rest appear as each job finishes. See [Create a project](/projects/add#what-happens-next).
+  Creating a project **starts its first collection straight away**: rankings, backlinks and GEO, the full backlink profile, a site audit, a web vitals check, domain overview, tech stack, keyword research, and one LLM benchmark. Local SEO's first check runs when you add keywords at a [location](/local/locations). Rankings arrive within minutes; the rest appear as each job finishes. See [Create a project](/projects/add#what-happens-next).
 
   After that first run, audits and web vitals never run on their own. A months-old audit score means nobody has crawled since.
 </Note>
@@ -67,7 +67,7 @@ These are the only pages where refreshing gives you newer numbers.
 | --- | --- | --- |
 | The first run is still going | Empty state on a new project | Wait — each page fills as its job finishes |
 | It's an on-demand feature | Empty audits, web vitals, domain data | Run it |
-| Nothing to collect | No backlinks on a new domain, no local pack results | Nothing — the job succeeded and found nothing |
+| Nothing to collect | No backlinks on a new domain, no Maps results for a keyword | Nothing — the job succeeded and found nothing |
 | The job failed | Data for other features but not this one | Check [Notifications](/notifications/view) |
 
 ## One job at a time
@@ -78,7 +78,7 @@ The most expensive jobs refuse to start if one is already running for that proje
 
 Scheduled collection doesn't spend your monthly allowances. It's what the held allowances pay for: a daily rank check on 400 keywords is covered by holding 400 tracked keywords, whatever the cadence. GEO snapshots are covered by your AI prompts, and local checks by your local locations.
 
-On-demand work is what spends: audits spend site audit pages, AI search runs spend AI brand audits, and research spends research lookups. A new project's first run counts as on-demand work — about four research lookups, one AI brand audit, and up to 101 site audit pages.
+On-demand work is what spends: audits spend site audit pages, AI search runs spend AI brand audits, and research spends research lookups. A new project's first run counts as on-demand work — about five research lookups, one AI brand audit, and up to 101 site audit pages.
 
 If the organization holds more than its plan allows — after a downgrade, say — scheduled checks cover the oldest rows up to the limit, across the whole organization. When a trial or subscription ends, scheduled runs stop, and runs skipped while there was no plan aren't made up afterwards.
 

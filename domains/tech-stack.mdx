@@ -15,25 +15,15 @@ Detection doesn't run on a schedule. It happens once as part of a project's [ini
 
 ## Results
 
-A summary line reads `47 technologies detected on example.com`, followed by one card per category.
+A summary line reads `47 technologies detected on example.com`, followed by one card per category — **CDN**, **Web servers**, **JavaScript frameworks** and so on, as the data source classifies them.
 
-Each technology in a card shows:
+Each technology in a card shows its **name**, and beneath it the broader type of technology the category belongs to.
 
-| Element | Meaning |
-| --- | --- |
-| **Icon** | The technology's logo, when available |
-| **Name** | The detected technology |
-| **Version** | The version, shown as `v3.2.1`, when detectable |
-| **Confidence** | A percentage — how certain the detection is |
-| **Subcategory** | A finer classification beneath the card's category |
-
-**Confidence** is worth reading before acting on a result. A technology detected at 100% left an unambiguous fingerprint; one at 40% was inferred from weaker signals and may be wrong.
-
-**Version** is usually only available when the technology exposes it — in a meta tag, a script path, or a response header. Its absence doesn't mean the technology isn't there.
+The data source reports which technologies are present, not their versions or how confident each detection is, so neither is shown.
 
 ## What it's useful for
 
-**On your own domain**, it's a quick inventory: an unexpected analytics script, a CMS version you thought you'd upgraded, or a tag left over from an old vendor. Exposed version numbers are also worth noting — if Surnex can read your CMS version from the page, so can anyone.
+**On your own domain**, it's a quick inventory: an unexpected analytics script, a CMS you thought you'd migrated away from, or a tag left over from an old vendor.
 
 **On a competitor**, the stack explains capability. A site on a headless framework with a CDN will be hard to beat on speed; one on an aging CMS with several tag managers probably won't be. Knowing what a competitor's site can do is context for [web vitals](/web-vitals/overview) comparisons.
 

@@ -11,7 +11,7 @@ description: "What you hold, what you've used this month, and what happens when 
 | --- | --- | --- |
 | **AI prompts** | Held | [GEO](/geo/overview) (generative engine optimization) topics across every project |
 | **Tracked keywords** | Held | Every tracked keyword, active and paused |
-| **Local locations** | Held | Distinct places the Maps pack is checked from |
+| **Local locations** | Held | [Local SEO](/local/locations) locations — each a Google Business listing and its grid |
 | **Research lookups this month** | Monthly | Every on-demand keyword, SERP, trends, domain, backlink and content-tool lookup, keyword research jobs, and GEO questions asked outside the schedule — one per topic |
 | **AI brand audits this month** | Monthly | One per AI search run — AI Mode, ChatGPT visibility, LLM benchmark, AI keyword trends, citation gap |
 | **Site audit pages this month** | Monthly | Pages crawled by site audits, plus one per Core Web Vitals check |
@@ -21,7 +21,7 @@ Each is shown against its plan limit. The numbers per plan are on [Plans](/billi
 <Note>
   **A cached answer is free.** When Surnex already has a recent answer to the exact question — whoever first asked it — it's served without spending a research lookup.
 
-  **A local location is a place, not a keyword.** Five keywords checked at the same place, with the same map pin or none, are one location.
+  **A local location is a listing, not a keyword.** Up to 10 keywords searched around the same listing are one location, however big its grid.
 </Note>
 
 ## Two kinds of limit
@@ -39,6 +39,8 @@ A site audit costs the pages it crawls, not a flat fee per audit:
 - When a crawl starts, its page limit is lowered to what's left of this month's allowance. The audit is refused only when nothing is left.
 - That page limit is set aside while the crawl runs, so two audits started together can't both spend the same remainder.
 - When the crawl finishes, pages it didn't crawl are given back.
+
+With [Render JavaScript](/audits/run#render-javascript) on, each page crawled costs **4 pages** of the allowance, so the page limit is lowered to a quarter of what's left.
 
 Each [Core Web Vitals check](/web-vitals/overview) uses one site audit page.
 
@@ -59,11 +61,11 @@ If the organization holds more than its plan allows — after a downgrade, for e
 
 [Creating a project](/projects/add#what-happens-next) starts its first collection straight away, and the on-demand parts of it spend like the buttons would:
 
-- **About four research lookups** — domain overview, tech stack, keyword research on the domain, and bulk research on your keywords
+- **About five research lookups** — domain overview, tech stack, the backlink profile, keyword research on the domain, and bulk research on your keywords
 - **One AI brand audit** — an LLM benchmark on your first keyword
 - **Site audit pages** — a crawl of up to 100 pages, plus one for a web vitals check
 
-The bulk research and the benchmark only run if you added keywords. The first rank check, backlink snapshot, GEO snapshot and local check are covered by what you hold, like any scheduled run. The [sample project](/onboarding/overview#the-sample-project) spends nothing.
+The bulk research and the benchmark only run if you added keywords. The first rank check, backlink snapshot and GEO snapshot are covered by what you hold, like any scheduled run. Local SEO has no first run — its first check starts when you add keywords at a location, and is covered by your local locations. The [sample project](/onboarding/overview#the-sample-project) spends nothing.
 
 ## At the limit
 

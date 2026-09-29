@@ -15,7 +15,7 @@ Three levels, which determine both urgency and the [score](/audits/overview#the-
 | **Warning** | −0.5 each, up to 30 | Costing you performance but not breaking anything |
 | **Notice** | −0.1 each, up to 10 | Informational; often intentional |
 
-Work errors first. Notices frequently need no action at all — a `noindex` on a thank-you page is correct.
+Work errors first. Notices frequently need no action at all — a page deliberately blocked in `robots.txt` is correct.
 
 ## Meta tags
 
@@ -32,7 +32,7 @@ Work errors first. Notices frequently need no action at all — a `noindex` on a
 | **Missing H1** | Error | No `<h1>` | Add a single descriptive H1 with the primary keyword |
 | **Multiple H1** | Warning | More than one `<h1>` | Keep one; demote the rest to `<h2>` |
 
-Duplicate title and description issues depend on crawl coverage — both copies must be crawled for the duplication to be detected. A narrow crawl under-reports them.
+Duplicate title and description issues depend on crawl coverage — both copies must be crawled for the duplication to be detected. A narrow crawl under-reports them. Each affected page is counted once, however many pages it shares the title or description with.
 
 ## Links
 
@@ -72,10 +72,12 @@ These are crawl-time measurements from a single request. For field-quality perfo
 
 | Issue | Severity | Trigger | Fix |
 | --- | --- | --- | --- |
-| **Noindex page** | Notice | A `noindex` robots directive | Verify it's intended; remove if the page should rank |
+| **Nofollow page** | Notice | A `nofollow` robots directive — search engines don't follow the page's links | Remove `nofollow` unless you mean the page not to pass on link value |
 | **Blocked by robots** | Notice | Disallowed in `robots.txt` | Review the rules — blocked pages can't be indexed |
 | **Missing canonical** | Warning | No canonical link element | Add a self-referencing canonical |
 | **Non-indexable page** | Warning | Something prevents indexing | Decide whether the page should rank, then remove the blocker |
+
+The audit doesn't report `noindex`. The crawl data it reads has no `noindex` signal — only the `nofollow` half of the robots directive — so check `noindex` on important pages yourself.
 
 The two notices are deliberately low severity because they're usually intentional. Read them as a checklist — "did I mean to exclude these?" — rather than as defects.
 

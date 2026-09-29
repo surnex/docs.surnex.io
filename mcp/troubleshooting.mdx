@@ -114,7 +114,7 @@ Tools that call external services fail with `USAGE_LIMIT_EXCEEDED` when a monthl
 - `start_site_audit` and `trigger_web_vitals_check` draw on **site audit pages** — an audit spends the pages it crawls, a vitals check one page
 - AI search tools draw on **AI brand audits**, one per run
 
-Adding tracked keywords, GEO topics or local keywords fails the same way when the organization already holds its plan's limit.
+Adding tracked keywords, GEO topics or a local location (`add_local_location`) fails the same way when the organization already holds its plan's limit. Local keywords don't use an allowance of their own, but each location takes at most 10.
 
 Check `get_usage_summary` or the [Usage](/billing/usage) page. Monthly allowances reset on the 1st of the month, UTC.
 

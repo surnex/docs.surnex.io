@@ -1,69 +1,89 @@
 ---
 title: "Local SEO overview"
-description: "Track your positions in local pack and Google Maps results."
+description: "See where your business ranks on Google Maps, from every point around it."
 ---
 
-**Local SEO** — "Monitor your keyword positions in local & Maps results" — tracks a separate set of keywords against local results rather than standard organic ones.
+**Local SEO** — "Where your business ranks on Google Maps, from every point around it" — tracks your Google Business listing in Maps results rather than in the standard organic ones.
 
-Local rankings are their own system. Your organic position for "plumber" and your position in the local pack for "plumber near me" are unrelated, which is why this section has its own keyword list rather than reusing your [tracked keywords](/tracking/add-keywords).
+Local rankings are their own system. Your organic position for "plumber" and your place in the Maps pack for "plumber near me" are unrelated, which is why this section has its own keywords rather than reusing your [tracked keywords](/tracking/add-keywords).
+
+The same Maps search gives a different answer three streets away. So Surnex doesn't check one position: it searches each keyword from a **grid** of points around your listing and records what a searcher standing at each point sees.
+
+## How it's organized
+
+Everything starts with a **location** — your Google Business listing plus the grid of points it's searched from. Keywords are added at a location, up to 10 each.
+
+1. [Add a location](/local/locations) — find your listing and choose the grid
+2. Add keywords at it — the first check starts straight away
+3. Open a keyword to see its [grid and history](/local/keywords)
+
+A new project starts with no locations, so the page opens on **Add your business location**.
 
 ## Stat cards
 
 | Card | What it counts |
 | --- | --- |
 | **Keywords** | Local keywords tracked |
-| **With Rankings** | How many currently rank in local results |
-| **Top 3** | How many are in the top 3 |
-| **Avg Position** | Mean position across those that rank |
+| **In the Pack** | Keywords in positions 1–3 at your listing — what appears without expanding the map |
+| **Map Top 3** | The share of grid points, across every keyword's newest check, where you're in the top 3 |
+| **Avg Map Position** | Your mean position across the grid, counting only the points where you appear |
 
-**Top 3** is the card that matters. The local pack typically shows three results before requiring a click to expand, so position 4 in local search is closer to invisible than position 4 in organic results. Judge the section on this number, not on **Avg Position**.
+**Map Top 3** is the card that matters. The Maps pack shows three results before a searcher has to expand it, so position 4 is closer to invisible than position 4 in organic results. A high share means you're in the pack across your area, not just at your door.
 
-## Adding local keywords
+## Locations
 
-Click to open the panel and enter keywords **one per line**:
+The **Locations** section lists each location with its address, its grid (for example `5×5 · 1 km`), and how many of its 10 keywords are in use. The header shows how many of your plan's locations are used.
+
+- **Keywords** — add keywords at this location
+- **Edit** — rename it, change the grid, or pick a different listing
+- **Remove** — delete the location, its keywords and their history, and free the location on your plan
+
+See [Local locations](/local/locations) for adding one.
+
+## Adding keywords
+
+Click **Keywords** on a location, or **Add Keywords**, and enter keywords **one per line**:
 
 ```
 plumber near me
-best dentist cape town
+emergency plumber
 ```
 
-Then set **Location** and **Language**. Location defaults to United States; both are the same searchable dropdowns used elsewhere.
+Each location takes up to **10** keywords. Keywords don't use a location on your plan — only locations do.
 
-Local keywords are phrased differently from organic ones. Include the intent that triggers a local pack — "near me", a city or suburb name, or a service plus a place. A bare service term usually returns organic results with no local pack, and will simply never rank here.
+**The first check runs as soon as you add them.** Results appear within a few minutes; until then the keyword is marked **Pending**.
 
-Location matters more here than anywhere else in Surnex. Local results are computed for a specific place, so tracking "plumber near me" against a country-level location measures something different from tracking it against a city.
+Use the searches your customers actually make — a service, "near me", or a service plus a place. A term with no local intent may return no Maps results, and will never rank here.
 
 ## The keyword list
 
-Each keyword shows its **location** alongside its position. Paused keywords appear dimmed.
+Each keyword shows your position in the pack at your listing, and the share of its grid where you're in the top 3. Expand a row to see the whole pack at your listing. Paused keywords appear dimmed.
 
-- **Pause** a keyword to stop checking it while keeping its history
-- **Edit** to change its location or language
-- **Remove** to delete it and its history — confirmed with *"Are you sure you want to stop tracking '…'? This action cannot be undone."*
+- **Pause** a keyword to stop checking it while keeping its history, and resume it later
+- **Remove** to delete it and its history
 
-Click a keyword to open its [history](/local/keywords).
+A keyword can't be edited. To search a different phrase, remove it and add the new one.
+
+Click a keyword to open its [grid and history](/local/keywords).
 
 ## Schedule
 
 Set it in **Project Settings → Schedules**, under **Local SEO**: frequency (every day, every 3 days or once a week), hour and timezone, or pause it. See [Project settings](/projects/settings#schedules).
 
-Local SEO defaults to **daily at 00:00 UTC**.
+Local SEO defaults to **once a week at 00:00 UTC**. Each keyword is searched once per grid point — a 5×5 grid is 25 searches per keyword per check — and weekly matches how fast local results actually move.
 
 The **Timezone** is applied, and cadences are intervals from the last run rather than calendar rules. See [How data collection works](/projects/data-collection).
 
-## Empty state
-
-**No local keywords tracked** — "Add keywords to monitor their Google Maps and local search rankings".
-
-Local keywords are seeded when a [project is created](/projects/add), so an empty list usually means they were removed or the initial job failed.
-
 ## When local SEO applies
 
-This section is only relevant if you have a physical location or a defined service area. For an online-only business, local results won't feature you regardless of what you track, so [organic tracking](/tracking/add-keywords) is the better use of your plan.
+This section is only relevant if you have a Google Business listing — a physical location or a defined service area. For an online-only business, Maps results won't feature you regardless of what you track, so [organic tracking](/tracking/add-keywords) is the better use of your plan.
 
-Local SEO is counted in **local locations** — the places the Maps pack is checked from, not the keywords. Several keywords checked at the same place are one location. Not every plan includes local SEO; see [Plans](/billing/plans).
+Local SEO is counted in **local locations** — one per listing you track, however many keywords it has. Not every plan includes local SEO; see [Plans](/billing/plans).
+
+The [sample project](/onboarding/overview#the-sample-project) includes a location with its grids filled in, so you can see the page before adding your own.
 
 ## Related
 
-- [Local keywords](/local/keywords) — ranking history and result detail for one keyword
+- [Local locations](/local/locations) — adding your listing and choosing the grid
+- [Local keywords](/local/keywords) — one keyword's grid and ranking history
 - [Rank tracking](/tracking/overview) — organic positions, tracked separately

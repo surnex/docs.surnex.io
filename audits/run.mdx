@@ -36,7 +36,7 @@ The starting URL constrains what the crawler can reach. Starting at `/blog` won'
 
 ## Render JavaScript
 
-Off by default: pages are read as the server sends them, which is how most sites are built. Turn it on for a site built as a single-page app, where the content and links only appear once scripts have run — without it, such a site looks nearly empty. It makes the crawl slower. Pages count against your site-audit pages the same either way.
+Off by default: pages are read as the server sends them, which is how most sites are built. Turn it on for a site built as a single-page app, where the content and links only appear once scripts have run — without it, such a site looks nearly empty. It makes the crawl slower, and **each rendered page costs 4 pages** of your site audit allowance — a 100-page rendered crawl uses 400. If fewer than that are left this month, the crawl is shortened to what the remainder buys.
 
 ## Max pages
 
@@ -55,7 +55,7 @@ Set the limit above your real page count for a complete audit. Use the default f
 
 ## Cost and time
 
-An audit spends your plan's monthly **site audit pages** allowance — pages crawled, not audits run. When the crawl starts, its page limit is lowered to what's left this month, and that much is set aside while it runs; pages it didn't crawl are given back when it finishes. The request is refused with a `USAGE_LIMIT_EXCEEDED` error only when nothing is left. See [Usage and limits](/billing/usage).
+An audit spends your plan's monthly **site audit pages** allowance — pages crawled, not audits run, with a JavaScript-rendered page counting as 4. When the crawl starts, its page limit is lowered to what's left this month, and that much is set aside while it runs; pages it didn't crawl are given back when it finishes. The request is refused with a `USAGE_LIMIT_EXCEEDED` error only when nothing is left. See [Usage and limits](/billing/usage).
 
 Time scales with page count. A 50-page crawl typically finishes in a few minutes; a large site can take up to an hour.
 
@@ -66,9 +66,11 @@ Time scales with page count. A 50-page crawl typically finishes in a few minutes
 | **Pending** | Queued, not yet started |
 | **Processing** | Crawling |
 | **Completed** | Finished; score and issues available |
-| **Failed** | The crawl couldn't complete |
+| **Failed** | The crawl couldn't complete, or read no pages |
 
 The list updates as the status changes. A completed audit shows its score, pages crawled, and issue count.
+
+A crawl that reads no pages at all fails rather than scoring 100 — an empty crawl isn't a clean site. The audit says why: *"The crawler could not read any pages on this site. It may be blocking crawlers, behind a login, or not responding."* Pages it didn't crawl are given back.
 
 If an audit fails, check that the target URL resolves publicly and isn't blocked by `robots.txt` or a firewall, then run it again.
 

@@ -1,0 +1,78 @@
+---
+title: "September 2026"
+description: "Local SEO on a Maps grid, email notifications on by default, and fixes across audits, domains and backlinks."
+---
+
+<Update label="29 September 2026" description="Local SEO grids">
+
+### Your listing, searched from every point around it
+
+[Local SEO](/local/overview) now tracks your **Google Business listing** on a grid. A Maps search gives a different answer three streets away, so each keyword is searched from every point of a grid around the listing — 3×3, 5×5 or 7×7 points, 0.5 to 5 km apart — and each point records your position and the top 3 there.
+
+- **Locations.** A [location](/local/locations) is your listing plus its grid — what plans count as local locations. Find the listing by business name and town; Surnex recognises it by its Google listing, so a business without a website tracks the same way. Searching for a listing is free.
+- **Keywords at a location.** Up to 10 per location, and they don't use a location of their own. Adding keywords runs the first check straight away. Keywords can be paused, resumed or removed; they can't be edited.
+- **The grid view.** Open a keyword to see its [grid](/local/keywords), the top 3 at each point, and every check's summary — the share of points in the top 3, and your average position where you're found.
+- **New stat cards.** **In the Pack** and **Map Top 3** join the page, and reports gain **Map Top 3 Coverage** and **Avg. Map Position** widgets.
+- **Weekly by default.** A check is one Maps search per keyword per point, so new projects check Local SEO weekly, like GEO.
+- **Paid results are excluded** from positions, and a position past 20 reads as not found.
+
+New projects no longer copy their keywords into Local SEO — the page starts by asking for your listing. Locations created before listings existed keep their keywords and history, and are checked once for the whole area until you pick their listing.
+
+**API and MCP.** New endpoints under `/v1/projects/{projectId}/local/places` list, find, add, update and remove locations; `POST /local/keywords` takes a `place_id` and up to 10 keywords; `GET /local/keywords/{keywordId}/grid` returns a keyword's grid. The MCP server gains `list_local_locations`, `search_local_listings`, `add_local_location`, `remove_local_location` and `get_local_grid`, and now registers **93 tools**.
+
+</Update>
+
+<Update label="29 September 2026" description="Notifications">
+
+### Email is on by default
+
+Email notifications were effectively off for every organization: nothing ever switched them on. **Email is now on for every organization until an owner or admin turns it off.** Slack and Discord stay opt-in. See [Notification preferences](/notifications/preferences).
+
+- **Scheduled reports are always emailed** to the recipients their automation names, whatever the Email switch says.
+- **One notification per ranking alert type**, so turning off **Rank Improved** silences only improvements.
+- **One notification per backlink change** — backlinks dropped 20%+, referring domains down 10%+ or up 50%+, and domain rank down 50+ points. The **New Backlinks** and **Usage Limit Warning** toggles are gone; nothing sent them.
+- **Ranking alerts stay unread** after being notified, until you open them.
+- **Local SEO notifications report the grid**: keywords checked, points where you were found, and the top-3 share.
+- **Webhook URLs are checked.** Slack and Discord accept only the channel's own HTTPS incoming webhook, and members see the URL masked.
+
+</Update>
+
+<Update label="29 September 2026" description="Fixes across the platform">
+
+### Rank tracking
+
+- The same keyword can be tracked in several markets — location, language or search engine — as separate keywords with their own history.
+- Editing a tracked keyword is gone; it never saved most of its fields. Pause, resume and remove remain, and to change market you [add it again](/tracking/add-keywords#change-a-keywords-market).
+- The AI Overview summary describes the **newest check** rather than counting every overview ever seen.
+
+### Site audits
+
+- With **Render JavaScript** on, each page crawled costs **4 pages** of the site audit allowance. See [Run an audit](/audits/run#render-javascript).
+- A crawl that reads no pages now **fails with an explanation** instead of scoring 100.
+- Duplicate title and description issues are counted once per page.
+- **Noindex page** is now **Nofollow page** — it detects the robots `nofollow` directive. The crawl data has no `noindex` signal, so the old name described something it couldn't see.
+
+### Domain analysis
+
+- **Top Keywords** are the domain's highest-traffic keywords, with position, URL and traffic.
+- **Top Pages** drop the backlink column, which the data source never filled, and add **Traffic value**.
+- **Competitors** show whole-site keywords and traffic, plus common keywords and average position. The **Rank** column is gone.
+- The [backlink gap](/backlinks/gap) takes at most four competitors.
+- Domain inputs — domain analysis, gap competitors, project competitors — accept a URL and reduce it to the domain, in the API and MCP as well.
+- [Tech stack](/domains/tech-stack) categories are the data source's own, grouped by type. Versions and confidence aren't provided, so they're no longer shown.
+
+### Backlinks
+
+- A refresh keeps showing the **last completed profile** while it runs, and if it fails.
+- A profile where every section failed is marked failed; one missing some sections says which.
+- Competitor backlink totals cover your five oldest competitors, refreshed weekly. Your own domain follows its schedule.
+
+### Everything else
+
+- A new project's first run also fetches the full **backlink profile** — about five research lookups in all, not four.
+- GEO topics get their **AI volume** filled on every snapshot.
+- [Web vitals](/web-vitals/overview) has a **Mobile**/**Desktop** toggle, and accepts a page without `https://`.
+- The MCP tool `get_ai_visibility_overview` returns the GEO summary — averages and the daily trend over `days`, default 30 — instead of raw snapshots.
+- The [sample project](/onboarding/overview#the-sample-project) now includes a **Weekly Overview** report and a Local SEO location with its grids.
+
+</Update>

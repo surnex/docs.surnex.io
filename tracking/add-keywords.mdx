@@ -1,6 +1,6 @@
 ---
 title: "Tracked keywords"
-description: "Add keywords to a project, pause them, edit their locale, and remove them."
+description: "Add keywords to a project, track them in several markets, pause them, and remove them."
 ---
 
 **Tracking** lists every keyword the project monitors, one card per keyword. This is where you manage what gets checked.
@@ -37,7 +37,7 @@ Click **Add Keywords** to open the panel.
   </Step>
 </Steps>
 
-To track one keyword in two markets, add it twice — once per location. They're tracked as separate keywords with separate histories.
+To track one keyword in several markets, add it once per market — a different location, language or search engine. Each is tracked as a separate keyword with its own history. Adding a keyword again in a market it's already tracked in skips it.
 
 New keywords show a **Pending** badge until their first check completes.
 
@@ -64,15 +64,11 @@ Use the switch on the card. Pausing stops future rank checks but **keeps all col
 
 Pausing doesn't make room under your keyword limit — a paused keyword still counts toward your plan's tracked-keyword limit. Only removing it frees the slot.
 
-## Edit a keyword
+## Change a keyword's market
 
-Click the pencil icon to reopen the panel in edit mode.
+A tracked keyword can't be edited. Its history belongs to the market it was collected in, so a keyword moved to another location would chart two different search results as one line.
 
-<Warning>
-  Only **Location** and **Language** are saved by the edit form. The **Keyword** text and **Search Engine** fields are editable on screen but are not submitted — changes to them are silently discarded. To change a keyword's text or search engine, remove it and add it again.
-</Warning>
-
-Changing location or language doesn't rewrite history. Past positions keep the locale they were collected under, so the chart spans two different search markets across the change.
+To track it somewhere else, [add it again](#add-keywords) with the new location, language or search engine. Keep the old one for its history, or remove it.
 
 ## Remove a keyword
 
@@ -91,6 +87,8 @@ When any tracked keyword has AI Overview data, three cards appear above the list
 | **AI Overview Triggered** | `12 / 40` — keywords where an AI Overview appeared, out of all tracked |
 | **Domain Cited in AI** | `5 / 12` — of those, how many cited your domain |
 | **AI Citation Rate** | `42%` — the second figure as a percentage of the first |
+
+The cards describe the **newest check** — what Google showed last time, not a count of every AI Overview ever seen.
 
 ## Plan limits
 

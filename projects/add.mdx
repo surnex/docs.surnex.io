@@ -55,11 +55,13 @@ The form asks one question per step — **The Site**, **Keywords**, **Competitor
 
 Click **Create project**. You'll see a confirmation naming how many keywords you picked, and you're taken straight to the new project's dashboard.
 
-Your keywords go into rank tracking, and the same keywords become the project's [GEO](/geo/overview) (generative engine optimization) topics and [local SEO](/local/overview) keywords. Each list takes only what your plan has room for — keywords over the tracked-keyword or AI-prompt allowance are left out rather than failing the create, and local SEO is skipped on a plan with no local location free.
+Your keywords go into rank tracking, and the same keywords become the project's [GEO](/geo/overview) (generative engine optimization) topics. Each list takes only what your plan has room for — keywords over the tracked-keyword or AI-prompt allowance are left out rather than failing the create.
+
+[Local SEO](/local/overview) isn't filled from these keywords. Its keywords are searched around your Google Business listing, which only you can pick, so the Local SEO page starts by asking for it.
 
 ## What happens next
 
-The project is created with four **schedules**, all enabled at **00:00 UTC** — daily, except AI visibility, which is weekly:
+The project is created with four **schedules**, all enabled at **00:00 UTC** — daily, except AI visibility and Local SEO, which are weekly:
 
 | Schedule | Feature |
 | --- | --- |
@@ -73,16 +75,16 @@ You can change them in [Project settings](/projects/settings#schedules).
 **The first collection starts straight away**, without waiting for a schedule. Creating the project queues:
 
 - A rank check, bought live so your rankings arrive within minutes
-- A backlink snapshot, a GEO snapshot and a local SEO check
+- A backlink snapshot and the full backlink profile, and a GEO snapshot
 - A site audit of up to 100 pages and a mobile web vitals check
 - Domain overview, tech stack, and keyword research on the domain's keywords
 - If you added keywords: bulk research on them, and one LLM benchmark on the first
 
 Rankings usually land first; everything else appears as each job finishes, and a site audit takes longest. After that, the schedules keep the scheduled features fresh.
 
-This first run spends allowances as if you'd clicked each button — about four research lookups, one AI brand audit, and site audit pages for a crawl of up to 100 pages plus one for web vitals. See [Usage and limits](/billing/usage).
+This first run spends allowances as if you'd clicked each button — about five research lookups, one AI brand audit, and site audit pages for a crawl of up to 100 pages plus one for web vitals. See [Usage and limits](/billing/usage).
 
-Audits, web vitals, domain analysis, and keyword research have no schedule, so after the first run they only run when you start them from their own pages. See [How data collection works](/projects/data-collection).
+Audits, web vitals, domain analysis, and keyword research have no schedule, so after the first run they only run when you start them from their own pages. Local SEO's first check runs when you add keywords at a location. See [How data collection works](/projects/data-collection).
 
 ## Plan limits and role
 

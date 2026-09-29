@@ -3,7 +3,7 @@ title: "MCP tools"
 description: "Every tool the Surnex MCP server exposes to agents, and which ones write."
 ---
 
-The server exposes **88 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
+The server exposes **93 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
 
 Every tool carries MCP annotations describing what it does, so a well-behaved client can prompt for confirmation selectively rather than on every call:
 
@@ -25,9 +25,9 @@ Tools marked **write** below change your account; **quota** means the call spend
 | `delete_project` | **write — destroys all project data** |
 | `get_usage_summary` | |
 
-Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `create_project` takes a name, a domain and at least one keyword, and starts the project's [first collection](/projects/add#what-happens-next) straight away — which spends about four research lookups, one AI brand audit, and a crawl of up to 100 pages. If the keywords would take the organization past its tracked-keyword allowance, the call is refused before anything is created. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
+Start here. `list_projects` gives the agent the `project_id` nearly everything else needs. `create_project` takes a name, a domain and at least one keyword, and starts the project's [first collection](/projects/add#what-happens-next) straight away — which spends about five research lookups, one AI brand audit, and a crawl of up to 100 pages. If the keywords would take the organization past its tracked-keyword allowance, the call is refused before anything is created. `get_usage_summary` returns the same summary as the [Usage](/billing/usage) section of Billing: the active plan, when the monthly allowances reset, and each allowance's `used`, `limit` and `remaining`.
 
-Five tools are annotated destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics` and `delete_saved_keywords`. Everything `delete_project` removes cascades and cannot be recovered.
+Six tools are annotated destructive: `delete_project`, `remove_competitor`, `remove_tracked_keywords`, `remove_geo_topics`, `remove_local_location` and `delete_saved_keywords`. Everything `delete_project` removes cascades and cannot be recovered.
 
 ## Rank tracking
 
@@ -41,7 +41,7 @@ Five tools are annotated destructive: `delete_project`, `remove_competitor`, `re
 | `get_competitor_comparison` | |
 | `add_tracked_keywords` | **write** |
 | `remove_tracked_keywords` | **write** |
-| `update_tracked_keyword` | **write** |
+| `update_tracked_keyword` | **write** — pause or resume |
 | `create_tag`, `list_tags`, `assign_tags` | **write** (create, assign) |
 | `get_alerts`, `mark_alert_read`, `mark_all_alerts_read` | **write** (mark) |
 | `get_ai_overview_summary` | |
@@ -50,6 +50,10 @@ Five tools are annotated destructive: `delete_project`, `remove_competitor`, `re
 | `export_tracking_csv` | |
 
 Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` let an agent group keywords in ways the dashboard doesn't surface as prominently.
+
+A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resumes it. The same keyword can be tracked in several markets — location, language or search engine — as separate keywords, each with its own history, so to move one to another market, add it again with `add_tracked_keywords`.
+
+`get_ai_overview_summary` describes the newest check — how many keywords have an AI Overview and how many cite your domain — with `as_of` giving its date.
 
 ## Keywords
 
@@ -120,6 +124,8 @@ Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` le
 | `add_geo_topics` | **write** |
 | `remove_geo_topics` | **write** |
 
+`get_ai_visibility_overview` returns the summary the GEO page shows — average mentions and citation rate across your topics, and the daily trend over `days` (default 30) — rather than raw snapshots. Start there, then drill into a topic with `get_geo_topic_detail`.
+
 `get_llm_response_for_keyword` queues a fresh snapshot of one topic: all six AI engines — ChatGPT, Claude, Gemini, Perplexity, Google AI Overview and Google AI Mode — are asked, and each answer is stored. It returns a job status, not the answer; read the result with `get_geo_topic_detail`. Its `platform` argument is accepted for compatibility and ignored.
 
 ## Domains and tech stack
@@ -147,10 +153,24 @@ Each is a live lookup and spends one research lookup, unless Surnex already has 
 | Tool | |
 | --- | --- |
 | `get_local_overview` | |
+| `list_local_locations` | |
+| `search_local_listings` | not charged |
+| `add_local_location` | **write** — uses a local location |
+| `remove_local_location` | **write — removes its keywords and history** |
 | `get_local_keywords` | |
-| `get_local_rankings` | |
 | `add_local_keywords` | **write** |
+| `get_local_grid` | |
+| `get_local_rankings` | |
 | `get_google_business_profile` | |
+
+Local SEO starts from a [location](/local/locations): the business's Google listing plus a grid of Maps searches around it. The order is:
+
+1. `search_local_listings` — find the listing by business name and town
+2. `add_local_location` — add it with a `grid_size` of 3, 5 or 7 points a side and a `spacing_km` between them
+3. `add_local_keywords` — up to 10 keywords at the `location_id`; the first check is queued straight away and lands in a few minutes
+4. `get_local_grid` — one keyword's position at every grid point, the top 3 at each, and every check's summary
+
+A position of `null` means the business isn't in the top 20 at that point. `get_local_rankings` is the Maps pack at each location's centre.
 
 ## Web vitals
 
