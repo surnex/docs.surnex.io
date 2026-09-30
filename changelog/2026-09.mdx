@@ -3,6 +3,17 @@ title: "September 2026"
 description: "A personal Inbox and channels, invoices in Billing, a new dashboard, Local SEO on a Maps grid, and fixes across audits, domains and backlinks."
 ---
 
+<Update label="30 September 2026" description="Schedule run history">
+
+### When your schedules ran, and when they run next
+
+**Project Settings → Schedules** now shows, for each recurring job, when it runs next and how its last run went: status, when, whether its schedule or someone started it, and how long it took. A failed run says why. A schedule that is overdue, or that was skipped because the organization had no active plan, says so. See [Schedules](/projects/settings#schedules).
+
+- **Runs** opens a run history for each job — or all four — ten runs at a time.
+- **API.** New: `GET /v1/projects/{projectId}/schedules` for where each schedule stands, and `GET /v1/projects/{projectId}/schedules/runs` for the run history, paged, with an optional `job_type`.
+
+</Update>
+
 <Update label="30 September 2026" description="Faster pages">
 
 ### Pages load what they show

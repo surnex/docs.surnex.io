@@ -37,7 +37,15 @@ When each of the project's four recurring jobs runs — **Rank tracking**, **Bac
 
 Scheduled runs don't use your monthly allowances. They're covered by what the project holds — tracked keywords, AI prompts, local locations — so how often they run changes nothing on your [usage](/billing/usage). The sample project runs none.
 
-Through the API, schedules are part of the project record.
+Each schedule also shows where it stands:
+
+- **Next run** — when it runs next, in the schedule's timezone. **Overdue** means it came due and hasn't started; **Paused** means it won't run until it's switched back on.
+- **Last run** — the newest run of that job, whether its schedule started it or someone did (**On demand**, which includes a new project's first run): its status, when, and how long it took. A failed run says why.
+- **Skipped** — shown when the schedule came due while the organization had no active plan. Nothing runs then, and a skipped run isn't made up later.
+
+**Runs** opens the run history: every run of the job, newest first, ten at a time, with the same details. Switch the filter to see another job, or all four together. Anyone in the organization can see it.
+
+Through the API, schedules are part of the project record. Where they stand is `GET /v1/projects/{projectId}/schedules`, and the run history is `GET /v1/projects/{projectId}/schedules/runs`, paged, with an optional `job_type`.
 
 ## Danger Zone
 
