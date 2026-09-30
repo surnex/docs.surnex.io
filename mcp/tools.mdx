@@ -49,6 +49,8 @@ Seven tools are annotated destructive: `delete_project`, `remove_competitor`, `r
 | `get_ai_overview_keywords` | |
 | `export_tracking_csv` | |
 
+`get_competitor_comparison` is paged by keyword — `page`, `per_page` (default 25) and `search`.
+
 Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` let an agent group keywords in ways the dashboard doesn't surface as prominently.
 
 A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resumes it. The same keyword can be tracked in several markets — location, language or search engine — as separate keywords, each with its own history, so to move one to another market, add it again with `add_tracked_keywords`.
@@ -86,6 +88,8 @@ A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resum
 | `refresh_backlinks` | **write**, quota |
 | `export_backlinks_csv` | |
 
+`get_referring_domains`, `get_backlinks_list`, `get_anchor_texts`, `get_new_lost_backlinks` and `get_backlink_gap_result` return one page at a time — `page`, `per_page` (default 25, up to 100) and an optional `search` — with the `total`, so an agent reads the first page and asks for more only if it needs them. For every individual backlink at once, use `export_backlinks_csv`; it exports the backlinks list only. `get_backlink_gap` answers with the first 25 referring domains of the gap it ran, and the total.
+
 ## Audits
 
 | Tool | |
@@ -101,7 +105,7 @@ A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resum
 | `compare_audits` | |
 | `export_audit_csv` | |
 
-`get_duplicate_content` and `get_broken_resources` are dedicated tools that correspond to tabs in the audit detail view.
+`get_duplicate_content` and `get_broken_resources` are dedicated tools that correspond to tabs in the audit detail view. Both are paged like the backlink lists — `page`, `per_page` (default 25, up to 100) and `search` — and return the `total`.
 
 ## AI search
 
@@ -125,7 +129,7 @@ A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resum
 | `add_geo_topics` | **write** |
 | `remove_geo_topics` | **write** |
 
-`get_ai_visibility_overview` returns the summary the GEO page shows — average mentions and citation rate across your topics, and the daily trend over `days` (default 30) — rather than raw snapshots. Start there, then drill into a topic with `get_geo_topic_detail`.
+`get_ai_visibility_overview` returns the summary the GEO page shows — average mentions and citation rate across your topics, and the daily trend over `days` (default 30) — rather than raw snapshots. Start there, then drill into a topic with `get_geo_topic_detail`: each day's mentions and citation rate, and the newest snapshot's sources and every engine's answer. Older snapshots carry their numbers only.
 
 `get_llm_response_for_keyword` queues a fresh snapshot of one topic: all six AI engines — ChatGPT, Claude, Gemini, Perplexity, Google AI Overview and Google AI Mode — are asked, and each answer is stored. It returns a job status, not the answer; read the result with `get_geo_topic_detail`. Its `platform` argument is accepted for compatibility and ignored.
 

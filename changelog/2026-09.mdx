@@ -3,6 +3,30 @@ title: "September 2026"
 description: "A personal Inbox and channels, invoices in Billing, a new dashboard, Local SEO on a Maps grid, and fixes across audits, domains and backlinks."
 ---
 
+<Update label="30 September 2026" description="Faster pages">
+
+### Pages load what they show
+
+Large lists now come from the server one page at a time, and detail loads when you open it, so busy projects open faster.
+
+- **Backlinks.** Overview loads only the summary. Backlinks, Referring Domains, Anchor Text and New & Lost each load, search and page their own list.
+- **Site audit detail.** Duplicate Content and Resources load when you open their tab, one page at a time. An audit compared against another now counts every issue, however many there are.
+- **Local SEO.** A keyword's full map pack loads when you expand its row.
+- **Keyword research and backlink gap.** A job's keywords and a gap's referring domains load a page at a time and are searched on the server. The summary cards above research results cover every result, worked out on the server.
+- **Tracking comparison and Google AI Overviews.** Keywords are searched and paged on the server.
+- **AI search pages.** A past run's answers load when you open it.
+
+**API.** New paged endpoints for the backlink lists: `GET /v1/projects/{projectId}/backlinks/links` (with `dofollow_only`), `…/backlinks/referring-domains`, `…/backlinks/anchors` and `…/backlinks/new-lost` (with `mode=new|lost`). Each takes `page`, `per_page` (up to 100) and `search`; `meta.available` is false before the first analysis finishes, and `meta.missing` is true when an analysis finished without that list. `GET …/backlinks/profile` and `GET …/backlinks/profile/{profileId}` now return the summary only, without the lists.
+
+- `…/audits/{auditId}/duplicate-content`, `…/audits/{auditId}/resources`, `…/tracking/competitors` and `…/tracking/ai-overview-keywords` are paged, with `total` in `meta`. `ai-overview-keywords` still accepts `limit` as an alias for `per_page`.
+- The AI search history (`GET …/ai-search`) no longer includes each run's results; fetch one run by its id for those.
+- Research jobs no longer include their results, in the list or one at a time. New: `GET …/keywords/research/{jobId}/results`, paged with `page`, `per_page` and `search`, with `meta.summary` (count, and average volume, difficulty and CPC over every result).
+- Gap analyses (`GET …/backlinks/gap` and `…/backlinks/gap/{gapId}`) no longer include their rows; they carry `result_count` instead. New: `GET …/backlinks/gap/{gapId}/results`, paged the same way.
+
+**MCP.** `get_referring_domains`, `get_backlinks_list`, `get_anchor_texts`, `get_new_lost_backlinks`, `get_duplicate_content`, `get_broken_resources` and `get_competitor_comparison` take `page`, `per_page` and `search`, and so does `get_backlink_gap_result`. `get_backlink_gap` answers with the first 25 referring domains and the total. `get_geo_topic_detail` returns sources and answers for the newest snapshot only; older snapshots keep their numbers. See [MCP tools](/mcp/tools).
+
+</Update>
+
 <Update label="29 September 2026" description="MCP tools">
 
 ### MCP: 97 tools, and tighter checks on the ones that spend
