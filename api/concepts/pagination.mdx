@@ -61,7 +61,7 @@ The 500 ceiling bounds an upstream provider's page size as well as a database on
 
 Pages are fetched separately, so a list changing underneath you — a scheduled job adding rows mid-pagination — can shift items between pages. An item can be seen twice or missed.
 
-For large exports where that matters, prefer the CSV export endpoints, which produce a single consistent snapshot.
+For a large export where that matters, page during a quiet moment rather than while a check is running — and de-duplicate by `id`. In the dashboard, a table's **⋮** menu exports every row matching its search as CSV or JSON.
 
 ## Not everything is paginated
 

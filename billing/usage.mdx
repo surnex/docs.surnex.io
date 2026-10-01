@@ -55,6 +55,22 @@ Scheduled checks don't spend the monthly allowances:
 
 Running out of research lookups never stops scheduled collection.
 
+## Refreshes ask first
+
+A refresh you start yourself spends the monthly allowance, so each one opens a confirm before it runs. The confirm says what it fetches again, what it costs, and how many you have left this month:
+
+| Refresh | Costs |
+| --- | --- |
+| **Refresh** on [Backlinks](/backlinks/overview#running-an-analysis), [Domain overview](/domains/overview#freshness) and [Tech stack](/domains/tech-stack) | 1 research lookup |
+| **Check Now** on a [GEO prompt](/geo/topics#check-now) | 1 research lookup |
+| Running a past search again from a history list — keyword research, Trends | 1 research lookup |
+| Running a past AI search again — AI Mode, ChatGPT, LLM benchmark, citation gap, AI keyword trends | 1 AI brand audit |
+| Re-checking a [web vitals](/web-vitals/overview#history) URL | 1 site audit page |
+
+## Exports are free
+
+Every data table has a **⋮** menu — three vertical dots in a bordered button at the right end of its toolbar — with **Export as CSV** and **Export as JSON**. An export reads data Surnex has already stored, so it spends nothing.
+
 If the organization holds more than its plan allows — after a downgrade, for example — scheduled checks cover the oldest rows up to the limit, counted across the whole organization. The newest ones aren't checked until you remove enough to fit or upgrade.
 
 ## A new project's first run spends

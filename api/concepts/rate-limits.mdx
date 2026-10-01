@@ -61,7 +61,6 @@ Don't rely on that — it's a safety property, not a mode you can plan around.
 
 - **Raise your page size.** `per_page` goes up to 500. Paging 5,000 rows at 25 costs 200 requests; at 500 it costs 10. See [Pagination](/api/concepts/pagination).
 - **Poll jobs at a sensible interval.** An audit takes minutes to an hour — polling every second is thousands of requests for one answer. See [Jobs and polling](/api/concepts/jobs).
-- **Use the CSV export endpoints** for bulk reads.
 - **Don't re-fetch stored data in a loop.** Most endpoints return data that only changes when a scheduled job runs.
 
 ## Related

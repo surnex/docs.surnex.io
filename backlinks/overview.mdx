@@ -68,11 +68,17 @@ Beneath the charts, a table of exact figures:
 
 ## Running an analysis
 
-The header button reads **Run Analysis** the first time and **Refresh** afterwards. While a run is in progress it shows **Analyzing…** and is disabled.
+The header has one button, **Refresh**, for the first analysis and every one after it. It fetches the backlinks, referring domains, anchors and new and lost lists again. While a run is in progress the button is replaced by **Analyzing…**.
 
-A completed run shows when it finished. **While a refresh runs, and if it fails, the page keeps showing the last completed profile** — a failed refresh never blanks the page. A failed run puts a red banner at the top with the error; click **Refresh** to retry.
+**Refresh** spends a research lookup, so it asks first: the confirm says what it fetches again, that it uses 1 research lookup, and how many you have left this month. Click **Refresh** in the confirm to start.
+
+The header shows the backlink schedule; when each run happened is in its run history, in the project's [**Settings → Schedules**](/projects/settings#schedules). **While a refresh runs, and if it fails, the page keeps showing the last completed profile** — a failed refresh never blanks the page. A failed run puts a red banner at the top with the error; click **Refresh** to retry.
 
 A profile has six sections — summary, backlinks, referring domains, anchors, new backlinks and lost backlinks. If some couldn't be fetched, the profile still completes with the rest, and a note names what's missing: *"Not fetched: anchors. Refresh to try again."* Only a run where every section failed is marked failed.
+
+<Note>
+  The [schedule](#schedule) updates only the totals and the trend chart. The backlinks, referring domains, anchors and new and lost lists change only when you click **Refresh**.
+</Note>
 
 ## Competitors
 
@@ -88,7 +94,9 @@ The **Timezone** is applied, and cadences are real intervals measured from the l
 
 ## Export
 
-**Export** downloads your backlink data. It appears once an analysis has completed.
+Each backlink table — the summary table on this page, the backlink list, referring domains, anchors, new and lost backlinks, and the backlink gap — has a **⋮** menu at the right end of its toolbar, next to the search box, or in the card's title row when the table has no search box. Choose **Export as CSV** (opens in Excel and Google Sheets) or **Export as JSON**.
+
+An export holds every row matching the table's current search, not just the page on screen, with the table's own columns, up to 10,000 rows. Exports read stored data, so they're free.
 
 ## Related pages
 
