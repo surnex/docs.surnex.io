@@ -20,20 +20,22 @@ Click **Add Keywords** to open the panel.
     Each comma-separated value is trimmed and empty entries are dropped, so trailing commas and stray spaces are harmless. Line breaks are not separators — only commas are.
   </Step>
 
+  <Step title="Set Search Engine">
+    **Google**, **Bing**, **Yahoo**, **Baidu**, **Naver** or **Seznam**. Starts on what you chose for rank tracking when you created the project. Choose it first: the locations and languages offered are the engine's own.
+
+    Baidu searches from China in Chinese, and Seznam in Czech, so choosing either moves Location and Language there. Naver shows the same results wherever it's searched from — it has no location or language to choose, and its keywords are checked in Korean.
+  </Step>
+
   <Step title="Set Location">
-    Defaults to **United States**. Searchable dropdown of roughly 185 locations.
+    Starts on the project's rank tracking default. Any place the engine searches from — every country, and the regions, cities, districts and postal codes inside them, about 270,000 for Google. Type two letters to search, for example `austin`, `austin, texas` or `10001`. Countries are listed before the towns that share their name.
   </Step>
 
   <Step title="Set Language">
-    Defaults to **English**. Around 65 options.
-  </Step>
-
-  <Step title="Set Search Engine">
-    **Google** (default), **Bing**, or **Yahoo**.
+    Starts on the project's rank tracking default. Lists the languages the engine searches in: about 130 for Google, about 50 for Bing, Simplified Chinese for Baidu, Czech for Seznam.
   </Step>
 
   <Step title="Click Add Keywords">
-    All keywords in the box are added with the same location, language, and search engine. A confirmation names how many were added.
+    All keywords in the box are added with the same location, language, and search engine. A confirmation names how many were added. A location or language the engine doesn't search from is refused with a message saying which, before anything is added.
   </Step>
 </Steps>
 
@@ -45,12 +47,12 @@ New keywords get a **first check of their own straight away** — only the keywo
 
 Each card shows:
 
-- The **keyword**, with either a **Pending** badge or `Checked 3 hours ago`
+- The **keyword**, with either a **Pending** badge or `Checked 3 hours ago`, and its market — the engine and location, for example `Bing · Austin, Texas, United States`
 - The **current position** in large type, or `—` when it doesn't rank
 - The **change** since the previous check, with an up, down, or flat arrow
-- **Vol:** monthly search volume, when known
+- **Vol:** monthly search volume, when known. Volumes come from Google Ads, which covers 46 languages. A keyword tracked in a language it doesn't cover, such as Zulu, Afrikaans or `pt-BR` (use `pt` for Portuguese), is ranked as normal but has no volume
 - The **ranking URL** — which of your pages actually ranks, which is often not the one you expected
-- An **AI Overview** badge when Google returned an AI Overview for this keyword. It reads **AI Cited** in green if your domain was cited in it, or **AI Overview** in purple if the overview appeared without you
+- An **AI Overview** badge when Google returned an AI Overview for this keyword (Google keywords only). It reads **AI Cited** in green if your domain was cited in it, or **AI Overview** in purple if the overview appeared without you
 
 Click a card to open its [history](/tracking/keyword-history).
 
@@ -88,7 +90,7 @@ When any tracked keyword has AI Overview data, three cards appear above the list
 | **Domain Cited in AI** | `5 / 12` — of those, how many cited your domain |
 | **AI Citation Rate** | `42%` — the second figure as a percentage of the first |
 
-The cards describe the **newest check** — what Google showed last time, not a count of every AI Overview ever seen.
+The cards describe the **newest check** — what Google showed last time, not a count of every AI Overview ever seen. AI Overviews are Google's, so keywords tracked on other engines aren't counted.
 
 ## Plan limits
 

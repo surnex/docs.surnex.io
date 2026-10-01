@@ -74,7 +74,7 @@ This is the part worth internalising: **only project list and create are nested 
 So reading tracked keywords is:
 
 ```bash
-curl "https://api.surnex.io/v1/projects/{projectId}/tracking" \
+curl "https://api.surnex.io/v1/projects/{projectId}/tracking/keywords" \
   -H "X-API-Key: YOUR_KEY"
 ```
 
@@ -83,7 +83,7 @@ A project outside your key's organization answers **404**, not 403 — see [Erro
 ## 5. Add tracked keywords
 
 ```bash
-curl -X POST "https://api.surnex.io/v1/projects/{projectId}/tracking" \
+curl -X POST "https://api.surnex.io/v1/projects/{projectId}/tracking/keywords" \
   -H "X-API-Key: YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -94,17 +94,17 @@ curl -X POST "https://api.surnex.io/v1/projects/{projectId}/tracking" \
   }'
 ```
 
-`location_code` 2840 is the United States and `language_code` `en` is English — the same defaults the dashboard uses. Keywords are lower-cased and de-duplicated, so submitting overlapping lists is safe.
+`location_code` 2840 is the United States and `language_code` `en` is English. All three market fields are required — there's no default. Any place and language the engine searches from works, down to a city or postal code: find codes with `GET /v1/reference/locations?engine=google&search=austin` and `GET /v1/reference/languages?engine=google`. `search_engine` is `google`, `bing`, `yahoo`, `baidu`, `naver` or `seznam`. Keywords are lower-cased and de-duplicated, so submitting overlapping lists is safe.
 
-New keywords have no position until their project's next [rank check](/tracking/overview).
+The keywords added get a first [rank check](/tracking/overview) of their own straight away; positions land within about 20 minutes.
 
 ## 6. Billable calls need an explicit organization
 
-Some endpoints have neither an organization nor a project in the path — live SERP lookups, keyword research, content generation, trends:
+Some endpoints have neither an organization nor a project in the path — live SERP lookups, keyword research, trends, domain data:
 
 ```
-/v1/keywords/research   /v1/keywords/serp   /v1/keywords/suggestions
-/v1/trends/explore      /v1/content/brief   /v1/domains/{domain}
+/v1/keywords/research   /v1/keywords/serp    /v1/keywords/suggestions
+/v1/trends/explore      /v1/trends/related   /v1/domains/{domain}
 ```
 
 These are billed to an organization, so with a **user token** you must pass `org_id` as a query parameter. Omitting it returns `BAD_REQUEST`: *"org_id is required. This call is billed to an organization, so it cannot be inferred."*
@@ -136,7 +136,7 @@ def get(path, **params):
 
 orgs = get("/organizations")
 projects = get(f"/organizations/{orgs[0]['id']}/projects")
-keywords = get(f"/projects/{projects[0]['id']}/tracking")
+keywords = get(f"/projects/{projects[0]['id']}/tracking/keywords")
 ```
 
 Don't test for the presence of `data` — a successful `DELETE` returns `data: null`.

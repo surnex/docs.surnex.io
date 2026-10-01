@@ -1,15 +1,15 @@
 ---
 title: "GEO overview"
-description: "Generative engine optimization — track how often AI answers mention and cite your brand, by topic."
+description: "Generative engine optimization — track how often AI answers mention and cite your brand, by prompt."
 ---
 
-**GEO** — generative engine optimization — measures your presence in AI-generated answers at the level of a **topic** rather than a single query. Where [AI search](/ai/overview) tools are one-off lookups, GEO tracks topics on a schedule so you can see the trend.
+**GEO** — generative engine optimization — measures your presence in AI-generated answers at the level of a **prompt** — what a customer might ask an AI assistant — rather than a single query. Where [AI search](/ai/overview) tools are one-off lookups, GEO tracks prompts on a schedule so you can see the trend.
 
 The page is headed **AI Visibility**.
 
 ## The six engines
 
-Every topic is put, live, to six AI engines on each snapshot:
+Every prompt is put, live, to six AI engines on each snapshot:
 
 | Engine | What's asked |
 | --- | --- |
@@ -20,45 +20,52 @@ Every topic is put, live, to six AI engines on each snapshot:
 | **Gemini** | Google's assistant, searching the web |
 | **Perplexity** | Perplexity's answer engine |
 
-Google's two and the assistants are asked in your topic's country; Gemini doesn't take a country, so its web search isn't localised. An engine that's down is recorded as not answering, and the other five still count.
+A prompt is measured in a **country** and a **language** that every one of the six engines takes: one of 215 countries, in one of about 95 languages (Zulu among them). AI answers are by country, and ChatGPT's search lists no cities. New prompts start on the AI visibility market you chose when you [created the project](/projects/add). Each engine is then asked what it accepts:
+
+- **Google AI Overviews** and **Google AI Mode** — the prompt's country and language.
+- **ChatGPT** and **Perplexity** — the prompt's country.
+- **Claude** — the prompt's country if it's one of the 36 Claude's web search takes; otherwise Claude searches without one.
+- **Gemini** — no country: its web search isn't localised.
+
+An engine that's down is recorded as not answering, and the other five still count.
 
 ## Stat cards
 
 | Card | What it shows |
 | --- | --- |
-| **Topics Tracked** | How many topics you monitor |
-| **Avg. Mentions** | How many of the six engines name your brand, on average per topic |
-| **Avg. Citation Rate** | The share of engines that cite your site, on average per topic |
+| **Prompts Tracked** | How many prompts you monitor |
+| **Avg. Mentions** | How many of the six engines name your brand, on average per prompt |
+| **Avg. Citation Rate** | The share of engines that cite your site, on average per prompt |
 
-Open a topic to see each engine's full answer, marked **Mentioned** or **Not mentioned**, and **Cited** or **Not cited**.
+Open a prompt to see each engine's full answer, marked **Mentioned** or **Not mentioned**, and **Cited** or **Not cited**.
 
 **Mentions** and **citations** aren't the same thing, and the distinction is the point of this page. A mention is the AI naming your brand in its answer; a citation is it linking your domain as a source. Being mentioned without being cited means you have brand awareness but the model isn't treating your site as the authority — that's a content problem. Being cited without being mentioned means your page is feeding answers that don't credit you.
 
-## Tracked Topics
+## Tracked Prompts
 
-The list under **Tracked Topics** — "Keywords monitored for AI visibility across search engines" — is what gets checked on each snapshot.
+The list under **Tracked Prompts** — "Prompts asked of all six AI engines every week" — is what gets checked on each snapshot.
 
-### Add topics
+### Add prompts
 
-Click **Add Topics** and enter keywords in the textarea, **one per line or comma-separated**. Both separators work, so pasting a list from anywhere is safe.
+Click **Add Prompts** and enter prompts in the textarea, **one per line** — a keyword, or a question someone might ask an AI assistant. Commas don't separate prompts, because a question often contains them.
 
-A topic is tracked per location and language, so the same question in another market is a new topic. One already tracked in that market is skipped — a paused one stays paused.
+A prompt is tracked per location and language, so the same question in another market is a new prompt. One already tracked in that market is skipped — a paused one stays paused.
 
-New topics get their **first snapshot straight away**, from all six engines, and it's covered by your plan's AI prompts. After that they follow the AI visibility schedule — weekly by default.
+New prompts get their **first snapshot straight away**, from all six engines, and it's covered by your plan's AI prompts. After that they follow the AI visibility schedule — weekly by default.
 
-Topics are seeded automatically when a [project is created](/projects/add), so the list won't be empty on a new project.
+Prompts are seeded automatically when a [project is created](/projects/add), so the list won't be empty on a new project.
 
-### Pause a topic
+### Pause a prompt
 
-Toggle a topic to pause it. Paused topics stop being snapshotted but keep their history, and appear dimmed in the list. A paused topic still counts against your plan's AI prompts — only removing it frees the slot.
+Toggle a prompt to pause it. Paused prompts stop being snapshotted but keep their history, and appear dimmed in the list. A paused prompt still counts against your plan's AI prompts — only removing it frees the slot.
 
-### Remove a topic
+### Remove a prompt
 
-Confirm *"Are you sure you want to remove '…'? This will stop tracking AI visibility for this keyword."* This deletes the topic's history — pause instead if you might want it back.
+In **Remove prompt**, confirm *"Are you sure you want to remove '…'? This will stop tracking AI visibility for this prompt."* This deletes the prompt's history — pause instead if you might want it back.
 
-## Choosing topics
+## Choosing prompts
 
-Topics are the subjects you want to be the answer for, phrased the way someone would ask:
+Prompts are the subjects you want to be the answer for, phrased the way someone would ask:
 
 - **"best rank tracking tool for agencies"** works — a real question with room for a vendor in the answer.
 - **"rank tracking"** is too broad. The answer will be a definition and won't cite vendors.
@@ -74,13 +81,13 @@ GEO defaults to **once a week at 00:00 UTC** — AI answers change slowly, and a
 
 The **Timezone** is applied, and cadences are intervals from the last run rather than calendar rules. See [How data collection works](/projects/data-collection).
 
-Each snapshot asks every active topic of all six engines. Each topic is one of your plan's **AI prompts**, and the scheduled snapshots are covered by holding it — they don't spend any monthly allowance, whatever the frequency. Asking about one topic now, outside the schedule, spends one research lookup. See [Plans](/billing/plans).
+Each snapshot asks every active prompt of all six engines. Each prompt is one of your plan's **AI prompts**, and the scheduled snapshots are covered by holding it — they don't spend any monthly allowance, whatever the frequency. Asking about one prompt now, outside the schedule, spends one research lookup. See [Plans](/billing/plans).
 
 ## GEO vs. AI search
 
 |  | GEO | [AI search](/ai/overview) |
 | --- | --- | --- |
-| Unit | A topic, tracked over time | A query, looked up now |
+| Unit | A prompt, tracked over time | A query, looked up now |
 | Cadence | Scheduled, weekly by default | On demand |
 | History | Yes — snapshots accumulate | Only past lookups |
 | Question | "Is my share of voice growing?" | "Am I cited for this, right now?" |
@@ -90,10 +97,10 @@ Use GEO to measure progress and AI search to diagnose a specific answer.
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Topic detail" icon="magnifying-glass-chart" href="/geo/topics">
-    Snapshots, sources, and the raw LLM responses for one topic.
+  <Card title="Prompt detail" icon="magnifying-glass-chart" href="/geo/topics">
+    Snapshots, sources, and the raw LLM responses for one prompt.
   </Card>
   <Card title="AI competitors" icon="users" href="/geo/competitors">
-    Which brands dominate the answers for your topics.
+    Which brands dominate the answers for your prompts.
   </Card>
 </CardGroup>

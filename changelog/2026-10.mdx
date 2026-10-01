@@ -1,0 +1,25 @@
+---
+title: "October 2026"
+description: "A market for each part of Surnex — rank tracking, keyword research and AI visibility — each offering only what its data source takes."
+---
+
+<Update label="1 October 2026" description="A market for each service">
+
+### Each part of Surnex has its own market
+
+Rank tracking, keyword research and AI visibility use different data sources, and each takes its own places and languages. A project now has a market for each, and every picker offers only what its source takes. Nothing is switched to another market behind your back.
+
+- **Creating a project.** Four steps now; Local SEO locations are added from the Local SEO page once the project exists. **Competitors** says **Skip** until you add one. *Where to Measure* has a section each for rank tracking, keyword research and AI visibility, closed, each showing its market on one line. Research and AI visibility start on your rank tracking choice; when a source doesn't take it (South Africa in Zulu has no research), the nearest market it does is preselected, marked **Nearest supported**, and the section says why. See [Add a project](/projects/add).
+- **No markets in Project Settings.** Each keyword and prompt has its own, chosen when it's added; Keyword Research has a country and language in each tab's form; Trends and the AI search pages open theirs in a panel from the button beside the page title, like Add Keywords. Each starts on the project's. See [Project Settings](/projects/settings).
+- **AI visibility** is measured by country, in a language all six engines answer in, so every prompt is answered by all six. New prompts and AI searches start on the AI visibility market chosen when the project was created. See [AI visibility](/geo/overview).
+- **Topics are now prompts.** What AI visibility tracks is called a prompt, matching the plans' *AI prompts*. **Add Prompts** takes one prompt per line — commas no longer separate them, since a question often contains one. See [AI visibility](/geo/overview#add-prompts).
+- **Search volume.** Languages Google Ads has no volume in are marked *Ranked, but no search volume* when you add keywords.
+- **Local SEO** locations have their own Google Maps language.
+- **Google Trends** says clearly when the language chosen isn't one Trends covers (Norwegian `nb`), rather than failing.
+- **API and MCP.** Projects return `tracking_location_code`, `tracking_language_code`, `ai_location_code` and `ai_language_code` alongside the research market (`location_code`, `language_code`), and take them on create and update — on create as `research_*`, `ai_*` and `local_*`. A market left out is the tracking one when its service takes it, and refused with the fields to send when it doesn't. New: `GET /v1/reference/ai-visibility/languages` and `GET /v1/reference/ai-visibility/countries`; `list_search_languages` takes `for: tracking | ai_visibility | research`.
+
+### Removed
+
+- **Content tools.** The **Content Tools** page (Grammar Check and Paraphrase), **Generate Meta Tags** on a site audit and **Content Brief** on Keyword Research are gone, with the API routes `/v1/content/meta-tags`, `/v1/content/brief`, `/v1/content/grammar` and `/v1/content/paraphrase` and the MCP tools `generate_meta_tags`, `generate_content_brief`, `check_grammar` and `paraphrase_text`. DataForSEO retired the Content Generation API they ran on. The MCP server now has 95 tools.
+
+</Update>

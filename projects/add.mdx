@@ -5,11 +5,11 @@ description: "Add a domain to track, seed its keywords, and pick the market you 
 
 A project is one domain, measured in one market. Everything Surnex collects — rankings, backlinks, audits, AI visibility — belongs to a project.
 
-Open the form from **Projects → Add Project** (it slides in from the right), or from **Create your project** on the [sample project's](/onboarding/overview#the-sample-project) banner. The same form is used in both places.
+Open the form from **Projects → Add Project** (it slides in from the right), or from **Create Your Project** on the [sample project's](/onboarding/overview#the-sample-project) banner. The same form is used in both places.
 
 ## The four steps
 
-The form asks one question per step — **The Site**, **Keywords**, **Competitors** and **Where to Measure**. **Continue** moves to the next step, and the last one's button is **Create project**.
+The form asks one question per step — **The Site**, **Keywords**, **Competitors** and **Where to Measure**. **Continue** moves to the next step, and the last one's button is **Create Project**.
 
 <Steps>
   <Step title="The Site">
@@ -27,37 +27,46 @@ The form asks one question per step — **The Site**, **Keywords**, **Competitor
   <Step title="Keywords">
     **At least one keyword is required.** Two ways to add them, and you can combine both:
 
-    **Suggest keywords from this domain** — Surnex looks up what the domain already ranks for and returns up to 20 suggestions, each with its monthly search volume, all pre-selected. Untick any you don't want, or use **Select all** / **Deselect all**. If the domain is new or not indexed, nothing comes back — type your keywords instead.
+    **Suggest Keywords from This Domain** — Surnex looks up what the domain already ranks for and returns up to 20 suggestions, each with its monthly search volume, all pre-selected. Untick any you don't want, or use **Select All** / **Deselect All**. If the domain is new or not indexed, nothing comes back — type your keywords instead.
 
     **Type your own** — type a keyword and press <kbd>Enter</kbd>. Repeat for each one.
 
     A keyword you both selected and typed is only tracked once.
 
     <Note>
-      The market is chosen on the last step, so suggestions come back for the default market — United States, English — unless you've already been to that step and changed it. If you're targeting another market, set it first, then come back and ask for suggestions again.
+      The market is chosen on a later step, so suggestions come back for the default market — United States, English — unless you've already been to that step and changed it. If you're targeting another market, set it first, then come back and ask for suggestions again.
     </Note>
   </Step>
 
   <Step title="Competitors (optional)">
     Type a competitor domain and press <kbd>Enter</kbd>, up to **10**. Each is validated the same way your own domain is, so a typo is rejected as you add it.
 
-    You can add them later on the [Competitors](/competitors/add) page, but adding them now puts them in the project's first rank check.
+    The button reads **Skip** until you add one, then **Continue**. You can add them later on the [Competitors](/competitors/add) page, but adding them now puts them in the project's first rank check.
   </Step>
 
   <Step title="Where to Measure">
-    **Location** — the market whose search results you're measured in. Defaults to **United States**. Type to filter roughly 185 locations — countries, and major cities and regions.
+    Each part of Surnex is measured in its own market, because each uses a different data source with its own list of places and languages. The step has a section for each, and each offers only what its source takes.
 
-    **Language** — the language of the results. Defaults to **English**, from around 65.
+    The three sections start closed, each showing its market on one line — for example **Google · United States · English** — so if they're right you can click **Create Project** without opening anything. Click a section to change it; one is open at a time. A section whose market was moved to the nearest one its source supports is marked **Nearest supported**.
 
-    **Search engine** — **Google** (the default), **Bing**, or **Yahoo**.
+    **Rank tracking** — where your keywords are checked.
+    - **Search engine**: **Google** (the default), **Bing**, **Yahoo**, **Baidu**, **Naver** or **Seznam**. Choosing Baidu moves the market to China in Chinese, and Seznam to Czech. Naver has no location or language; its keywords are checked in Korean.
+    - **Location**: any place the engine searches from, from every country down to a city or postal code. Type two letters to search. Defaults to **United States**.
+    - **Language**: any language the engine searches in. Defaults to **English**. A language Google Ads has no search volume in, such as Zulu, is marked *Ranked, but no search volume*.
+
+    **Keyword research** — keyword ideas, volumes and difficulty. A **country** research covers, out of 94, in one of **its** languages: South Africa is English, Brazil `pt`.
+
+    **AI visibility** — AI prompts and AI searches. A **country**, in a language all six AI engines answer in (about 95, Zulu included).
+
+    Research and AI visibility start on your rank tracking choice, so for most projects there's nothing to change. When a source doesn't take that choice (South Africa in Zulu has no research, and AI visibility takes no cities), the nearest market it does take is preselected and the open section says why. You can change any section. Keyword suggestions use the research market.
   </Step>
 </Steps>
 
-Click **Create project**. You'll see a confirmation naming how many keywords you picked, and you're taken straight to the new project's dashboard.
+Click **Create Project**. You'll see a confirmation naming how many keywords you picked, and you're taken straight to the new project's dashboard.
 
-Your keywords go into rank tracking, and the same keywords become the project's [GEO](/geo/overview) (generative engine optimization) topics. Each list takes only what your plan has room for — keywords over the tracked-keyword or AI-prompt allowance are left out rather than failing the create.
+Your keywords go into rank tracking, and the same keywords become the project's [GEO](/geo/overview) (generative engine optimization) prompts. Each list takes only what your plan has room for — keywords over the tracked-keyword or AI-prompt allowance are left out rather than failing the create.
 
-[Local SEO](/local/overview) isn't filled from these keywords. Its keywords are searched around your Google Business listing, which only you can pick, so the Local SEO page starts by asking for it.
+[Local SEO](/local/overview) isn't part of creating a project. Once the project exists, [add your Google Business listing](/local/locations) from the Local SEO page.
 
 ## What happens next
 

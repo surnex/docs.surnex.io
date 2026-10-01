@@ -11,9 +11,9 @@ Every member of an organization holds exactly one of three roles. Roles are per 
 
 **Admin** — everything an owner can do except delete the organization or change or remove an owner: projects, billing, users and their roles, API keys, notifications.
 
-**Member** — the default. Full access to the work itself: every project, keywords, audits, reports. Can't create, rename or delete projects, manage users, or change the plan.
+**Member** — full access to the work itself: every project, keywords, audits, reports. Can't create, rename or delete projects, manage users, or change the plan.
 
-When you invite someone or change their role, the choice is **Admin** or **Member**.
+When you invite someone or change their role, the choice is **Admin** or **Member**. **Invite User** starts on **Admin**; an invite sent through the API without a role is a **Member**.
 
 <Note>
   There is no read-only or per-project role. Every member can edit every project in the organization. If someone needs access to one project but not another, put those projects in separate [organizations](/organizations/overview).
@@ -27,7 +27,7 @@ When you invite someone or change their role, the choice is **Admin** or **Membe
 | --- | --- | --- | --- |
 | View projects and all collected data | Yes | Yes | Yes |
 | **Create a project** | Yes | Yes | **No** — requires admin |
-| **Edit project name and search locale** | Yes | Yes | **No** — requires admin |
+| **Edit project name and schedules** | Yes | Yes | **No** — requires admin |
 | Add and remove tracked keywords | Yes | Yes | Yes |
 | Add competitors | Yes | Yes | Yes |
 | Run audits, research keywords, run lookups | Yes | Yes | Yes |
@@ -62,7 +62,7 @@ Everyone can see how much of the plan's quota is used — that's operational inf
 | --- | --- | --- | --- |
 | View your own notifications | Yes | Yes | Yes |
 | Mark read, clear, delete your notifications | Yes | Yes | Yes |
-| Switch your own Inbox and email | Yes | Yes | Yes |
+| Switch your own email (the Inbox is always on) | Yes | Yes | Yes |
 | Connect Slack and Discord, change organization notification rules | Yes | Yes | No |
 | Create and revoke API keys | Yes | Yes | **No** |
 
@@ -84,4 +84,4 @@ Everyone can see how much of the plan's quota is used — that's operational inf
 | **Admin** | They manage the account: creating projects, inviting people, billing, cleaning up. |
 | **Member** | They do SEO work: keywords, audits, reports. This covers most people. |
 
-Default to Member — but note that members **can't create projects**, which is the one restriction likely to surprise someone. If a person needs to add sites, they need admin. Everything else a member can't do is destructive or administrative, and easy to change later from the [Users](/organizations/team) page.
+**Invite User** starts on Admin, because most invites are teammates who run the account with you — and members **can't create projects**, the restriction most likely to surprise someone. Pick **Member** for someone who only does the SEO work. Either is easy to change later from the [Users](/organizations/team) page.

@@ -3,7 +3,7 @@ title: "MCP tools"
 description: "Every tool the Surnex MCP server exposes to agents, and which ones write."
 ---
 
-The server exposes **97 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
+The server exposes **95 tools**. Most take a `project_id`, which an agent gets from `list_projects`.
 
 Every tool carries MCP annotations describing what it does, so a well-behaved client can prompt for confirmation selectively rather than on every call:
 
@@ -39,6 +39,8 @@ Seven tools are annotated destructive: `delete_project`, `remove_competitor`, `r
 | `get_keyword_ranking_history` | |
 | `get_ranking_changes` | |
 | `get_competitor_comparison` | |
+| `find_location` | free — search places an engine searches from |
+| `list_search_languages` | free — each service's languages: `for` tracking (an engine's), `ai_visibility`, or `research` (its country-and-language pairs) |
 | `add_tracked_keywords` | **write** |
 | `remove_tracked_keywords` | **write** |
 | `update_tracked_keyword` | **write** — pause or resume |
@@ -52,6 +54,10 @@ Seven tools are annotated destructive: `delete_project`, `remove_competitor`, `r
 `get_competitor_comparison` is paged by keyword — `page`, `per_page` (default 25) and `search`.
 
 Tags are worth knowing about — `create_tag`, `list_tags`, and `assign_tags` let an agent group keywords in ways the dashboard doesn't surface as prominently.
+
+`add_tracked_keywords` takes any place and language its engine searches from — `google`, `bing`, `yahoo`, `baidu`, `naver` or `seznam`. `find_location` finds a location code by name (`austin`, `10001`), down to a city or postal code, and `list_search_languages` lists an engine's language codes. Naver takes neither.
+
+`create_project` takes a market for each service: tracking (`location_code`, `language_code`, `search_engine`), research (`research_location_code`, `research_language_code`) and AI visibility (`ai_location_code`, `ai_language_code`). One left out is the tracking market when that service takes it, and refused, naming the fields, when it doesn't — `list_search_languages` with `for: research` or `for: ai_visibility` gives the valid ones.
 
 A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resumes it. The same keyword can be tracked in several markets — location, language or search engine — as separate keywords, each with its own history, so to move one to another market, add it again with `add_tracked_keywords`.
 
@@ -129,9 +135,9 @@ A tracked keyword can't be edited: `update_tracked_keyword` only pauses or resum
 | `add_geo_topics` | **write** |
 | `remove_geo_topics` | **write** |
 
-`get_ai_visibility_overview` returns the summary the GEO page shows — average mentions and citation rate across your topics, and the daily trend over `days` (default 30) — rather than raw snapshots. Start there, then drill into a topic with `get_geo_topic_detail`: each day's mentions and citation rate, and the newest snapshot's sources and every engine's answer. Older snapshots carry their numbers only.
+`get_ai_visibility_overview` returns the summary the GEO page shows — average mentions and citation rate across your prompts, and the daily trend over `days` (default 30) — rather than raw snapshots. Start there, then drill into a prompt with `get_geo_topic_detail`: each day's mentions and citation rate, and the newest snapshot's sources and every engine's answer. Older snapshots carry their numbers only.
 
-`get_llm_response_for_keyword` queues a fresh snapshot of one topic: all six AI engines — ChatGPT, Claude, Gemini, Perplexity, Google AI Overview and Google AI Mode — are asked, and each answer is stored. It returns a job status, not the answer; read the result with `get_geo_topic_detail`. Its `platform` argument is accepted for compatibility and ignored.
+`get_llm_response_for_keyword` queues a fresh snapshot of one prompt: all six AI engines — ChatGPT, Claude, Gemini, Perplexity, Google AI Overview and Google AI Mode — are asked, and each answer is stored. It returns a job status, not the answer; read the result with `get_geo_topic_detail`. Its `platform` argument is accepted for compatibility and ignored.
 
 ## Domains and tech stack
 
@@ -197,22 +203,13 @@ To change a location's grid or listing, use `update_local_location`; `spacing_km
 | `get_trending_now` | quota |
 | `get_related_queries` | quota |
 
-## Content
-
-| Tool | |
-| --- | --- |
-| `generate_meta_tags` | quota |
-| `generate_content_brief` | quota |
-| `check_grammar` | quota |
-| `paraphrase_text` | quota |
-
 ## Common arguments
 
 **`organization`** — optional on org-scoped tools, taking a name or an id. Resolved automatically when you belong to exactly one organization. With several and none named, the call is **refused** and the error lists them; the server doesn't guess. See [choosing an organization](/mcp/auth#choosing-an-organization).
 
 **`project_id`** — required by most tools, obtained from `list_projects`. A project you can't access returns "not found" rather than "not yours", so a not-found isn't proof of deletion.
 
-**Locale** — tools taking one default to **location `2840`** (United States) and **language `en`**, matching the dashboard. If your project targets another market, tell the agent explicitly; it won't infer the project's locale for every call.
+**Locale** — project tools start on the project's own market for that service when `location_code` and `language_code` are left out: `add_tracked_keywords` and `search_local_listings` on its rank tracking market, `add_geo_topics` and the AI searches on its AI visibility market, AI keyword trends on its research market. Research, trends and domain lookups default to **location `2840`** (United States) and **language `en`** — for another market there, tell the agent explicitly. Backlink tools take no location.
 
 ## Your role applies
 

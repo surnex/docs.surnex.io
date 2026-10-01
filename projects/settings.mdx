@@ -1,9 +1,9 @@
 ---
 title: "Project settings"
-description: "Rename a project, change its search locale and schedules, or delete it."
+description: "Rename a project, change its schedules, or delete it."
 ---
 
-Open a project and go to **Settings** in the project sidebar. The page has four sections: **General**, **Search Locale**, **Schedules**, and **Danger Zone**. The subtitle under the heading shows the project's domain, so you can confirm which project you're editing.
+Open a project and go to **Settings** in the project sidebar. The page has three sections: **General**, **Schedules**, and **Danger Zone**. The subtitle under the heading shows the project's domain, so you can confirm which project you're editing.
 
 On the [sample project](/onboarding/overview#the-sample-project), every setting is shown with its controls switched off; only deleting it works.
 
@@ -15,25 +15,19 @@ Edit the field and click **Save Changes**. The name updates everywhere immediate
 
 ### Domain
 
-Shown read-only. A project's domain is fixed for the project's life, because every ranking, backlink and audit is keyed to it. The API doesn't accept a domain change either: a project update takes its **name**, its **schedules**, and its search locale.
+Shown read-only. A project's domain is fixed for the project's life, because every ranking, backlink and audit is keyed to it. The API doesn't accept a domain change either: a project update takes its **name**, its **schedules**, and — over the API — the markets its forms and pages start on.
 
 To track a different domain, create a **second project**. That's also the better outcome if you're migrating — you keep the old site's history for comparison instead of losing it.
 
-## Search Locale
+## Where markets are chosen
 
-Sets the default **Location** and **Language** for the project. These drive keyword research, SERP lookups, and the AI search features — they decide which market's results Surnex measures you in.
-
-Both are searchable dropdowns: roughly 185 locations and 65 languages. Change either and click **Save Locale**. Saving these is separate from **Save Changes** under General — each section has its own button, and clicking one doesn't submit the other.
-
-<Note>
-  Changing the locale doesn't rewrite history. Existing rankings keep the location and language they were collected under; the new setting applies to data collected from that point on. Comparing positions across a locale change is comparing two different search results.
-</Note>
-
-Tracked keywords added before the change keep their own location and device settings — the project locale is the default for *new* lookups, not a retroactive override. See [Add tracked keywords](/tracking/add-keywords).
+There's no market setting here. Each tracked keyword and each AI prompt has its own search engine, location and language, chosen when you add it, and the pages that search — Keyword Research, Trends and the AI searches — have a country and language picker of their own. What you chose when you [created the project](/projects/add) is only where those start.
 
 ## Schedules
 
 When each of the project's four recurring jobs runs — **Rank tracking**, **Backlinks**, **AI visibility** and **Local SEO** — each daily, every 3 days or weekly, at an hour in a timezone you choose, and each can be paused. Owners and admins can change them; members see them read-only.
+
+A job your plan doesn't include — **Local SEO** on Starter, which has no local locations — is listed as **Not on the Starter plan** with an **Upgrade** link, and has no **Runs** or **Edit**. The API refuses to change its schedule too.
 
 Scheduled runs don't use your monthly allowances. They're covered by what the project holds — tracked keywords, AI prompts, local locations — so how often they run changes nothing on your [usage](/billing/usage). The sample project runs none.
 
@@ -61,5 +55,4 @@ Deleting requires the **owner** or **admin** role. Members don't see this sectio
 | --- | --- |
 | Tracked keywords | [Rank tracking](/tracking/add-keywords) |
 | Competitors | [Competitors](/competitors/add) |
-| Search engine | Fixed at project creation |
 | Ranking alerts | [Ranking alerts](/tracking/alerts) |

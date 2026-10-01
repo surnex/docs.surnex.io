@@ -13,7 +13,7 @@ It's never guessed. Exactly one of these applies to any request:
 
 **From the project.** `/v1/projects/{projectId}/…`, which is most of the API. The organization is the project's — derived, not asserted — and membership of *that* is what grants access.
 
-**From an explicit query parameter.** Routes with neither in the path — live SERP lookups, keyword research, content generation, trends. These are billable, so with a user token the organization must be named as `org_id`:
+**From an explicit query parameter.** Routes with neither in the path — live SERP lookups, keyword research, trends, domain and backlink lookups. These are billable, so with a user token the organization must be named as `org_id`:
 
 ```bash
 curl "https://api.surnex.io/v1/keywords/serp?org_id={orgId}&keyword=seo+tools" \

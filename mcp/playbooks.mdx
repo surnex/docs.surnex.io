@@ -27,7 +27,7 @@ Uses `list_audits`, `get_audit_summary`, and `get_audit_issues`. The value is th
 
 > We want to rank for "rank tracking for agencies". Research the keyword and related terms, check who's currently cited in AI answers for it, then write a content brief.
 
-Chains `research_keyword`, `get_keyword_suggestions`, `get_ai_top_competitors`, and `generate_content_brief` — the same brief the Content Brief panel on Keyword Research produces, in one conversation.
+Chains `research_keyword`, `get_keyword_suggestions`, and `get_ai_top_competitors`, then the agent writes the brief itself from what they returned — the search intent and difficulty from the research, the related terms as headings and questions to cover, and the domains AI answers already cite as the pages to beat. Surnex doesn't generate the brief; the model does, from your data, in one conversation.
 
 ## Audit your AI visibility
 
@@ -57,7 +57,7 @@ None of these is a page in the dashboard. That's the point of the integration.
 
 **Name the project.** "The project for example.com" saves the agent guessing between several.
 
-**State the market.** Locale-taking tools default to United States and English. If you target another market, say so — the agent won't infer your project's locale on every call.
+**State the market.** Adding keywords and prompts, the AI searches and the listing search start on the project's own market; research, trends and domain lookups default to United States and English. If you target another market, say so for those.
 
 **Ask for a conclusion, not a dump.** "Tell me the ten to approach first" produces something usable; "get the backlink gap" produces a table you still have to read.
 

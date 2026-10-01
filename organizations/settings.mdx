@@ -1,35 +1,36 @@
 ---
 title: "Organization settings"
-description: "Rename your organization, find its ID and slug, or delete it."
+description: "Rename your organization, change its company details and timezone, or delete it."
 ---
 
-Go to **Settings → Organization**. The page has two sections: **Details** and **Danger Zone**.
+Go to **Settings → Organization**. The page has two sections: **Organization Information** and **Danger Zone**.
 
-## Details
+## Organization Information
 
 | Field | Editable | What it's for |
 | --- | --- | --- |
-| **Organization Name** | Yes | The display name in the organization switcher and on invoices. |
-| **Slug** | No | The URL-safe identifier generated from the name at creation. |
-| **Organization ID** | No | The UUID that appears in every dashboard URL and in API requests. |
+| **Organization name** | Yes | The display name in the organization switcher and on invoices. |
+| **Website** | Yes | Your company's site — the one you entered when you signed up. Type `acme.com`; `https://` is added for you. |
+| **City**, **State or region**, **Country**, **Phone number** | Yes | Your company's details. |
+| **Timezone** | Yes | Your organization's home timezone, **UTC** until you choose one — you're never asked at sign-up. Search by city, country, abbreviation (`EST`, `SAST`) or offset (`UTC+2`); common timezones are listed first, each with its local time and UTC offset. Each [schedule](/projects/settings#schedules) keeps its own timezone, so changing this never moves when anything runs. |
 
-### Rename the organization
+### Save changes
 
-Click the **Organization Name** field to switch it into edit mode, type the new name, then click **Save**. **Cancel** discards the change and restores the current name.
+Edit any field and click **Save Changes** below the form; it stays disabled until something has changed. Only owners and admins can edit — members see the fields switched off.
 
-Renaming updates the display name only. **The slug does not change** — it's generated once when the organization is created and stays fixed, so an organization renamed from `Acme Corp` to `Acme Digital` keeps the slug `acme-corp`.
+Renaming updates the display name only. The organization's slug, generated once when it was created, doesn't change.
 
 ### Organization ID
 
-The UUID shown here is the `{orgId}` segment in every dashboard URL. You'll need it when working directly with the [REST API](/api/introduction), and it's the fastest way to confirm which organization you're actually looking at when you belong to several. Select the text to copy it.
+The page doesn't show the organization's ID. It's the `{orgId}` segment in every dashboard URL — you'll need it when working directly with the [REST API](/api/introduction).
 
 ## Danger Zone
 
 ### Delete the organization
 
-Click **Delete Organization**. A panel opens listing what goes; type the organization's name and click **Delete organization**. This permanently removes the organization and **all of its projects, members, and collected data** — rankings, backlinks, audits, reports, and history — and cancels its subscription immediately, so nothing is charged again. It cannot be undone. Only an owner can delete an organization.
+Click **Delete Organization**. A panel opens listing what goes; type the organization's name and click **Delete Organization**. This permanently removes the organization and **all of its projects, members, and collected data** — rankings, backlinks, audits, reports, and history — and cancels its subscription immediately, so nothing is charged again. It cannot be undone. Only an owner can delete an organization.
 
-After deletion, Surnex reloads your remaining organizations and moves you to the first one. If it was your last organization, you're sent back to [create a new one](/organizations/create).
+After deletion, Surnex reloads your remaining organizations. If one is left you're taken to it; with several, you choose which to open. If it was your last organization, you're sent back to [create a new one](/organizations/create).
 
 <Warning>
   Deletion removes tracking history that can't be rebuilt. Rankings and backlink history are collected day by day — a new organization tracking the same domain starts from zero, with no back-fill. Export anything you need first.

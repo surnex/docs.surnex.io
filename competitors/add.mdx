@@ -7,7 +7,7 @@ description: "Add competitor domains to a project and remove ones you no longer 
 
 ## Add a domain
 
-Type the domain into the field at the top — `competitor.com` — and click **Add**. It appears in the list immediately.
+Click **Add Competitor** beside the page title, type the domain — `competitor.com` — and click **Add Competitor** at the bottom of the panel. It appears in the list immediately.
 
 Enter the domain. A pasted URL is reduced to its domain — `https://competitor.com/pricing` becomes `competitor.com` — through the API and MCP as well. There's no name field on this form: the list shows a name only if one came from elsewhere, such as [project creation](/projects/add).
 
@@ -24,12 +24,12 @@ Removing a competitor drops its column from the [tracking comparison](/tracking/
 | Feature | Uses this list? |
 | --- | --- |
 | [Tracking comparison](/tracking/competitors) | Yes, automatically — one column per competitor |
-| [GEO competitors](/geo/competitors) | Yes |
-| [Citation gap](/ai/citation-gap) | Only via its **Load saved competitors** button, which pulls the first 10 |
-| [Backlink gap](/backlinks/gap) | **No** — domains are typed in on that page, up to 4 per run |
+| [GEO competitors](/geo/competitors) | No — it lists the domains AI answers cite for your prompts, whoever they are |
+| [Citation gap](/ai/citation-gap) | Yes — picked from this list, up to 10 per run; the first 10 start selected |
+| [Backlink gap](/backlinks/gap) | Yes — picked from this list, up to 4 per run; the first 4 start selected |
 
 <Note>
-  [Backlink gap](/backlinks/gap) is the exception. It takes competitor domains as ad-hoc input on its own page and doesn't read this list or pre-fill from it, so a domain added here still has to be typed in there. The upside is you can gap-test a domain without committing it to the project.
+  Both gap pages pick competitors from this list rather than taking typed domains, so a domain has to be added here before it can be compared there.
 </Note>
 
 ## When data appears

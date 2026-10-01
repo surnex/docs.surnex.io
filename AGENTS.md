@@ -29,7 +29,7 @@ document a stored-data feature as if it fetches on demand.
 - **Tracked keyword** — a keyword under daily rank tracking. Distinct from a **saved keyword** from research, which is not yet tracked.
 - **Audit** — one crawl of a site. Not "scan".
 - **AI search** — visibility in AI-generated results (AI Overviews, AI Mode, ChatGPT).
-- **GEO** — generative engine optimization; topic-level share of voice in AI answers. Always expand on first use in a page.
+- **GEO** — generative engine optimization; prompt-level share of voice in AI answers. What it tracks is a **prompt**, not a "topic". Always expand on first use in a page.
 
 ## Style preferences
 

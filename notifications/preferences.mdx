@@ -7,11 +7,11 @@ description: "Choose where your own notifications reach you, and where the team'
 
 ## Your notifications
 
-These are yours alone. Switching one off changes it for you in this organization, and nobody else on the team is affected. Any member can change their own.
+These are yours alone. Switching email off changes it for you in this organization, and nobody else on the team is affected. Any member can change their own.
 
 | Channel | Default | What it does |
 | --- | --- | --- |
-| **Inbox** | On | Notifications in your [Inbox](/notifications/view) in Surnex |
+| **Inbox** | **Always on** | Every notification, in your [Inbox](/notifications/view) in Surnex. It has no switch: nobody can turn it off, for themselves or for an event |
 | **Email** | On | Notifications emailed to your sign-in address, which the page shows |
 
 Switch **Email** off to stop Surnex's emails reaching you. Your teammates keep getting theirs.
@@ -40,7 +40,7 @@ A webhook URL is the credential that posts into your channel, so members see onl
 
 ## Events
 
-Every event is on by default for every channel that's on. An owner or admin can turn an event off for a channel, for the whole organization, with the API's `PUT /v1/organizations/{orgId}/notifications/rules`.
+Every event is on by default for every channel that's on. An owner or admin can turn an event off for Email, Slack or Discord, for the whole organization, with the API's `PUT /v1/organizations/{orgId}/notifications/rules`. The Inbox always takes every event; turning one off there is refused.
 
 ### Ranking
 
@@ -92,7 +92,7 @@ The events worth pushing to Slack are the ones the team would act on: **Lost Top
 
 | Change | Who |
 | --- | --- |
-| Your own **Inbox** and **Email** switches | Any member, for themselves |
+| Your own **Email** switch (the Inbox has none) | Any member, for themselves |
 | Connecting, pausing or disconnecting Slack and Discord | Owners and admins |
 | Event rules for the organization | Owners and admins |
 
