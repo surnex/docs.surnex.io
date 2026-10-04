@@ -10,7 +10,7 @@ The source for [docs.surnex.io](https://docs.surnex.io), built on [Mintlify](htt
 | `introduction.mdx`, `quickstart.mdx` | Landing and getting-started pages |
 | `<feature>/*.mdx` | Product pages, one directory per feature area |
 | `guides/` | End-to-end workflow walkthroughs |
-| `api/` | REST API reference — the endpoint pages are generated from `https://api.surnex.io/openapi.json` |
+| `api/` | REST API reference — the endpoint pages are generated from `https://api.surnex.io/docs/openapi.json` — the `openapi.source` in `docs.json`. If that URL stops answering, every deploy fails ("Failed to fetch OpenAPI file"), not just the API pages |
 | `mcp/` | MCP server documentation for AI agents |
 | `changelog/` | Monthly release notes |
 | `AGENTS.md` | Style, terminology, and content boundaries for contributors and AI tools |

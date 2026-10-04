@@ -14,7 +14,7 @@
 Surnex is an SEO platform (a SEMrush/Ahrefs alternative). The user-facing surfaces are:
 
 - `app.surnex.io` — the dashboard where all documented workflows happen
-- `api.surnex.io` — the REST API, documented under the **API Reference** tab from `https://api.surnex.io/openapi.json`
+- `api.surnex.io` — the REST API, documented under the **API Reference** tab from `https://api.surnex.io/docs/openapi.json` (`openapi.source` in `docs.json`; a wrong URL there fails every deploy)
 - `api.surnex.io/mcp` — the MCP server for AI agents, documented under the **MCP** tab
 
 Most pages in the dashboard show **stored data** collected by scheduled background jobs, not

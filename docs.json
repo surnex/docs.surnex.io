@@ -239,7 +239,7 @@
       {
         "tab": "API Reference",
         "openapi": {
-          "source": "https://api.surnex.io/openapi.json",
+          "source": "https://api.surnex.io/docs/openapi.json",
           "directory": "api"
         },
         "groups": [
