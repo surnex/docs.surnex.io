@@ -1,0 +1,177 @@
+---
+title: "Reporting API"
+description: "Every figure Surnex tracks, as of any date, for reporting tools such as Oviond."
+---
+
+The reporting API gives a reporting tool every number Surnex tracks — rankings, backlinks, audits, AI visibility, Local SEO and more — **as it stood on any date**, with the change against the period before and a point per day for charts.
+
+It reads stored data only. It never calls a data provider and never spends your plan's allowance, so a tool can call it as often as it likes and a [Read Only key](/api-keys/add#creating-a-key) is all it needs.
+
+<Note>
+  Surnex's own [report](/reports/editor) widgets read the same figures. A September number is the same in a Surnex report as in a tool reading this API.
+</Note>
+
+## How it's organised
+
+Figures are grouped into **views**, one per area of the product. Each view has **metrics**: one number per day.
+
+| View | Metrics |
+| --- | --- |
+| `rankings` | `avg_position`, `keywords`, `top_3`, `top_10`, `top_100`, `not_ranking`, `visibility`, `improved`, `declined`, `new`, `lost` |
+| `ai-overviews` | `trigger_rate`, `citation_rate`, `triggered`, `cited`, `keywords` |
+| `backlinks` | `backlinks`, `referring_domains`, `domain_rank`, `dofollow`, `nofollow`, `dofollow_ratio` |
+| `site-audit` | `health_score`, `pages_crawled`, `issues`, `errors`, `warnings`, `notices` |
+| `web-vitals` | `performance_score`, `lcp`, `inp`, `cls`, `fcp`, `ttfb`, `speed_index`, `tbt` |
+| `ai-visibility` | `mentions`, `citation_rate`, `prompts` |
+| `local-seo` | `avg_position`, `in_pack`, `in_top_10`, `ranking`, `keywords`, `map_top3`, `avg_map_position` |
+| `domain` | `organic_traffic`, `organic_keywords`, `traffic_value`, `domain_rank`, `backlinks`, `referring_domains` |
+
+## The catalogue
+
+`GET /v1/reporting` lists every view and metric with its label, description, unit and which way is better. It's the same for every project — read it once to build a metric picker.
+
+```bash
+curl https://api.surnex.io/v1/reporting -H "X-API-Key: YOUR_KEY"
+```
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "view": "rankings",
+      "label": "Rank Tracking",
+      "history": true,
+      "metrics": [
+        { "key": "avg_position", "label": "Avg. Position", "unit": "position", "better": "lower", "description": "…" },
+        { "key": "top_10", "label": "Top 10", "unit": "number", "better": "higher", "description": "…" }
+      ]
+    }
+  ]
+}
+```
+
+## A view's metrics
+
+`GET /v1/projects/{projectId}/reporting/{view}`
+
+| Parameter | |
+| --- | --- |
+| `date_start` | Required. `YYYY-MM-DD` |
+| `date_end` | Required. `YYYY-MM-DD`, not before `date_start`. A period can be up to two years |
+| `metrics` | Optional. Comma-separated metric names of the view. Every metric when left out |
+
+```bash
+curl "https://api.surnex.io/v1/projects/{projectId}/reporting/rankings?date_start=2026-09-01&date_end=2026-09-30&metrics=avg_position,top_10" \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+```json
+{
+  "success": true,
+  "data": {
+    "view": "rankings",
+    "label": "Rank Tracking",
+    "history": true,
+    "date_start": "2026-09-01",
+    "date_end": "2026-09-30",
+    "metrics": {
+      "avg_position": {
+        "label": "Avg. Position",
+        "unit": "position",
+        "better": "lower",
+        "value": 12.4,
+        "value_date": "2026-09-30",
+        "previous": 14.1,
+        "previous_date": "2026-08-31",
+        "change": -1.7,
+        "change_percent": -12.1,
+        "series": [
+          { "date": "2026-09-01", "value": 14 },
+          { "date": "2026-09-02", "value": 13.8 }
+        ]
+      }
+    }
+  }
+}
+```
+
+### What each field means
+
+| Field | |
+| --- | --- |
+| `value` | The figure on the last day with data **on or before `date_end`**. A September report always shows 30 September, however late you open it |
+| `value_date` | Which day that was. Audits and web vitals don't run daily, so this can be well before `date_end` |
+| `previous` | The figure as it stood **before `date_start`** — the previous period's close. For `rankings`, `ai-overviews`, `ai-visibility` and `local-seo`, that's the day before `date_start`, counting everything tracked then at its latest check however long before; for the others, the last snapshot or check before `date_start` |
+| `change` | `value − previous` |
+| `change_percent` | The change as a percent of `previous`. Null when `previous` is 0 |
+| `better` | `lower` when a fall is good (positions: 14 → 12 is an improvement), `higher` when a rise is, null when neither |
+| `series` | One point per day with data in the period, oldest first, for line charts |
+
+Anything without data is `null` rather than `0`, so a tool can show it as empty. `series` is `[]` when nothing was checked in the period.
+
+### Units
+
+| `unit` | Reads as |
+| --- | --- |
+| `number` | A count |
+| `position` | A rank — lower is better. One decimal |
+| `percent` | 0–100. One decimal |
+| `score` | 0–100, higher is better |
+| `ms` | Milliseconds |
+| `ratio` | A bare decimal, such as CLS |
+| `currency` | US dollars a month |
+
+## How the figures are counted
+
+Every figure follows the same rules as the dashboard:
+
+- **A keyword outside the top 100 counts as 100** in `avg_position`, and a Local SEO check that missed the listing counts as **20** — see [how Avg Position is counted](/tracking/overview#how-avg-position-counts-a-keyword-that-doesnt-rank).
+- **Each day counts what was being tracked that day, each at its latest check.** Surnex records when every keyword, local keyword and prompt is added, paused, resumed and removed, so a day's figures include exactly those tracked on it:
+  - A keyword added on a Wednesday is checked that day; the day still counts every other keyword at its last position, not just the new one.
+  - A check that fails leaves the keyword at its last position — it doesn't drop out of the count.
+  - A keyword paused or removed stops counting from that day.
+- **`improved`, `declined`, `new` and `lost`** compare each keyword's latest check with the one before it: moves inside the top 100, then into and out of it. A first check counts in none.
+- **AI Overview rates** are of Google keywords only — AI Overviews are Google's.
+- **Web vitals** average the URLs you check, each at its latest check.
+- **Audits, web vitals and domain refreshes are dated in your organization's timezone**, as checks are — a crawl that finishes at 23:30 counts on that day, not the next.
+- **`domain`** keeps a snapshot of each domain overview refresh, one a day. Its history starts from 4 October 2026: before then Surnex kept only the latest overview, so a period before that has the one reading that was kept.
+
+## How fresh the data is
+
+The API reads what Surnex has stored, so a figure is as fresh as the last check behind it:
+
+| View | Updated |
+| --- | --- |
+| `rankings`, `ai-overviews` | On the rank tracking schedule — daily by default |
+| `backlinks` | On the backlink schedule — daily by default |
+| `ai-visibility` | On the AI visibility schedule |
+| `local-seo` | On the Local SEO schedule — weekly by default |
+| `site-audit`, `web-vitals`, `domain` | When someone runs a new audit, web vitals check or domain refresh in Surnex |
+
+See [data collection](/projects/data-collection) for the schedules.
+
+## Lists and tables
+
+The reporting API is for numbers over time. For lists, use the existing endpoints — they return the current list, which is what a report table shows:
+
+| List | Endpoint |
+| --- | --- |
+| Tracked keywords | `GET /v1/projects/{projectId}/tracking/keywords` |
+| Biggest movers | `GET /v1/projects/{projectId}/tracking/changes` |
+| Competitor comparison | `GET /v1/projects/{projectId}/tracking/competitors` |
+| AI Overview keywords | `GET /v1/projects/{projectId}/tracking/ai-overview-keywords` |
+| Referring domains, anchors, links, new and lost | `GET /v1/projects/{projectId}/backlinks/…` |
+| Audit issues and pages | `GET /v1/projects/{projectId}/audits/{auditId}/issues`, `…/pages` |
+| AI visibility prompts | `GET /v1/projects/{projectId}/geo/topics` |
+| Local keywords | `GET /v1/projects/{projectId}/local/keywords` |
+
+## Errors
+
+| Code | Status | Meaning |
+| --- | --- | --- |
+| `VALIDATION_ERROR` | 400 | `date_start` or `date_end` missing or the wrong way round, a period over two years, or an unknown view |
+| `BAD_REQUEST` | 400 | An unknown metric. `details.valid` lists the view's metrics |
+| `NOT_FOUND` | 404 | The project isn't in the key's organization |
+
+The full schema is in the API reference under **reporting**.

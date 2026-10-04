@@ -42,14 +42,19 @@ Pass `org_id` explicitly in the path wherever the endpoint offers it. Nearly eve
 
 ## What a key can reach
 
-A key carries **owner-level** access to its organization. It isn't restricted by the role of whoever created it. Creating, listing and revoking keys needs an admin or owner.
+A key reaches every project in its organization, whoever created it. What it may do there is its **access**, chosen when it's created. Creating, listing and revoking keys needs an admin or owner.
+
+| Access | Can |
+| --- | --- |
+| `read` | Read stored data. Refused any write (`POST`, `PATCH`, `PUT`, `DELETE` — except the few `POST`s that only read, such as report data) and any call that spends, whatever its method: refreshes, billed lookups under `/v1/lookups` and `/v1/trends`, keyword research, Maps listing searches. The key for a reporting tool. |
+| `full` | Everything an owner can. |
 
 A resolved key is cached briefly rather than looked up on every request. A revoked key stops working immediately — revocation writes a tombstone the cache checks, rather than waiting for the entry to expire.
 
 <Warning>
-  **An API key acts as an owner** within its organization — the highest role, regardless of who created it. Only admins and owners can create one, but the key can then do anything an owner can — including deleting projects. Billing is the exception: choosing a plan and opening the billing portal refuse API keys whatever the role.
+  **A `full` key acts as an owner** within its organization — the highest role, regardless of who created it — and can do anything an owner can, including deleting projects. Billing is the exception: choosing a plan and opening the billing portal refuse every API key.
 
-  There are no scoped or read-only keys. Treat them as organization-level credentials: one per consumer, in a secrets manager, never committed.
+  Give anything that only reads a `read` key. Treat every key as an organization-level credential: one per consumer, in a secrets manager, never committed.
 </Warning>
 
 ## Errors
@@ -57,6 +62,7 @@ A resolved key is cached briefly rather than looked up on every request. A revok
 | Code | Status | Meaning |
 | --- | --- | --- |
 | `UNAUTHORIZED` | 401 | No credential, or it's invalid or expired |
+| `FORBIDDEN` | 403 | A `read` key asked to change something or to spend — *"This API key is read-only."* |
 | `NOT_FOUND` | 404 | Not a member of that organization, or the invitation is unaccepted |
 | `FORBIDDEN` | 403 | A member, but your role can't perform this action |
 

@@ -7,7 +7,14 @@ description: "Generate a key for the REST API and connect your tools."
 
 ## Creating a key
 
-Click to open **Create API Key**, give it a name — *"e.g. Production, CI/CD"* — and create it. The confirmation reads *"API key created"*.
+Click to open **Create API Key**, give it a name — *"e.g. Oviond, Production"* — choose its **Access**, and create it. The confirmation reads *"API key created"*.
+
+| Access | What the key can do |
+| --- | --- |
+| **Read Only** *(the default)* | Read your stored data — rankings, backlinks, audits, AI visibility, Local SEO, the [reporting API](/api/reporting) — and nothing else. It can't create, change or delete anything, and it can't run anything that costs money: refreshes, paid lookups, keyword research. |
+| **Full Access** | Everything the API offers, as an owner — including deleting projects and running paid lookups that use your plan's allowance. |
+
+Give a reporting tool such as Oviond a **Read Only** key. If it ever leaks, nothing can be changed or spent with it.
 
 Name keys after where they're used. When you later need to revoke one, the name is all you have to work out what will break.
 
@@ -50,10 +57,13 @@ The correct MCP configuration is just the URL:
 
 ## What a key can do
 
-A key authenticates as the **organization**, not as the person who created it. It carries the organization's access to every project, and it isn't limited by the creating member's role.
+A key authenticates as the **organization**, not as the person who created it. It reaches every project in the organization, and it isn't limited by the creating member's role.
+
+- A **Read Only** key reads. Anything else — a write, or a call that spends — answers `403` with *"This API key is read-only."*
+- A **Full Access** key acts as an owner: it can do anything an owner can, including deleting projects.
 
 <Warning>
-  Admins and owners can create keys, and a key created by an admin has the same reach as one created by the owner. Treat keys as organization-level credentials: store them in a secrets manager, never commit them, and review the [key list](/api-keys/list) periodically.
+  Admins and owners can create keys, and a key created by an admin has the same reach as one created by the owner. Treat keys as organization-level credentials: store them in a secrets manager, never commit them, and review the [key list](/api-keys/list) periodically. Use Read Only unless the consumer really has to change things.
 </Warning>
 
 Keys are scoped to one organization. Working with several organizations means one key each.

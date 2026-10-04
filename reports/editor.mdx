@@ -56,15 +56,22 @@ Keep in mind the report will be read as a [PDF](/reports/share) as often as in t
 
 ## Date range
 
-The editor has a date range that applies to the whole report. Every widget reads its data for that range.
+The editor has a date range that applies to the whole report. Every widget reads its data for that range:
+
+- **A figure** — average position, referring domains, health score — is its value **on the last day of the range**, or the last day before it with data. A September report shows the figures as they stood on 30 September, however late you open it.
+- **The change** beside a figure compares that value with the last one **before the range started** — this period against the one before. For a position, a fall is shown green: moving from 14 to 12 is an improvement.
+- **A line chart** has a point for each day in the range with data.
+- **A table** shows the list as it stood on the last day of the range: all keywords, top gainers and losers, AI Overview keywords, AI visibility prompts and cited sources, the backlink comparison, the audit's issues and pages, and web vitals opportunities. The exception is the **top anchors** table: Surnex keeps only the latest backlink profile, so it always shows the current anchors.
 
 This is what makes a report reusable: duplicate last month's report, move the range forward, and every widget re-reads. It's also what to check first when a report shows unexpected figures — a range that hasn't been advanced is the usual cause.
 
 ## Live data
 
-Widgets read from the project when the report is viewed. They aren't snapshots — a report opened next month shows current data for the configured range.
+Widgets read from the project when the report is viewed, from stored data. A range that has ended shows the same figures whenever it's opened; a range that includes today fills in as new checks land.
 
-Because widgets read stored project data, a widget for a feature that hasn't been collected shows nothing. An audit widget on a project whose last crawl was months ago shows that old crawl. See [How data collection works](/projects/data-collection).
+A widget for a feature that hasn't been collected shows nothing. An audit widget shows the latest crawl that finished by the end of the range — on a project whose last crawl was months ago, that old crawl. See [How data collection works](/projects/data-collection).
+
+The same figures are available to other reporting tools, such as Oviond, through the [reporting API](/api/reporting).
 
 ## Related
 

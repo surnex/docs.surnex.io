@@ -3,6 +3,26 @@ title: "October 2026"
 description: "A market for each part of Surnex, an export on every table, refreshes that ask before they spend, and ranking figures counted as Semrush counts them."
 ---
 
+<Update label="4 October 2026" description="Reporting API and read-only keys">
+
+### Reporting API
+
+Every figure Surnex tracks — rankings, AI Overviews, backlinks, site audit, web vitals, AI visibility, Local SEO and domain overview — is now available to reporting tools such as Oviond, **as of any date**. One call gives each figure's value at the end of a period, its value before the period started, the change, and a point per day for charts. It reads stored data only, so it never spends your allowance. `GET /v1/reporting` lists what's available; `GET /v1/projects/{projectId}/reporting/{view}` answers it. See [Reporting API](/api/reporting).
+
+### Read-only API keys
+
+A new key now chooses its access: **Read Only** (the default) reads your data and nothing else — no changes, no paid lookups — and is the key to give a reporting tool. **Full Access** is what every key was before, and existing keys keep it. See [Create an API key](/api-keys/add).
+
+### Reports show the period you chose
+
+A report's figures and tables are now as of the **last day of its date range**: a September report shows 30 September whenever it's opened — its keyword list, gainers and losers, prompts and figures alike — where it used to show today's for most of them. Each figure's change compares it with the period before, and a falling position is shown as the improvement it is. See [Report editor](/reports/editor#date-range).
+
+- **What was tracked when.** Surnex now records when each keyword, local keyword and prompt is added, paused, resumed and removed, so a day's figures count exactly what was tracked that day. A failed check no longer drops a keyword from that day's count, and a paused keyword stops counting the day it's paused.
+- **Your timezone.** Audits, web vitals checks and domain refreshes are dated in your organization's timezone, like rank checks.
+- **Domain history.** Each domain overview refresh is now kept, so domain figures have a history in reports and the reporting API — from today on, since only the latest overview was kept before.
+
+</Update>
+
 <Update label="4 October 2026" description="Ranking figures">
 
 ### Ranking figures counted as Semrush counts them

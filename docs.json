@@ -251,6 +251,12 @@
             ]
           },
           {
+            "group": "Reporting",
+            "pages": [
+              "api/reporting"
+            ]
+          },
+          {
             "group": "Concepts",
             "pages": [
               "api/concepts/authentication",
