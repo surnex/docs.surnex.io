@@ -15,7 +15,7 @@ The range filters both the chart and the table below it.
 
 ## Position over time chart
 
-A line chart of position by date, with the axis **inverted** — position 1 sits at the top, so an improving keyword climbs. Gaps in the line are dates with no check: a keyword tracked weekly plots roughly four points a month, and a paused period leaves a hole.
+A line chart of position by date, with the axis **inverted** — position 1 sits at the top, so an improving keyword climbs. Every check is a point: a check that found you outside the top 100 is drawn at **100**, the bottom of the chart, and its tooltip reads **Not in top 100** — the same rule as [Avg Position](/tracking/overview#how-avg-position-counts-a-keyword-that-doesnt-rank). Dates with no check have no point: a keyword tracked weekly plots roughly four points a month.
 
 ## History table
 
@@ -24,7 +24,7 @@ One row per check, with four columns:
 | Column | What it tells you |
 | --- | --- |
 | **Date** | The date the check ran |
-| **Position** | Your rank that day, or `—` if you didn't rank in the top 100 |
+| **Position** | Your rank that day, or `>100` if you weren't in the top 100. Not shown as 100, because you weren't at position 100 |
 | **SE Results** | How many results the search engine reported for the query |
 | **URL** | Which of your pages ranked on that date |
 
