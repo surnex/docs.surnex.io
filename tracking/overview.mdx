@@ -10,11 +10,17 @@ description: "Your tracked keyword positions summarized — distribution, movers
 | Card | What it counts |
 | --- | --- |
 | **Total Tracked** | Every tracked keyword, active and paused |
-| **Avg Position** | Mean position across keywords that rank, to one decimal. `—` if nothing ranks yet |
+| **Avg Position** | Mean position across your checked keywords, to one decimal, with a keyword outside the top 100 counted as **100**. `—` until the first check |
 | **In Top 10** | Keywords at positions 1–10 |
 | **Ranking** | Keywords ranking anywhere in the top 100 |
 
-**Avg Position** excludes keywords that don't rank, so it improves when a keyword falls out of the top 100 entirely. Read it next to **Ranking** — the average is only meaningful if that count is holding steady.
+### How Avg Position counts a keyword that doesn't rank
+
+A keyword outside the top 100 has no position of its own, so **Avg Position counts it as 100** — the same rule Semrush uses. Falling out of the top 100 therefore makes the average worse, and coming back into it makes the average better, as you'd expect.
+
+For example, three keywords at 2, 6 and not ranking average **36**: (2 + 6 + 100) ÷ 3. The average of the two that rank would be 4, which hides the keyword you lost.
+
+A keyword that hasn't had its first check yet isn't counted at all — it has no result, not a bad one.
 
 ## Position Distribution
 
@@ -45,15 +51,24 @@ Both are shown as a percentage with the underlying counts beneath (`12 of 40 key
   Citation Rate is a percentage of triggered keywords, not of all keywords. A citation rate of 50% with a trigger rate of 4% means you're cited in half of a very small number of AI Overviews.
 </Note>
 
-## Improved and Declined
+## Improved, Declined, New and Lost
 
-Two counts drawn from the ten most recent position changes — how many moved up and how many moved down. For the full list with date filtering, see [Position changes](/tracking/changes).
+Four counts comparing each active keyword's latest check with the one before it, counted the way Semrush counts them:
+
+| Card | What it counts |
+| --- | --- |
+| **Improved** | Ranked in the top 100 both times and moved up |
+| **Declined** | Ranked in the top 100 both times and moved down |
+| **New in Top 100** | Wasn't in the top 100 last check, is now |
+| **Lost from Top 100** | Was in the top 100 last check, isn't now |
+
+A keyword's first check counts in none of them — there's nothing before it to have moved from. For every alert behind these moves, see [Position changes](/tracking/changes).
 
 ## Top Gainers and Top Losers
 
 Two tables, up to five rows each, showing **Keyword**, current **Position**, and **Change**. Gainers are sorted by largest improvement, losers by largest drop. When there's nothing to show, you'll see **No gainers** or **No losers**.
 
-These come from the same recent-changes data as the counts above, so on a brand new project both are empty until there's a second rank check to compare against.
+They list moves inside the top 100, so a keyword that came into or fell out of it is in the **New** and **Lost** counts above rather than here. On a brand new project both are empty until there's a second rank check to compare against.
 
 ## Changing the schedule
 
