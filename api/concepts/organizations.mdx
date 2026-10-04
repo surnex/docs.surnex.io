@@ -52,7 +52,7 @@ Failing a **role** check is a genuine `FORBIDDEN` (403), with a message naming w
 | **Create a project** | **admin** |
 | Delete a project | admin |
 | Invite and remove members, change their roles | admin |
-| Create, list and revoke API keys | admin |
+| Create, list, revoke and delete API keys | admin |
 | Rename the organization | admin |
 | Billing checkout and portal | admin |
 | Change or remove an owner | owner |
@@ -76,7 +76,7 @@ Only an owner can change or remove another owner (`PATCH /v1/organizations/{orgI
 
 There's no cross-organization endpoint.
 
-- **With an API key** — one key per organization, selected per request in your client.
+- **With an API key** — one key per organization, selected per request in your client. `GET /v1/organizations` answers with the key's own organization, so an integration finds its organization id from its first call.
 - **With a user token** — `GET /v1/organizations` lists your accepted memberships; loop and issue scoped requests for each.
 
 The [MCP server](/mcp/auth) differs: its OAuth token identifies a person, so one connection reaches every organization they belong to, chosen per call with an `organization` argument.

@@ -3,7 +3,7 @@ title: "Manage API keys"
 description: "Review your organization's API keys and when each was last used."
 ---
 
-**Settings → API Keys** lists every key in the organization.
+**Settings → API Keys** lists every key in the organization: the live ones under **Active Keys**, and any revoked or expired ones under **Revoked Keys** — kept as a record until you delete them.
 
 ## What each row shows
 
@@ -13,6 +13,8 @@ description: "Review your organization's API keys and when each was last used."
 | **Access** | **Read Only** or **Full Access** — see [what each can do](/api-keys/add#creating-a-key). Fixed at creation: to change it, create a new key and revoke the old one |
 | **Prefix** | `smx_xxxxxxxx...****` — the first characters, with the rest masked |
 | **Last used** | A relative time, or nothing if the key has never been used |
+
+Hover a row for its actions: **Revoke** and **Delete** on an active key, **Delete** on a revoked one. See [Revoke or delete an API key](/api-keys/revoke).
 
 The full key is never shown again after creation. The prefix is there so you can match a key in this list against one configured elsewhere — compare the visible characters.
 
@@ -32,7 +34,7 @@ A key that's still being used will break whatever uses it. If you're unsure, the
 
 ## What keys can access
 
-Every key authenticates as the **organization**. It reaches every project in that organization and isn't limited by the role of whoever created it. Admins and owners can create, list and revoke keys.
+Every key authenticates as the **organization**. It reaches every project in that organization and isn't limited by the role of whoever created it. Admins and owners can create, list, revoke and delete keys.
 
 Keys don't grant access across organizations. A key for one organization returns nothing for another.
 
@@ -43,5 +45,5 @@ Keys don't grant access across organizations. A key for one organization returns
 ## Related
 
 - [Create an API key](/api-keys/add) — including connection snippets
-- [Revoke an API key](/api-keys/revoke)
+- [Revoke or delete an API key](/api-keys/revoke)
 - [Roles and permissions](/organizations/roles) — who can create keys

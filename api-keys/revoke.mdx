@@ -1,19 +1,26 @@
 ---
-title: "Revoke an API key"
-description: "Disable a key immediately and permanently."
+title: "Revoke or delete an API key"
+description: "Stop a key immediately — keep a record of it, or remove it for good."
 ---
 
-On **Settings → API Keys**, use the revoke action on the key's row. Confirmation reads: *"This will permanently revoke this API key. Any applications using it will stop working."*
+On **Settings → API Keys**, hover a key's row for its actions:
 
-Revoking is immediate and permanent. The confirmation is *"API key revoked"*.
+- **Revoke** stops the key at once and moves it to **Revoked Keys**, where it stays as a record of what had access. The confirmation is *"API key revoked"*.
+- **Delete** stops the key at once, if it's still live, and removes it for good. Revoked keys can be deleted too. The confirmation is *"API key deleted"*.
+
+Both ask first, and neither can be undone.
 
 ## What happens
 
 The key stops authenticating at once. Anything using it — a script, a CI job, a scheduled integration — starts failing on its next request. There's no grace period and no way to un-revoke; recovering means [creating a new key](/api-keys/add) and updating every consumer.
 
+## Revoke or delete?
+
+**Revoke** when you want the history: the key's name, access, and last-used date stay on the page, so later you can still see what had access and when it was last used. **Delete** when the record isn't worth keeping — a key made by mistake, or one revoked long ago.
+
 ## Revoke when
 
-- **The key leaked.** Committed to a repository, pasted into a chat, included in a screenshot. Revoke first and investigate afterwards — a key carries full organization access, so the cost of a false alarm is far lower than the cost of waiting.
+- **The key leaked.** Committed to a repository, pasted into a chat, included in a screenshot. Revoke first and investigate afterwards — the cost of a false alarm is far lower than the cost of waiting.
 - **Someone with access left.** Keys aren't tied to a person and keep working after a member is removed from the organization. Removing someone from [Users](/organizations/team) does **not** revoke keys they created or held.
 - **The integration is retired.** Decommissioned service, cancelled project, abandoned experiment.
 - **It's never been used.** A key with no last-used date is a live credential doing nothing.
@@ -28,6 +35,22 @@ There's no rotate action, so do it in this order to avoid downtime:
 4. Revoke the old key.
 
 Creating first and revoking last means there's no window where nothing works. It also means the old key's last-used date tells you whether anything is still on it before you pull the plug.
+
+## From the API
+
+Both need an admin or owner, signed in — an API key can't revoke or delete keys.
+
+```bash
+# Revoke: stops the key, keeps it listed as revoked
+curl -X POST https://api.surnex.io/v1/organizations/{orgId}/api-keys/{keyId}/revoke \
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+# Delete: removes it for good, live or revoked
+curl -X DELETE https://api.surnex.io/v1/organizations/{orgId}/api-keys/{keyId} \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+`GET /v1/organizations/{orgId}/api-keys` lists them all; `is_active` is `false` for a revoked key.
 
 ## Finding what a key is used for
 
